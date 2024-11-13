@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const CartContainer = styled.div`
+
   max-width: 800px;
   margin: auto;
   padding: 20px;

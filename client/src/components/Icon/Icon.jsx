@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 
 const IconWrapper = styled.div`
-  width: ${(props) => props.size || '40px'};
+  width: ${(props) => props.size || '30px'};
   height: ${(props) => props.size || '40px'};
   color: ${(props) => props.color || 'black'};
   margin: ${(props) => props.margin || '0 auto'};

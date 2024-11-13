@@ -1,7 +1,7 @@
-import { useState, useLayoutEffect, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { loadProductAsync, RESET_PRODUCT_DATA } from '../../action';
+import { loadProductAsync} from '../../action';
 import { selectProduct, selectUserRole } from '../../selectors';
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useServerRequest } from '../../hooks';
@@ -62,6 +62,9 @@ useEffect(() => {
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
 
   return (
     <ProductPageContainer>
@@ -88,8 +91,8 @@ useEffect(() => {
         
       </PriceAndCartContainer>
       <div>
-        <Button onClick={() => addToCart(product.id)}>  В корзину</Button>
-      <AddToCartButton >Добавить в корзину</AddToCartButton>
+        <Button onClick={() => handleAddToCart(product)} >  В корзину</Button>
+      <AddToCartButton  >Добавить в корзину</AddToCartButton>
       {console.log()}
       <Icon
                 inactive={true}

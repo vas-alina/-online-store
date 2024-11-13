@@ -157,25 +157,159 @@
   ],
   "cart": [
     {
-      "productId": 1,
-      "count": 1,
-      "id": "227a"
+      "id": "6dbd",
+      "productId": {
+        "id": "2",
+        "title": "Пример товара 2",
+        "imageUrl": "",
+        "content": "...",
+        "comments": [],
+        "imgUrl": "https://loremflickr.com/cache/resized/65535_52750642974_d92f69439c_z_400_400_nofilter.jpg",
+        "category": "pavingSlabs",
+        "priceRegular": "1000",
+        "priceDiscounted": "1000",
+        "desc": "Господа, парад бытовой техники оказался началом великой войны"
+      },
+      "count": 1
     },
     {
-      "productId": 2,
-      "count": 1,
-      "id": "5806"
+      "id": "5c03",
+      "productId": {
+        "id": "2",
+        "title": "Пример товара 2",
+        "imageUrl": "",
+        "content": "...",
+        "comments": [],
+        "imgUrl": "https://loremflickr.com/cache/resized/65535_52750642974_d92f69439c_z_400_400_nofilter.jpg",
+        "category": "pavingSlabs",
+        "priceRegular": "1000",
+        "priceDiscounted": "1000",
+        "desc": "Господа, парад бытовой техники оказался началом великой войны"
+      },
+      "count": 1
     },
     {
-      "productId": 3,
-      "count": 1,
-      "id": "5855"
+      "id": "8a35",
+      "productId": {
+        "id": "2",
+        "title": "Пример товара 2",
+        "imageUrl": "",
+        "content": "...",
+        "comments": [],
+        "imgUrl": "https://loremflickr.com/cache/resized/65535_52750642974_d92f69439c_z_400_400_nofilter.jpg",
+        "category": "pavingSlabs",
+        "priceRegular": "1000",
+        "priceDiscounted": "1000",
+        "desc": "Господа, парад бытовой техники оказался началом великой войны"
+      },
+      "count": 1
+    },
+    {
+      "id": "1e91",
+      "productId": "2",
+      "count": 1
+    },
+    {
+      "id": "c9ed",
+      "productId": "5",
+      "count": 1
+    },
+    {
+      "id": "7137",
+      "productId": "6",
+      "count": 1
+    },
+    {
+      "id": "88c7",
+      "productId": {
+        "id": "6",
+        "title": "Пример товара 6",
+        "imageUrl": "",
+        "content": "...",
+        "comments": [],
+        "imgUrl": "https://loremflickr.com/cache/resized/65535_52733694762_6f2cc72a8d_z_400_400_nofilter.jpg",
+        "category": "lawnGrate",
+        "priceRegular": "1000",
+        "priceDiscounted": 400,
+        "desc": "Господа, парад бытовой техники оказался началом великой войны"
+      },
+      "count": 1
+    },
+    {
+      "id": "ee75",
+      "productId": {
+        "id": "7",
+        "title": "Пример товара 7",
+        "imageUrl": "",
+        "content": "...",
+        "comments": [],
+        "imgUrl": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
+        "category": "lawnGrate",
+        "priceRegular": "1000",
+        "priceDiscounted": 1000,
+        "desc": "Господа, парад бытовой техники оказался началом великой войны"
+      },
+      "count": 1
+    },
+    {
+      "id": "d50d",
+      "productId": {
+        "id": "7",
+        "title": "Пример товара 7",
+        "imageUrl": "",
+        "content": "...",
+        "comments": [],
+        "imgUrl": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
+        "category": "lawnGrate",
+        "priceRegular": "1000",
+        "priceDiscounted": 1000,
+        "desc": "Господа, парад бытовой техники оказался началом великой войны"
+      },
+      "count": 1
+    },
+    {
+      "id": "d4bb",
+      "productId": {
+        "id": "7",
+        "title": "Пример товара 7",
+        "imageUrl": "",
+        "content": "...",
+        "comments": [],
+        "imgUrl": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
+        "category": "lawnGrate",
+        "priceRegular": "1000",
+        "priceDiscounted": 1000,
+        "desc": "Господа, парад бытовой техники оказался началом великой войны"
+      },
+      "count": 1
     }
   ],
   "sessions": [
     {
       "id": "931b",
       "hash": "0.31693683325428345654017903143540024757385253906250",
+      "user": {
+        "id": "0ad9",
+        "login": "alina",
+        "password": "qwe123",
+        "registeredAt": "Fri Feb 14 2053 ",
+        "roleId": 2
+      }
+    },
+    {
+      "id": "0cb5",
+      "hash": "0.50215249593418409546075054095126688480377197265625",
+      "user": {
+        "id": "0ad9",
+        "login": "alina",
+        "password": "qwe123",
+        "registeredAt": "Fri Feb 14 2053 ",
+        "roleId": 2
+      }
+    },
+    {
+      "id": "147f",
+      "hash": "0.44073341259771958711155548371607437729835510253906",
       "user": {
         "id": "0ad9",
         "login": "alina",

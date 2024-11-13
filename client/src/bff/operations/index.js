@@ -11,3 +11,4 @@ export * from "./update-user-role";
 export * from './save-product';
 export * from "./remove-product";
 export * from "./fetch-products";
+export * from "./remove-product-from-cart"

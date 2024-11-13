@@ -10,3 +10,4 @@ export * from "./set-user";
 export * from "./save-product-async"
 export * from "./remove-product-async"
 export * from './reset-product-data'
+export * from './set-cart-data'

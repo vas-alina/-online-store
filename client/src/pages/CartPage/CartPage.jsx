@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROLE } from "../../constans";
 import { Link } from "react-router-dom";
@@ -15,18 +15,27 @@ import {
   CheckoutButton,
   CheckoutNote,
   ErrorDiv,
-  OldTotalPrice,
-  TotalPrice,
 } from "./style";
+import { removeFromCart } from "../../action/remove-from-cart";
+import { removeAllFromCart } from "../../action/remove-all-from-cart";
+import { Button } from "../../components";
 
-export const Cart = () => {
+export const CartPage = () => {
   const [cartProducts, setCartProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const roleId = useSelector(selectUserRole);
-
+  const [total, setTotal] = useState(0)
   const navigate = useNavigate();
   const [showAuthMessage, setShowAuthMessage] = useState(false);
+  const products = useSelector(state => state.items)
+  const dispatch = useDispatch()
 
+  const handleRemove = (id) => {
+    dispatch(removeFromCart(id))
+  }
+  const handleAllRemove = () => {
+    dispatch(removeAllFromCart())
+  }
   useEffect(() => {
     setLoading(true);
 
@@ -46,8 +55,13 @@ export const Cart = () => {
         const productsData = await productsResponse.json();
         const cartWithProductDetails = cartData
           .map((cartProduct) => {
+
+            const productId = typeof cartProduct.productId === 'string'
+            ? {id: cartProduct.productId}
+            : cartProduct.productId;
+
             const foundProduct = productsData.find(
-              (product) => String(product.id) === String(cartProduct.productId)
+              (product) => String(product.id) === String(productId.id)
             );
            
             const productDetails = foundProduct
@@ -78,16 +92,6 @@ export const Cart = () => {
     );
   };
 
-  const calculateTotal = () => {
-    let oldTotal = 0;
-    let newTotal = 0;
-    cartProducts.forEach((product) => {
-      oldTotal += product.price_regular * product.count;
-      newTotal += product.price_regular * product.count;
-    });
-    return { oldTotal, newTotal };
-  };
-
   const handleCheckout = () => {
     if (roleId === ROLE.GUEST) {
       setShowAuthMessage(true);
@@ -96,13 +100,13 @@ export const Cart = () => {
     }
   };
 
-  const { oldTotal, newTotal } = calculateTotal();
 
   if (loading) return <div>Загрузка корзины...</div>;
 
   return (
     <CartContainer>
       <CartTitle>Корзина</CartTitle>
+      <button onClick={removeAllFromCart}>Очистить корзину</button>
       <CartItemsContainer>
 
 {cartProducts.length === 0 ? (
@@ -118,6 +122,8 @@ export const Cart = () => {
         key={product.productId}
         product={product}
         onUpdateQuantity={handleUpdateQuantity}
+        onRemove={handleRemove}
+        onAllRemove={handleAllRemove}
       />
     );
   })
@@ -125,13 +131,12 @@ export const Cart = () => {
       </CartItemsContainer>
 
       <CartSummary>
-        {oldTotal !== newTotal && (
-          <OldTotalPrice>Старая цена: {oldTotal} ₽</OldTotalPrice>
-        )}
-        <TotalPrice>Итоговая цена: {newTotal} ₽</TotalPrice>
-
-        <CheckoutButton onClick={handleCheckout}>
-        Оформить заказ!</CheckoutButton>
+      
+<Button 
+width="200px"
+onClick={handleCheckout}
+> Оформить заказ </Button>
+        
         <CheckoutNote>
           Нажимая на кнопку «Оформить заказ», вы соглашаетесь с условиями
           <a href="/terms"> Обработки персональных данных</a>.

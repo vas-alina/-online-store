@@ -17,10 +17,11 @@ import { Users } from "./pages/users/Users";
 import { Modal } from "./components";
 import { PersonalPage } from "./pages/PersonalPage/PersonalPage";
 import { ProductDetailPage } from "./pages/ProductPage/Product";
-import { Cart } from "./pages/CartPage/CartPage";
+
 import { OrderPage } from "./pages/CartPage/components/OrderPage/OrderPage";
 import PavingSlabs from "./pages/CatalogPage/components/paving-slabs/PavingSlabs";
-
+import { CartPage } from "./pages/CartPage/CartPage";
+import CartTest from "./pages/CartPage/Cart";
 const AppColumn = styled.div`
   display: flex;
   flex-direction: column;
@@ -68,9 +69,10 @@ export const App = () => {
             <Route path="/register" element={<Registration />} />
             <Route path="/users" element={<Users />} />
             <Route path="/personal" element={<PersonalPage />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/cart" element={<CartPage />} />
             <Route path="/order" element={<OrderPage />} />
             <Route path="/paving-slabs" element={<PavingSlabs />} />
+            <Route path="/carttest" element={<CartTest />} />
           </Routes>
         </Page>
         <Footer />
