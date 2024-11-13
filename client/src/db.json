@@ -1,0 +1,188 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "login": "admin",
+      "password": "admin1",
+      "registed_at": "31.10.2024",
+      "role_id": 0
+    },
+    {
+      "id": "2",
+      "login": "moderator",
+      "password": "moderator1",
+      "registed_at": "31.10.2024",
+      "role_id": 1
+    },
+    {
+      "id": "0ad9",
+      "login": "alina",
+      "password": "qwe123",
+      "registed_at": "Fri Feb 14 2053 ",
+      "role_id": 2
+    }
+  ],
+  "roles": [
+    {
+      "id": "0",
+      "name": "Администратор"
+    },
+    {
+      "id": "1",
+      "name": "Модератор"
+    },
+    {
+      "id": "2",
+      "name": "Пользователь"
+    },
+    {
+      "id": "3",
+      "name": "Гость"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52730399535_9ebd065dbf_400_400_nofilter.jpg",
+      "category": "pavingSlabs",
+      "price_regular": "1000",
+      "price_discounted": "900",
+      "title": "Тротуарная плитка",
+      "form": "Петра",
+      "color": "Желтая",
+      "desc": "Тротуарная плитка Петра Желтая 10х20 см, где ярким акцентом станет не форма, а качество исполнения, фактура и цвет. Кроме того, прямоугольная тротуарная плитка проста в укладке, но имеет самое большое количество вариантов мощения. Наш постоянный лидер продаж.",
+      "content": "..."
+    },
+    {
+      "id": "2",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52750642974_d92f69439c_z_400_400_nofilter.jpg",
+      "category": "pavingSlabs",
+      "price_regular": "1000",
+      "price_discounted": "1000",
+      "title": "Пример товара 2",
+      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "content": "..."
+    },
+    {
+      "id": "3",
+      "img_url": "https://loremflickr.com/cache/resized/2902_33703976312_7926b372b0_z_400_400_nofilter.jpg",
+      "category": "borders",
+      "price_regular": "1000",
+      "price_discounted": "1000",
+      "title": "Пример товара 3",
+      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "content": "..."
+    },
+    {
+      "id": "4",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52627358729_53d4fef048_z_400_400_nofilter.jpg",
+      "category": "borders",
+      "price_regular": "1000",
+      "price_discounted": "1000",
+      "title": "Пример товара 4",
+      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "content": "..."
+    },
+    {
+      "id": "5",
+      "img_url": "https://loremflickr.com/cache/resized/65535_53147719513_c2c4e5623e_z_400_400_nofilter.jpg",
+      "category": "borders",
+      "price_regular": "1000",
+      "price_discounted": 500,
+      "title": "Пример товара 5",
+      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "content": "..."
+    },
+    {
+      "id": "6",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52733694762_6f2cc72a8d_z_400_400_nofilter.jpg",
+      "category": "lawnGrate",
+      "price_regular": "1000",
+      "price_discounted": 400,
+      "title": "Пример товара 6",
+      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "content": "..."
+    },
+    {
+      "id": "7",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
+      "category": "lawnGrate",
+      "price_regular": "1000",
+      "price_discounted": 1000,
+      "title": "Пример товара 7",
+      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "content": "..."
+    },
+    {
+      "id": "8",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52627441448_842afe99e3_z_400_400_nofilter.jpg",
+      "category": "lawnGrate",
+      "price_regular": "1000",
+      "price_discounted": 1000,
+      "title": "Пример товара 8",
+      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "content": "..."
+    },
+    {
+      "id": "9",
+      "img_url": "https://loremflickr.com/cache/resized/82_276047423_7a72cb300e_z_400_400_nofilter.jpg",
+      "category": "pavingSlabs",
+      "price_regular": "1000",
+      "price_discounted": "1000",
+      "title": "Пример товара 9",
+      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "content": "..."
+    },
+    {
+      "id": "10",
+      "img_url": "https://loremflickr.com/cache/resized/5494_9304630833_5d9c245b94_z_400_400_nofilter.jpg",
+      "category": "pavingSlabs",
+      "price_regular": "1000",
+      "price_discounted": "1000",
+      "title": "Пример товара 10",
+      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "content": "..."
+    }
+  ],
+  "comments": [],
+  "orders": [
+    {
+      "order_id": "1",
+      "user_id": "1",
+      "total_amount": "5000",
+      "shipping_address": "ул. Пушкина дом колотушкина",
+      "created_at": "10-12-2012",
+      "id": "8ee4"
+    }
+  ],
+  "cart": [
+    {
+      "productId": 1,
+      "count": 1,
+      "id": "227a"
+    },
+    {
+      "productId": 2,
+      "count": 1,
+      "id": "5806"
+    },
+    {
+      "productId": 3,
+      "count": 1,
+      "id": "5855"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "931b",
+      "hash": "0.31693683325428345654017903143540024757385253906250",
+      "user": {
+        "id": "0ad9",
+        "login": "alina",
+        "password": "qwe123",
+        "registeredAt": "Fri Feb 14 2053 ",
+        "roleId": 2
+      }
+    }
+  ]
+}
