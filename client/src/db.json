@@ -282,6 +282,22 @@
         "desc": "Господа, парад бытовой техники оказался началом великой войны"
       },
       "count": 1
+    },
+    {
+      "id": "d928",
+      "productId": {
+        "id": "10",
+        "title": "Пример товара 10",
+        "imageUrl": "",
+        "content": "...",
+        "comments": [],
+        "imgUrl": "https://loremflickr.com/cache/resized/5494_9304630833_5d9c245b94_z_400_400_nofilter.jpg",
+        "category": "pavingSlabs",
+        "priceRegular": "1000",
+        "priceDiscounted": "1000",
+        "desc": "Господа, парад бытовой техники оказался началом великой войны"
+      },
+      "count": 1
     }
   ],
   "sessions": [

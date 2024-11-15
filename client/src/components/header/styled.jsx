@@ -13,7 +13,7 @@ export const HeaderContainer = styled.header`
   box-sizing: border-box;
   width: 100%;
   background-color: #f8f8f8;
-  z-index: 1;
+  z-index: 10;
 
 
 

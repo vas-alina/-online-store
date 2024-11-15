@@ -8,34 +8,34 @@ import { transformProduct } from "../../bff/transformers";
 
 import { CartItem } from "./components/CartItem/CartItem";
 import {
-  CartContainer,
+  Container,
   CartItemsContainer,
   CartSummary,
   CartTitle,
-  CheckoutButton,
+  ClearButton,
   CheckoutNote,
   ErrorDiv,
 } from "./style";
 import { removeFromCart } from "../../action/remove-from-cart";
 import { removeAllFromCart } from "../../action/remove-all-from-cart";
-import { Button } from "../../components";
+import { Button, Title } from "../../components";
 
 export const CartPage = () => {
   const [cartProducts, setCartProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const roleId = useSelector(selectUserRole);
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
   const navigate = useNavigate();
   const [showAuthMessage, setShowAuthMessage] = useState(false);
-  const products = useSelector(state => state.items)
-  const dispatch = useDispatch()
+  const products = useSelector((state) => state.items);
+  const dispatch = useDispatch();
 
   const handleRemove = (id) => {
-    dispatch(removeFromCart(id))
-  }
+    dispatch(removeFromCart(id));
+  };
   const handleAllRemove = () => {
-    dispatch(removeAllFromCart())
-  }
+    dispatch(removeAllFromCart());
+  };
   useEffect(() => {
     setLoading(true);
 
@@ -47,7 +47,6 @@ export const CartPage = () => {
         return cartResponse.json();
       })
       .then(async (cartData) => {
-   
         const productsResponse = await fetch("http://localhost:3010/products");
         if (!productsResponse.ok) {
           throw new Error("Ошибка загрузки данных продуктов");
@@ -55,21 +54,19 @@ export const CartPage = () => {
         const productsData = await productsResponse.json();
         const cartWithProductDetails = cartData
           .map((cartProduct) => {
-
-            const productId = typeof cartProduct.productId === 'string'
-            ? {id: cartProduct.productId}
-            : cartProduct.productId;
+            const productId =
+              typeof cartProduct.productId === "string"
+                ? { id: cartProduct.productId }
+                : cartProduct.productId;
 
             const foundProduct = productsData.find(
               (product) => String(product.id) === String(productId.id)
             );
-           
+
             const productDetails = foundProduct
               ? transformProduct(foundProduct)
               : null;
-            return productDetails
-              ? { ...cartProduct, productDetails }
-              : null;
+            return productDetails ? { ...cartProduct, productDetails } : null;
           })
           .filter(Boolean);
         setCartProducts(cartWithProductDetails);
@@ -100,43 +97,42 @@ export const CartPage = () => {
     }
   };
 
-
   if (loading) return <div>Загрузка корзины...</div>;
 
   return (
-    <CartContainer>
-      <CartTitle>Корзина</CartTitle>
-      <button onClick={removeAllFromCart}>Очистить корзину</button>
+    <Container>
       <CartItemsContainer>
-
-{cartProducts.length === 0 ? (
-  <p>Ваша корзина пуста</p>
-) : (
-  cartProducts.map((product) => {
-    if (!product.productId) {
-      console.error("Не найден productId у товара:", product);
-      return null;
-    }
-    return (
-      <CartItem
-        key={product.productId}
-        product={product}
-        onUpdateQuantity={handleUpdateQuantity}
-        onRemove={handleRemove}
-        onAllRemove={handleAllRemove}
-      />
-    );
-  })
-)}
+      <CartTitle>
+        <Title>Корзина</Title>
+        <ClearButton onClick={removeAllFromCart}>Очистить корзину</ClearButton>
+      </CartTitle>
+        {cartProducts.length === 0 ? (
+          <p>Ваша корзина пуста</p>
+        ) : (
+          cartProducts.map((product) => {
+            if (!product.productId) {
+              console.error("Не найден productId у товара:", product);
+              return null;
+            }
+            return (
+              <CartItem
+                key={product.productId}
+                product={product}
+                onUpdateQuantity={handleUpdateQuantity}
+                onRemove={handleRemove}
+                onAllRemove={handleAllRemove}
+              />
+            );
+          })
+        )}
       </CartItemsContainer>
 
       <CartSummary>
-      
-<Button 
-width="200px"
-onClick={handleCheckout}
-> Оформить заказ </Button>
-        
+        <Button width="200px" onClick={handleCheckout}>
+          {" "}
+          Оформить заказ{" "}
+        </Button>
+
         <CheckoutNote>
           Нажимая на кнопку «Оформить заказ», вы соглашаетесь с условиями
           <a href="/terms"> Обработки персональных данных</a>.
@@ -148,6 +144,6 @@ onClick={handleCheckout}
           </ErrorDiv>
         )}
       </CartSummary>
-    </CartContainer>
+    </Container>
   );
 };

@@ -5,3 +5,4 @@ export * from "./Icon/Icon.jsx";
 export * from "./auth-form-error/auth-form-error.jsx"
 export * from "./Modal/Modal.jsx"
 export * from "./PrivateContent/PrivateContent.jsx"
+export * from "./title/Title.jsx"

@@ -1,32 +1,56 @@
 import styled from "styled-components";
 
-export const CartContainer = styled.div`
-
-  max-width: 800px;
-  margin: auto;
+export const Container = styled.div`
+  display: flex;
+  max-width: 80%;
+  justify-content: space-between;
+  margin: 0 10%;
   padding: 20px;
 `;
 
 export const CartTitle = styled.h1`
+display: flex;
+justify-content: space-between;
   font-size: 24px;
   margin-bottom: 20px;
 `;
 
 export const CartItemsContainer = styled.div`
-  border-top: 1px solid #eee;
+flex: 1;
+margin-right: 20px;
+max-width: 80%;
 `;
+export const ClearButton = styled.button`
+border: none;
+background-color: #fff;
+color: gray;
+font-weight: bold;
 
+&:hover{
+  cursor: pointer;
+}
+`
 
 export const ErrorDiv = styled.div`
   font-size: 18px;
   color: #999;
 `;
 
-
-
 export const CartSummary = styled.div`
-  text-align: right;
-  padding-top: 20px;
+   flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  max-width: 25%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  position: sticky;
+  top: 20%; 
+  height: fit-content;
+  z-index: 1;
 `;
 
 export const OldTotalPrice = styled.div`
