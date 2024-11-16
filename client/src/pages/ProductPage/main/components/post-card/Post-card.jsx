@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../../../../components";
@@ -7,14 +7,14 @@ const ProductCardContainer = ({
   className,
   id,
   title,
-  imageUrl,
+  imgUrl,
   publishedAt,
   commentsCount,
 }) => {
   return (
     <div className={className}>
       <Link to={`/product/${id}`}>
-        <img src={imageUrl} alt={title} />
+        <img src={imgUrl} alt={title} />
         <div className="product-card-footer">
           <h4>{title}</h4>
           <div className="product-card-info">
@@ -81,10 +81,3 @@ export const ProductCard = styled(ProductCardContainer)`
     display: flex;
   }
 `;
-ProductCardContainer.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  publishedAt: PropTypes.string.isRequired,
-  commentsCount: PropTypes.number.isRequired,
-};

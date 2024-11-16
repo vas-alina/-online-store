@@ -36,11 +36,11 @@ const MainContainer = ({ className }) => {
         {products.length > 0 ? (
           <div className="product-list">
             {products.map(
-              ({ id, title, imageUrl, publishedAt, commentsCount }) => (
+              ({ id, title, imgUrl, publishedAt, commentsCount }) => (
                 <ProductCard
                   key={id}
                   id={id}
-                  imageUrl={imageUrl}
+                  imgUrl={imgUrl}
                   title={title}
                   publishedAt={publishedAt}
                   commentsCount={commentsCount}

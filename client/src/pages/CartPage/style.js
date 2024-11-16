@@ -8,7 +8,7 @@ export const Container = styled.div`
   padding: 20px;
 `;
 
-export const CartTitle = styled.h1`
+export const CartTitle = styled.h2`
 display: flex;
 justify-content: space-between;
   font-size: 24px;

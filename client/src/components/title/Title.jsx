@@ -1,6 +1,6 @@
  import styled from "styled-components";
 
- export const Title = styled.h1`
+ export const Title = styled.h2`
  font-size: ${({ size }) => size || "24px"};
  font-weight: ${({ weight }) => weight || "bold"};
  color: ${({ color }) => color || "#000"};

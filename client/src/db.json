@@ -19,7 +19,13 @@
       "login": "alina",
       "password": "qwe123",
       "registed_at": "Fri Feb 14 2053 ",
-      "role_id": 2
+      "role_id": 2,
+      "contact_detais": {
+        "name": "",
+        "last_name": "",
+        "phone": "",
+        "email": ""
+      }
     }
   ],
   "roles": [
@@ -45,11 +51,13 @@
       "id": "1",
       "img_url": "https://loremflickr.com/cache/resized/65535_52730399535_9ebd065dbf_400_400_nofilter.jpg",
       "category": "pavingSlabs",
-      "price_regular": "1000",
-      "price_discounted": "900",
       "title": "Тротуарная плитка",
-      "form": "Петра",
+      "price": "1000",
       "color": "Желтая",
+      "form": "Петра",
+      "width": "15",
+      "height": "10",
+      "length": "20",
       "desc": "Тротуарная плитка Петра Желтая 10х20 см, где ярким акцентом станет не форма, а качество исполнения, фактура и цвет. Кроме того, прямоугольная тротуарная плитка проста в укладке, но имеет самое большое количество вариантов мощения. Наш постоянный лидер продаж.",
       "content": "..."
     },
@@ -57,247 +65,176 @@
       "id": "2",
       "img_url": "https://loremflickr.com/cache/resized/65535_52750642974_d92f69439c_z_400_400_nofilter.jpg",
       "category": "pavingSlabs",
-      "price_regular": "1000",
-      "price_discounted": "1000",
       "title": "Пример товара 2",
-      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "price": "1000",
+      "color": "Желтая",
+      "form": "Петра",
+      "width": "15",
+      "height": "10",
+      "length": "20",
+      "desc": "Тротуарная плитка Петра Желтая 10х20 см, где ярким акцентом станет не форма, а качество исполнения, фактура и цвет. Кроме того, прямоугольная тротуарная плитка проста в укладке, но имеет самое большое количество вариантов мощения. Наш постоянный лидер продаж.",
       "content": "..."
     },
     {
       "id": "3",
       "img_url": "https://loremflickr.com/cache/resized/2902_33703976312_7926b372b0_z_400_400_nofilter.jpg",
       "category": "borders",
-      "price_regular": "1000",
-      "price_discounted": "1000",
       "title": "Пример товара 3",
-      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "price": "1000",
+      "color": "Желтая",
+      "form": "Петра",
+      "width": "15",
+      "height": "10",
+      "length": "20",
+      "desc": "Тротуарная плитка Петра Желтая 10х20 см, где ярким акцентом станет не форма, а качество исполнения, фактура и цвет. Кроме того, прямоугольная тротуарная плитка проста в укладке, но имеет самое большое количество вариантов мощения. Наш постоянный лидер продаж.",
       "content": "..."
     },
     {
       "id": "4",
       "img_url": "https://loremflickr.com/cache/resized/65535_52627358729_53d4fef048_z_400_400_nofilter.jpg",
       "category": "borders",
-      "price_regular": "1000",
-      "price_discounted": "1000",
       "title": "Пример товара 4",
-      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "price": "1000",
+      "color": "Желтая",
+      "form": "Петра",
+      "width": "15",
+      "height": "10",
+      "length": "20",
+      "desc": "Тротуарная плитка Петра Желтая 10х20 см, где ярким акцентом станет не форма, а качество исполнения, фактура и цвет. Кроме того, прямоугольная тротуарная плитка проста в укладке, но имеет самое большое количество вариантов мощения. Наш постоянный лидер продаж.",
       "content": "..."
     },
     {
       "id": "5",
       "img_url": "https://loremflickr.com/cache/resized/65535_53147719513_c2c4e5623e_z_400_400_nofilter.jpg",
       "category": "borders",
-      "price_regular": "1000",
-      "price_discounted": 500,
       "title": "Пример товара 5",
-      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "price": "1000",
+      "color": "Желтая",
+      "form": "Петра",
+      "width": "15",
+      "height": "10",
+      "length": "20",
+      "desc": "Тротуарная плитка Петра Желтая 10х20 см, где ярким акцентом станет не форма, а качество исполнения, фактура и цвет. Кроме того, прямоугольная тротуарная плитка проста в укладке, но имеет самое большое количество вариантов мощения. Наш постоянный лидер продаж.",
       "content": "..."
     },
     {
       "id": "6",
       "img_url": "https://loremflickr.com/cache/resized/65535_52733694762_6f2cc72a8d_z_400_400_nofilter.jpg",
       "category": "lawnGrate",
-      "price_regular": "1000",
-      "price_discounted": 400,
       "title": "Пример товара 6",
-      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "price": "1000",
+      "color": "Желтая",
+      "form": "Петра",
+      "width": "15",
+      "height": "10",
+      "length": "20",
+      "desc": "Тротуарная плитка Петра Желтая 10х20 см, где ярким акцентом станет не форма, а качество исполнения, фактура и цвет. Кроме того, прямоугольная тротуарная плитка проста в укладке, но имеет самое большое количество вариантов мощения. Наш постоянный лидер продаж.",
       "content": "..."
     },
     {
       "id": "7",
       "img_url": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
       "category": "lawnGrate",
-      "price_regular": "1000",
-      "price_discounted": 1000,
       "title": "Пример товара 7",
-      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "price": "1000",
+      "color": "Желтая",
+      "form": "Петра",
+      "width": "15",
+      "height": "10",
+      "length": "20",
+      "desc": "Тротуарная плитка Петра Желтая 10х20 см, где ярким акцентом станет не форма, а качество исполнения, фактура и цвет. Кроме того, прямоугольная тротуарная плитка проста в укладке, но имеет самое большое количество вариантов мощения. Наш постоянный лидер продаж.",
       "content": "..."
     },
     {
       "id": "8",
       "img_url": "https://loremflickr.com/cache/resized/65535_52627441448_842afe99e3_z_400_400_nofilter.jpg",
       "category": "lawnGrate",
-      "price_regular": "1000",
-      "price_discounted": 1000,
       "title": "Пример товара 8",
-      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "price": "1000",
+      "color": "Желтая",
+      "form": "Петра",
+      "width": "15",
+      "height": "10",
+      "length": "20",
+      "desc": "Тротуарная плитка Петра Желтая 10х20 см, где ярким акцентом станет не форма, а качество исполнения, фактура и цвет. Кроме того, прямоугольная тротуарная плитка проста в укладке, но имеет самое большое количество вариантов мощения. Наш постоянный лидер продаж.",
       "content": "..."
     },
     {
       "id": "9",
       "img_url": "https://loremflickr.com/cache/resized/82_276047423_7a72cb300e_z_400_400_nofilter.jpg",
       "category": "pavingSlabs",
-      "price_regular": "1000",
-      "price_discounted": "1000",
       "title": "Пример товара 9",
-      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "price": "1000",
+      "color": "Желтая",
+      "form": "Петра",
+      "width": "15",
+      "height": "10",
+      "length": "20",
+      "desc": "Тротуарная плитка Петра Желтая 10х20 см, где ярким акцентом станет не форма, а качество исполнения, фактура и цвет. Кроме того, прямоугольная тротуарная плитка проста в укладке, но имеет самое большое количество вариантов мощения. Наш постоянный лидер продаж.",
       "content": "..."
     },
     {
       "id": "10",
       "img_url": "https://loremflickr.com/cache/resized/5494_9304630833_5d9c245b94_z_400_400_nofilter.jpg",
       "category": "pavingSlabs",
-      "price_regular": "1000",
-      "price_discounted": "1000",
       "title": "Пример товара 10",
-      "desc": "Господа, парад бытовой техники оказался началом великой войны",
+      "price": "1000",
+      "color": "Желтая",
+      "form": "Петра",
+      "width": "15",
+      "height": "10",
+      "length": "20",
+      "desc": "Тротуарная плитка Петра Желтая 10х20 см, где ярким акцентом станет не форма, а качество исполнения, фактура и цвет. Кроме того, прямоугольная тротуарная плитка проста в укладке, но имеет самое большое количество вариантов мощения. Наш постоянный лидер продаж.",
       "content": "..."
     }
   ],
   "comments": [],
   "orders": [
     {
+      "id": "8ee4",
       "order_id": "1",
       "user_id": "1",
-      "total_amount": "5000",
-      "shipping_address": "ул. Пушкина дом колотушкина",
-      "created_at": "10-12-2012",
-      "id": "8ee4"
+      "total": "5000",
+      "delivery_method": "pickup",
+      "shipping_adress": {
+        "city": "Краснодар",
+        "street": "восточно кругликовская",
+        "number": "42-3",
+        "comment_order": "г.Сочи, пер. Армянский 1"
+      },
+      "created_at": "10-12-2012"
     }
   ],
-  "cart": [
+  "carts": [
     {
-      "id": "6dbd",
-      "productId": {
-        "id": "2",
-        "title": "Пример товара 2",
-        "imageUrl": "",
-        "content": "...",
-        "comments": [],
-        "imgUrl": "https://loremflickr.com/cache/resized/65535_52750642974_d92f69439c_z_400_400_nofilter.jpg",
-        "category": "pavingSlabs",
-        "priceRegular": "1000",
-        "priceDiscounted": "1000",
-        "desc": "Господа, парад бытовой техники оказался началом великой войны"
-      },
-      "count": 1
+      "id": "091a",
+      "user_id": "0ad9",
+      "product_id": "5",
+      "img_url": "https://loremflickr.com/cache/resized/65535_53147719513_c2c4e5623e_z_400_400_nofilter.jpg",
+      "title": "Пример товара 5",
+      "color": "Желтая",
+      "form": "Петра",
+      "count": ""
     },
     {
-      "id": "5c03",
-      "productId": {
-        "id": "2",
-        "title": "Пример товара 2",
-        "imageUrl": "",
-        "content": "...",
-        "comments": [],
-        "imgUrl": "https://loremflickr.com/cache/resized/65535_52750642974_d92f69439c_z_400_400_nofilter.jpg",
-        "category": "pavingSlabs",
-        "priceRegular": "1000",
-        "priceDiscounted": "1000",
-        "desc": "Господа, парад бытовой техники оказался началом великой войны"
-      },
-      "count": 1
+      "id": "7f0c",
+      "user_id": "0ad9",
+      "product_id": "1",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52730399535_9ebd065dbf_400_400_nofilter.jpg",
+      "title": "Тротуарная плитка",
+      "color": "Желтая",
+      "form": "Петра",
+      "count": ""
     },
     {
-      "id": "8a35",
-      "productId": {
-        "id": "2",
-        "title": "Пример товара 2",
-        "imageUrl": "",
-        "content": "...",
-        "comments": [],
-        "imgUrl": "https://loremflickr.com/cache/resized/65535_52750642974_d92f69439c_z_400_400_nofilter.jpg",
-        "category": "pavingSlabs",
-        "priceRegular": "1000",
-        "priceDiscounted": "1000",
-        "desc": "Господа, парад бытовой техники оказался началом великой войны"
-      },
-      "count": 1
-    },
-    {
-      "id": "1e91",
-      "productId": "2",
-      "count": 1
-    },
-    {
-      "id": "c9ed",
-      "productId": "5",
-      "count": 1
-    },
-    {
-      "id": "7137",
-      "productId": "6",
-      "count": 1
-    },
-    {
-      "id": "88c7",
-      "productId": {
-        "id": "6",
-        "title": "Пример товара 6",
-        "imageUrl": "",
-        "content": "...",
-        "comments": [],
-        "imgUrl": "https://loremflickr.com/cache/resized/65535_52733694762_6f2cc72a8d_z_400_400_nofilter.jpg",
-        "category": "lawnGrate",
-        "priceRegular": "1000",
-        "priceDiscounted": 400,
-        "desc": "Господа, парад бытовой техники оказался началом великой войны"
-      },
-      "count": 1
-    },
-    {
-      "id": "ee75",
-      "productId": {
-        "id": "7",
-        "title": "Пример товара 7",
-        "imageUrl": "",
-        "content": "...",
-        "comments": [],
-        "imgUrl": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
-        "category": "lawnGrate",
-        "priceRegular": "1000",
-        "priceDiscounted": 1000,
-        "desc": "Господа, парад бытовой техники оказался началом великой войны"
-      },
-      "count": 1
-    },
-    {
-      "id": "d50d",
-      "productId": {
-        "id": "7",
-        "title": "Пример товара 7",
-        "imageUrl": "",
-        "content": "...",
-        "comments": [],
-        "imgUrl": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
-        "category": "lawnGrate",
-        "priceRegular": "1000",
-        "priceDiscounted": 1000,
-        "desc": "Господа, парад бытовой техники оказался началом великой войны"
-      },
-      "count": 1
-    },
-    {
-      "id": "d4bb",
-      "productId": {
-        "id": "7",
-        "title": "Пример товара 7",
-        "imageUrl": "",
-        "content": "...",
-        "comments": [],
-        "imgUrl": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
-        "category": "lawnGrate",
-        "priceRegular": "1000",
-        "priceDiscounted": 1000,
-        "desc": "Господа, парад бытовой техники оказался началом великой войны"
-      },
-      "count": 1
-    },
-    {
-      "id": "d928",
-      "productId": {
-        "id": "10",
-        "title": "Пример товара 10",
-        "imageUrl": "",
-        "content": "...",
-        "comments": [],
-        "imgUrl": "https://loremflickr.com/cache/resized/5494_9304630833_5d9c245b94_z_400_400_nofilter.jpg",
-        "category": "pavingSlabs",
-        "priceRegular": "1000",
-        "priceDiscounted": "1000",
-        "desc": "Господа, парад бытовой техники оказался началом великой войны"
-      },
-      "count": 1
+      "id": "781c",
+      "user_id": "0ad9",
+      "product_id": "1",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52730399535_9ebd065dbf_400_400_nofilter.jpg",
+      "title": "Тротуарная плитка",
+      "color": "Желтая",
+      "form": "Петра",
+      "count": ""
     }
   ],
   "sessions": [
@@ -324,14 +261,37 @@
       }
     },
     {
-      "id": "147f",
-      "hash": "0.44073341259771958711155548371607437729835510253906",
+      "id": "d738",
+      "hash": "0.57701804921209753906907735654385760426521301269531",
       "user": {
         "id": "0ad9",
         "login": "alina",
         "password": "qwe123",
         "registeredAt": "Fri Feb 14 2053 ",
-        "roleId": 2
+        "roleId": 2,
+        "contactDetais": {
+          "name": "",
+          "last_name": "",
+          "phone": "",
+          "email": ""
+        }
+      }
+    },
+    {
+      "id": "e779",
+      "hash": "0.43797950238585547921843499352689832448959350585938",
+      "user": {
+        "id": "0ad9",
+        "login": "alina",
+        "password": "qwe123",
+        "registeredAt": "Fri Feb 14 2053 ",
+        "roleId": 2,
+        "contactDetais": {
+          "name": "",
+          "last_name": "",
+          "phone": "",
+          "email": ""
+        }
       }
     }
   ]

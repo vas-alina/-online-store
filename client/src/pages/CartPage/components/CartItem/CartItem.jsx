@@ -18,22 +18,20 @@ export const CartItem = ({
   onRemove,
   onllRemove,
 }) => {
-  const { id, count, productDetails } = product;
-  if (!productDetails) {
-    return null;
-  }
+  const { id, count } = product;
+
   return (
     <CartItemContainer>
       <ItemImage>
-        <img src={productDetails.imgUrl} alt={productDetails.title} />
+        <img src={product.img_url} alt={product.title} />
       </ItemImage>
       <ItemDetails>
         <ItemTitle>
-          {productDetails.title} {productDetails.form} {productDetails.color}
+          {product.title} {product.form} {product.color}
         </ItemTitle>
       </ItemDetails>
       <PriceSection>
-        <CurrentPrice>{productDetails.priceRegular} ₽</CurrentPrice>
+        <CurrentPrice>{product.price} ₽</CurrentPrice>
       </PriceSection>
       <QuantitySection>
         <QuantityButton
@@ -46,11 +44,7 @@ export const CartItem = ({
         <QuantityButton onClick={() => onUpdateQuantity(id, count + 1)}>
           +
         </QuantityButton>
-        <Icon
-          icon={DeleteIcon}
-          width="10px"
-          onClick={onRemove(id)}
-        />
+        <Icon icon={DeleteIcon} width="10px" onClick={onRemove(id)} />
       </QuantitySection>
     </CartItemContainer>
   );

@@ -1,14 +1,13 @@
-//TODO: переписать трансформеры
-
-
 export const transformProduct = (dbProduct) => ({
   id: dbProduct.id,
   imgUrl: dbProduct.img_url,
   category: dbProduct.category,
-  priceRegular: dbProduct.price_regular,
-  priceDiscounted: dbProduct.price_discounted,
+  price: dbProduct.price,
   title: dbProduct.title,
   form: dbProduct.form,
+  width: dbProduct.width,
+  height: dbProduct.height,
+  length: dbProduct.length,
   color: dbProduct.color,
   desc: dbProduct.desc,
   content: dbProduct.content,

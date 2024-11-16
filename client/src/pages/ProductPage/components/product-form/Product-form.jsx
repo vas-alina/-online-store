@@ -11,17 +11,17 @@ import { PROP_TYPE } from "../../../../constans";
 
 const ProductFormContainer = ({
   className,
-  product: { id, title, imageUrl, content, publishedAt },
+  product: { id, title, imgUrl, content, publishedAt },
 }) => {
-  const [imageUrlvalue, setImageUrlvalue] = useState(imageUrl);
+  const [imgUrlvalue, setImageUrlvalue] = useState(imgUrl);
   const [titlevalue, setTitlevalue] = useState(title);
 
   const contentRef = useRef(null);
 
   useLayoutEffect(() => {
-    setImageUrlvalue(imageUrl);
+    setImageUrlvalue(imgUrl);
     setTitlevalue(title);
-  }, [imageUrl, title]);
+  }, [imgUrl, title]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const ProductFormContainer = ({
     dispatch(
       saveProductAsync(requestServer, {
         id,
-        imageUrl: imageUrlvalue,
+        imgUrl: imgUrlvalue,
         title: titlevalue,
         content: newContent,
       })
@@ -45,7 +45,7 @@ const ProductFormContainer = ({
   return (
     <div className={className}>
       <Input
-        value={imageUrlvalue}
+        value={imgUrlvalue}
         placeholder="Изображение..."
         onChange={onImageChange}
       />

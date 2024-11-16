@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { Icon } from "../../../../components";
@@ -31,10 +31,10 @@ const Image = styled.img`
   border-radius: 4px;
 `;
 
-const Title = styled.h3`
-  font-size: 16px;
-  margin: 10px 0;
-`;
+// const Title = styled.h3`
+//   font-size: 16px;
+//   margin: 10px 0;
+// `;
 
 const Price = styled.p`
   font-size: 14px;
@@ -46,7 +46,7 @@ const Description = styled.p`
   color: #777;
 `;
 
-export const ProductCard = ({ product }) => {
+export const ProductCard = ({ item }) => {
     const navigate = useNavigate();
   const handleCardClick = () => {
     navigate(`/products/${product.id}`);
@@ -55,8 +55,8 @@ export const ProductCard = ({ product }) => {
   
       <Card onClick={handleCardClick}>
       <Image src={product.imgUrl} alt={product.title} />
-      <Title>{product.title}</Title>
-      <Price>{product.priceRegular} ₽</Price>
+      <h2>{product.title}</h2>
+      <Price>{product.price} ₽</Price>
       <Description>{product.desc}</Description>
       <ActionBlock>
 <Icon

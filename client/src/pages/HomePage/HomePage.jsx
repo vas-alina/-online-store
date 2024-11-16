@@ -10,7 +10,12 @@ import { Button } from "../../components";
 import { ProductCard } from "../CatalogPage/components/product-card/ProductCard";
 import { CatalogBlocks } from "./components/Features/CatalogBlock";
 import { CustomSlider } from "./../../components/Slider/Slider";
-
+import { Container } from "./ui/styled";
+import { ROLE } from "../../constans";
+import { selectUserRole } from "../../selectors";
+import { useSelector } from "react-redux";
+import { checkAccess } from "../../utils";
+import { AdminPage } from "../AdminPage/AdminPage";
 const ProductGroup = styled.div`
   margin-top: 20px;
 `;
@@ -34,53 +39,73 @@ const aboutImageArray = [
 const recomendProducts = [5, 6, 7, 1, 2];
 
 const HomePageContainer = ({ className }) => {
+  const roleId = useSelector(selectUserRole);
+  const isAdmin = checkAccess([ROLE.ADMIN], roleId);
   //TODO:не забыть!
   const products = data.products;
   return (
-    <>
-      <Helmet>
-        <title>Еврострой 1</title>
-      </Helmet>
-      <div className="customSlider">
-        <CustomSlider images={mainImageArray} width="100%" height="auto" />
-      </div>
+    <Container>
+      {isAdmin ?
+         (
+          <AdminPage />
+        ) : (
+          <>
+            <Helmet>
+              <title>Еврострой 1</title>
+            </Helmet>
+            <div className="customSlider">
+              <CustomSlider
+                images={mainImageArray}
+                width="100%"
+                height="auto"
+              />
+            </div>
 
-      <InfoBlocks />
-      <ProductGroup>
-        <h2>Новинки</h2>
-        
-        {/* <ProductGroupContainer>
-          {products
-            .filter((p) => recomendProducts.includes(p.id))
-            .map((p) => (
-              <ProductCard {...p} key={p.id} />
-            ))}
-        </ProductGroupContainer> */}
-      </ProductGroup>
-      <CatalogBlocks />
-      <AboutBlock>
-        <div className="about-text">
-          <h2>Еврострой -</h2>
-          <h3>
-            Еврострой завод-производитель дорожно-тротуарного покрытия на юге
-            России. Производим вибропрессованную тротуарную плитку/брусчатку,
-            газонную решетку и бордюры на немецком оборудовании высокой точности
-            «Knauer», «Zenith», «Hess». <br></br> <br></br>На выбор 15 форм
-            плитки, более 20 вариантов цветов из коллекция Колор микс, а так же
-            премиум сегмент из коллекции MINERAL.<br></br>
-            <br></br> Работаем на рынке 30 лет, первый завод открылся в Сочи
-            1994 году. Сегодня в Краснодарском крае расположены три завода общей
-            мощностью — 3500 кв. м за смену. Предоставляем услуги по укладке
-            тротуарной плитки под ключ. Работаем по договору с гарантией 10 лет.
-          </h3>
-          <br />
-          <Button width="300px">Подробнее</Button>
-        </div>
-        <div className="about-slide">
-          <CustomSlider images={aboutImageArray} width="700px" height="500px" />
-        </div>
-      </AboutBlock>
-    </>
+            <InfoBlocks />
+            <ProductGroup>
+              <h2>Новинки</h2>
+
+              {/* <ProductGroupContainer>
+   {products
+     .filter((p) => recomendProducts.includes(p.id))
+     .map((p) => (
+       <ProductCard {...p} key={p.id} />
+     ))}
+ </ProductGroupContainer> */}
+            </ProductGroup>
+            <CatalogBlocks />
+            <AboutBlock>
+              <div className="about-text">
+                <h2>Еврострой -</h2>
+                <h3>
+                  Еврострой завод-производитель дорожно-тротуарного покрытия на
+                  юге России. Производим вибропрессованную тротуарную
+                  плитку/брусчатку, газонную решетку и бордюры на немецком
+                  оборудовании высокой точности «Knauer», «Zenith», «Hess».{" "}
+                  <br></br> <br></br>На выбор 15 форм плитки, более 20 вариантов
+                  цветов из коллекция Колор микс, а так же премиум сегмент из
+                  коллекции MINERAL.<br></br>
+                  <br></br> Работаем на рынке 30 лет, первый завод открылся в
+                  Сочи 1994 году. Сегодня в Краснодарском крае расположены три
+                  завода общей мощностью — 3500 кв. м за смену. Предоставляем
+                  услуги по укладке тротуарной плитки под ключ. Работаем по
+                  договору с гарантией 10 лет.
+                </h3>
+                <br />
+                <Button width="300px">Подробнее</Button>
+              </div>
+              <div className="about-slide">
+                <CustomSlider
+                  images={aboutImageArray}
+                  width="700px"
+                  height="500px"
+                />
+              </div>
+            </AboutBlock>
+          </>
+        )
+      }
+    </Container>
   );
 };
 

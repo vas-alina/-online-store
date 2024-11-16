@@ -1,7 +1,7 @@
 import { transformCart } from "../transformers";
 
 export const getCart = async () =>
-  fetch(`http://localhost:3010/cart/`)
+  fetch(`http://localhost:3010/carts/`)
     .then((res) => {
       if (res.ok) {
         return res;

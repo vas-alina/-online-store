@@ -3,9 +3,10 @@ import { ACTION_TYPE } from "../action";
 const initialProductState = {
   id: '',
   title: '',
-  imageUrl: '',
+  imgUrl: '',
   content: '',
   publishedAt: '',
+  count: '',
   comments: [],
 };
 export const productReducer = (state = initialProductState, action) => {

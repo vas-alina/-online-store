@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROLE } from "../../constans";
 import { Link } from "react-router-dom";
-import { selectUserRole } from "../../selectors";
-import { transformProduct } from "../../bff/transformers";
+import { selectProduct, selectUserId, selectUserRole } from "../../selectors";
 
 import { CartItem } from "./components/CartItem/CartItem";
 import {
@@ -18,76 +17,58 @@ import {
 } from "./style";
 import { removeFromCart } from "../../action/remove-from-cart";
 import { removeAllFromCart } from "../../action/remove-all-from-cart";
-import { Button, Title } from "../../components";
+import { Button, } from "../../components";
 
 export const CartPage = () => {
   const [cartProducts, setCartProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const roleId = useSelector(selectUserRole);
-  const [total, setTotal] = useState(0);
   const navigate = useNavigate();
   const [showAuthMessage, setShowAuthMessage] = useState(false);
-  const products = useSelector((state) => state.items);
+  const product = useSelector(selectProduct)
+  const userId = useSelector(selectUserId)
   const dispatch = useDispatch();
 
+  //TODO: нерабочая схема
   const handleRemove = (id) => {
     dispatch(removeFromCart(id));
   };
   const handleAllRemove = () => {
     dispatch(removeAllFromCart());
   };
+
   useEffect(() => {
     setLoading(true);
-
-    fetch("http://localhost:3010/cart")
+    fetch("http://localhost:3010/carts")
       .then((cartResponse) => {
         if (!cartResponse.ok) {
           throw new Error("Ошибка загрузки данных корзины");
         }
         return cartResponse.json();
       })
-      .then(async (cartData) => {
-        const productsResponse = await fetch("http://localhost:3010/products");
-        if (!productsResponse.ok) {
-          throw new Error("Ошибка загрузки данных продуктов");
-        }
-        const productsData = await productsResponse.json();
-        const cartWithProductDetails = cartData
-          .map((cartProduct) => {
-            const productId =
-              typeof cartProduct.productId === "string"
-                ? { id: cartProduct.productId }
-                : cartProduct.productId;
 
-            const foundProduct = productsData.find(
-              (product) => String(product.id) === String(productId.id)
-            );
-
-            const productDetails = foundProduct
-              ? transformProduct(foundProduct)
-              : null;
-            return productDetails ? { ...cartProduct, productDetails } : null;
-          })
-          .filter(Boolean);
-        setCartProducts(cartWithProductDetails);
+      .then((cartData) => {
+        const userCart = cartData.filter((item) => item.user_id === userId)
+          console.log("Товары в корзине: ", userCart);
+          setCartProducts(userCart)
+        setLoading(false)
       })
       .catch((error) => {
         console.error("Ошибка при загрузке данных корзины:", error);
-      })
-      .finally(() => {
         setLoading(false);
-      });
-  }, []);
+      })
+  }, [userId]);
 
   const handleUpdateQuantity = (productId, newQuantity) => {
     setCartProducts((prevCartProducts) =>
-      prevCartProducts.map((product) =>
-        product.productId === productId
-          ? { ...product, count: newQuantity }
-          : product
+      prevCartProducts.map((item) =>
+        item.productId === productId
+          ? { ...item, count: newQuantity }
+          : item
       )
     );
   };
+
 
   const handleCheckout = () => {
     if (roleId === ROLE.GUEST) {
@@ -102,22 +83,21 @@ export const CartPage = () => {
   return (
     <Container>
       <CartItemsContainer>
-      <CartTitle>
-        <Title>Корзина</Title>
-        <ClearButton onClick={removeAllFromCart}>Очистить корзину</ClearButton>
-      </CartTitle>
+        <CartTitle>
+          <h2>Корзина</h2>
+          <ClearButton onClick={removeAllFromCart}>
+            Очистить корзину
+          </ClearButton>
+        </CartTitle>
         {cartProducts.length === 0 ? (
           <p>Ваша корзина пуста</p>
         ) : (
-          cartProducts.map((product) => {
-            if (!product.productId) {
-              console.error("Не найден productId у товара:", product);
-              return null;
-            }
+          cartProducts.map((item) => {
+      
             return (
               <CartItem
-                key={product.productId}
-                product={product}
+                key={item.id}
+                product={item}
                 onUpdateQuantity={handleUpdateQuantity}
                 onRemove={handleRemove}
                 onAllRemove={handleAllRemove}
@@ -128,6 +108,8 @@ export const CartPage = () => {
       </CartItemsContainer>
 
       <CartSummary>
+        <h2>Сумма заказа</h2>
+        <h3>Сумма заказа </h3>
         <Button width="200px" onClick={handleCheckout}>
           {" "}
           Оформить заказ{" "}

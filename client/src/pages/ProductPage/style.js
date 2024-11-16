@@ -62,7 +62,7 @@ flex-direction: column; */
   margin-top: 20px;
 `;
 
-export const ProductTitle = styled.h1`
+export const ProductTitle = styled.h2`
   font-size: 24px;
   font-weight: bold;
   margin: 0 auto;

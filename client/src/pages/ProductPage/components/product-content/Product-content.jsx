@@ -6,12 +6,12 @@ import { PROP_TYPE } from "../../../../constans";
 
 const ProductContentContainer = ({
   className,
-  product: { id, title, imageUrl, content, publishedAt },
+  product: { id, title, imgUrl, content, publishedAt },
 }) => {
   const navigate = useNavigate();
   return (
     <div className={className}>
-      <img src={imageUrl} alt={title} />
+      <img src={imgUrl} alt={title} />
       <H2>{title}</H2>
       <SpecialPanel
         id={id}

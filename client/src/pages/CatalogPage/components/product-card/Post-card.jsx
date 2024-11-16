@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../../../../components";
@@ -7,7 +6,7 @@ const PostCardContainer = ({
   className,
   id,
   title,
-  imageUrl,
+  imgUrl,
   desc,
   publishedAt,
   commentsCount,
@@ -15,7 +14,7 @@ const PostCardContainer = ({
   return (
     <div className={className}>
       <Link to={`/products/${id}`}>
-        <img src={imageUrl} alt={title} />
+        <img src={imgUrl} alt={title} />
         <div className="post-card-footer">
           <h4>{title}</h4>
           <h4>{desc}</h4>

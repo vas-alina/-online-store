@@ -46,12 +46,11 @@ export const OrderPage = () => {
         {methodShipping === "delivery" ? (
           <SectionShipping>
             <Input
-              width="calc(50% - 40px)"
+              width="calc(110% - 40px)"
               placeholder="Город, населённый пункт"
             />
             <Input width="calc(50% - 40px)" placeholder="Улица" />
-            <Input width="calc(50% - 40px)" placeholder="Дом, корпус" />
-            <Input width="calc(50% - 40px)" placeholder="Квартира" />
+            <Input width="calc(50% - 40px)" placeholder="Дом, корпус, квартира" />
             <Input as="textarea" placeholder="Комментарий" rows="3" />
           </SectionShipping>
         ) : (

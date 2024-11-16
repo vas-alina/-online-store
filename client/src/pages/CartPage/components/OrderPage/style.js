@@ -57,7 +57,7 @@ export const SectionSelectShipping = styled.div`
 `;
 export const TabsContainer = styled.div`
   display: flex;
-  gap: 35px;
+  gap: 5px;
   justify-content: space-between;
   flex-wrap: wrap;
   margin: 0 -20px;
@@ -65,6 +65,7 @@ export const TabsContainer = styled.div`
 export const TabButton = styled.div`
   flex: 1;
   padding: 10px;
+  margin-bottom: 30px;
   font-size: 16px;
   background-color: ${({ isActive }) => (isActive ? "#333" : "#f8f8f8")};
   color: ${({ isActive }) => (isActive ? "#fff" : "#333")};

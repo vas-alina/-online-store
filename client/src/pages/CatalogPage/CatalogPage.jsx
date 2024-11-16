@@ -36,11 +36,11 @@
 //         {products.length > 0 ? (
 //           <div className="post-list">
 //             {products.map(
-//               ({ id, title, imageUrl, desc, commentsCount }) => (
+//               ({ id, title, imgUrl, desc, commentsCount }) => (
 //                 <PostCard
 //                   key={id}
 //                   id={id}
-//                   imageUrl={imageUrl}
+//                   imgUrl={imgUrl}
 //                   title={title}
 //                   desc={desc}
 //                   commentsCount={commentsCount}
@@ -92,7 +92,7 @@
 //               return <AllProducts />;
 //           }
 //         };
-      
+
 //         return (
 //           <Container>
 //             <Sidebar>
@@ -110,9 +110,9 @@
 //           </Container>
 //         );
 
-import { useState } from 'react';
-import { ProductList } from './components/product-list/ProductList';
-import styled from 'styled-components';
+import { useState } from "react";
+import { ProductList } from "./components/product-list/ProductList";
+import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
@@ -132,22 +132,22 @@ const Content = styled.div`
 const MenuItem = styled.div`
   margin: 10px 0;
   cursor: pointer;
-  font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
-  color: ${(props) => (props.active ? 'blue' : 'black')};
+  font-weight: ${(props) => (props.active ? "bold" : "normal")};
+  color: ${(props) => (props.active ? "blue" : "black")};
 `;
 
 export const CatalogPage = () => {
-  const [activeSection, setActiveSection] = useState('allProducts');
+  const [activeSection, setActiveSection] = useState("allProducts");
 
   const renderContent = () => {
     switch (activeSection) {
-      case 'pavingSlabs':
+      case "pavingSlabs":
         return <ProductList category="pavingSlabs" title="Тротуарная плитка" />;
-      case 'borders':
+      case "borders":
         return <ProductList category="borders" title="Бордюры" />;
-      case 'lawnGrate':
+      case "lawnGrate":
         return <ProductList category="lawnGrate" title="Газонная решетка" />;
-      case 'allProducts':
+      case "allProducts":
       default:
         return <ProductList title="Все товары" />;
     }
@@ -157,26 +157,26 @@ export const CatalogPage = () => {
     <Container>
       <Sidebar>
         <MenuItem
-          active={activeSection === 'allProducts'}
-          onClick={() => setActiveSection('allProducts')}
+          active={activeSection === "allProducts"}
+          onClick={() => setActiveSection("allProducts")}
         >
           Все товары
         </MenuItem>
         <MenuItem
-          active={activeSection === 'pavingSlabs'}
-          onClick={() => setActiveSection('pavingSlabs')}
+          active={activeSection === "pavingSlabs"}
+          onClick={() => setActiveSection("pavingSlabs")}
         >
           Тротуарная плитка
         </MenuItem>
         <MenuItem
-          active={activeSection === 'borders'}
-          onClick={() => setActiveSection('borders')}
+          active={activeSection === "borders"}
+          onClick={() => setActiveSection("borders")}
         >
           Бордюры
         </MenuItem>
         <MenuItem
-          active={activeSection === 'lawnGrate'}
-          onClick={() => setActiveSection('lawnGrate')}
+          active={activeSection === "lawnGrate"}
+          onClick={() => setActiveSection("lawnGrate")}
         >
           Газонная решетка
         </MenuItem>
@@ -185,4 +185,3 @@ export const CatalogPage = () => {
     </Container>
   );
 };
-
