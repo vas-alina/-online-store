@@ -1,8 +1,9 @@
 import { getRoles } from "../api";
 import { sessions } from "../sessions";
-import { ROLE } from "../constans/role";
+import { ROLE } from "../constans";
 
 export const fetchRoles = async (hash) => {
+  console.log("Проверка доступа для хэша fetch roles 1:", hash);
   const accessRoles = [ROLE.ADMIN];
 
   const access = await sessions.access(hash, accessRoles);
@@ -17,7 +18,6 @@ export const fetchRoles = async (hash) => {
 
   return {
     error: null,
-
     res: roles,
   };
 };
