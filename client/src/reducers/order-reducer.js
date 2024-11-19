@@ -1,11 +1,19 @@
 import { ACTION_TYPE } from "../action";
-import { ROLE } from "../constans";
+
 
 const initialOrderState = {
-productId: null,
-count: null,
-  roleId: ROLE.GUEST,
-  id: null,
+      id: "",
+      firstName: "",
+      lastName: "",
+      phone: "",
+      email: "",
+      deliveryMethod: "",
+      city: "",
+      street: "",
+      number: "",
+      commentOrder: "",
+      userId: "",
+      createdAt: "",
 };
 
 export const orderReducer = (state = initialOrderState, action) => {

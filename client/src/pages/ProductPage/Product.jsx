@@ -81,18 +81,18 @@ useEffect(() => {
     </GalleryContainer>
 
     <ProductInfoContainer>
-      <ProductTitle>{product.title}{product.form}{product.color}</ProductTitle>
+      <ProductTitle>{product.title} {product.form} {product.color}</ProductTitle>
       <ProductDescription>{product.desc}</ProductDescription>
 
       <PriceAndCartContainer>
         <div>
-          <ProductPrice>{product.priceRegular} ₽</ProductPrice>
+          <ProductPrice>{product.price} ₽</ProductPrice>
+          <ProductPrice>{product.count} м2</ProductPrice>
         </div>
         
       </PriceAndCartContainer>
       <div>
         <Button onClick={() => handleAddToCart(product)} >  В корзину</Button>
-      <AddToCartButton  >Добавить в корзину</AddToCartButton>
       {console.log()}
       <Icon
                 inactive={true}

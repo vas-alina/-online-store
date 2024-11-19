@@ -1,17 +1,34 @@
 import { transformCart } from "../transformers";
 
-export const getCart = async () =>
-  fetch(`http://localhost:3010/carts/`)
-    .then((res) => {
-      if (res.ok) {
-        return res;
-      }
+// export const getCart = async (userIdToFind) =>
+//   fetch(`http://localhost:3010/carts?userId=${userIdToFind}`)
+//     .then((loadedCart) => loadedCart.json())
+//     .then(([loadedCart]) => loadedCart && transformCart(loadedCart));
+export const getCart = async (userIdToFind) => {
+  try {
+    
+    const response = await fetch(`http://localhost:3010/carts?userId=${userIdToFind}`);
+    
+    
+    if (!response.ok) {
+      throw new Error('ошибка получения');
+    }
 
-      const error = res.status === 404
-        ? 'Такая страница не существует Ответ getCart'
-        : 'Что-то пошло не так..'
-
-      return Promise.reject(error)
-    })
-    .then((loadedCart) => loadedCart.json())
-    .then((loadedCart) => loadedCart && transformCart(loadedCart));
+   
+    const loadedCarts = await response.json();
+    
+    
+    if (Array.isArray(loadedCarts)) {
+     
+      return loadedCarts.map(cart => transformCart(cart));  
+    } else {
+     
+      console.error('Ошибка массива:', loadedCarts);
+      return [];
+    }
+  } catch (error) {
+    
+    console.error('Ошибка in getCart:', error);
+    return [];
+  }
+};

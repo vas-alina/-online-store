@@ -23,6 +23,7 @@ export const useAddToCart = (userRole) => {
                         user_id: userId,
                         product_id: product.id,
                         img_url: product.imgUrl,
+                        price: product.price,
                         title: product.title,
                         color: product.color,
                         form: product.form,

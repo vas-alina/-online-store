@@ -6,10 +6,10 @@
 //       payload: product,
 //     }).then((error) => console.log(error))
 //   }  
-    
+
 //   };
 
-import { setCartData } from "./set-cart-data";
+import { setCartData } from "./set-cart";
 
 export const addProductToCart = (requestServer, userId, productId, imgUrl, title, color, form, count) => (dispatch) => {
   requestServer("addProductToCart", userId, productId, imgUrl, title, color, form, count).then((productData) => {

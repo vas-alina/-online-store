@@ -10,20 +10,26 @@ import {
   QuantityButton,
   QuantitySection,
   QuantityValue,
+  TotalPrice
 } from "./style";
 
 export const CartItem = ({
   product,
   onUpdateQuantity,
-  onRemove,
+  // onRemove,
   onllRemove,
-}) => {
-  const { id, count } = product;
 
+}) => {
+  const { id, count, price, img_url, title, form, color } = product;
+  const image = product.img_url
+  
+  const itemTotal = count * price;
+  
   return (
     <CartItemContainer>
       <ItemImage>
-        <img src={product.img_url} alt={product.title} />
+        {image ? (<img src={product.img_url} alt={product.title} />) : (<div> Картинки нет</div>)}
+        
       </ItemImage>
       <ItemDetails>
         <ItemTitle>
@@ -44,7 +50,9 @@ export const CartItem = ({
         <QuantityButton onClick={() => onUpdateQuantity(id, count + 1)}>
           +
         </QuantityButton>
-        <Icon icon={DeleteIcon} width="10px" onClick={onRemove(id)} />
+        <PriceSection>
+        <TotalPrice>Итог: {itemTotal} ₽</TotalPrice>
+        </PriceSection>
       </QuantitySection>
     </CartItemContainer>
   );

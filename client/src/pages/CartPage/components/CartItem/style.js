@@ -26,12 +26,19 @@ export const ItemTitle = styled.h2`
 
 export const PriceSection = styled.div`
   display: flex;
-  flex-direction: column;
+  width: 20%;
+  /* flex-direction: column; */
+  align-items: flex-end;
+`;
+export const TotalPrice = styled.div`
+  display: flex;
+  width: 20%;
+  /* flex-direction: column; */
   align-items: flex-end;
 `;
 
 export const CurrentPrice = styled.div`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: #333;
 `;

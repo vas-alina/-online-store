@@ -1,14 +1,14 @@
 {
   "users": [
     {
-      "id": "1",
+      "id": "0",
       "login": "admin",
       "password": "admin1",
       "registed_at": "31.10.2024",
       "role_id": 0
     },
     {
-      "id": "2",
+      "id": "1",
       "login": "moderator",
       "password": "moderator1",
       "registed_at": "31.10.2024",
@@ -26,6 +26,13 @@
         "phone": "",
         "email": ""
       }
+    },
+    {
+      "id": "5511",
+      "login": "admin2",
+      "password": "admin2",
+      "registed_at": "17/11/2024 19:47",
+      "role_id": 0
     }
   ],
   "roles": [
@@ -66,7 +73,7 @@
       "img_url": "https://loremflickr.com/cache/resized/65535_52750642974_d92f69439c_z_400_400_nofilter.jpg",
       "category": "pavingSlabs",
       "title": "Пример товара 2",
-      "price": "1000",
+      "price": 1000,
       "color": "Желтая",
       "form": "Петра",
       "width": "15",
@@ -80,7 +87,7 @@
       "img_url": "https://loremflickr.com/cache/resized/2902_33703976312_7926b372b0_z_400_400_nofilter.jpg",
       "category": "borders",
       "title": "Пример товара 3",
-      "price": "1000",
+      "price": 1000,
       "color": "Желтая",
       "form": "Петра",
       "width": "15",
@@ -94,7 +101,7 @@
       "img_url": "https://loremflickr.com/cache/resized/65535_52627358729_53d4fef048_z_400_400_nofilter.jpg",
       "category": "borders",
       "title": "Пример товара 4",
-      "price": "1000",
+      "price": 1000,
       "color": "Желтая",
       "form": "Петра",
       "width": "15",
@@ -108,7 +115,7 @@
       "img_url": "https://loremflickr.com/cache/resized/65535_53147719513_c2c4e5623e_z_400_400_nofilter.jpg",
       "category": "borders",
       "title": "Пример товара 5",
-      "price": "1000",
+      "price": 1000,
       "color": "Желтая",
       "form": "Петра",
       "width": "15",
@@ -122,7 +129,7 @@
       "img_url": "https://loremflickr.com/cache/resized/65535_52733694762_6f2cc72a8d_z_400_400_nofilter.jpg",
       "category": "lawnGrate",
       "title": "Пример товара 6",
-      "price": "1000",
+      "price": 1000,
       "color": "Желтая",
       "form": "Петра",
       "width": "15",
@@ -136,7 +143,7 @@
       "img_url": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
       "category": "lawnGrate",
       "title": "Пример товара 7",
-      "price": "1000",
+      "price": 1000,
       "color": "Желтая",
       "form": "Петра",
       "width": "15",
@@ -150,7 +157,7 @@
       "img_url": "https://loremflickr.com/cache/resized/65535_52627441448_842afe99e3_z_400_400_nofilter.jpg",
       "category": "lawnGrate",
       "title": "Пример товара 8",
-      "price": "1000",
+      "price": 1000,
       "color": "Желтая",
       "form": "Петра",
       "width": "15",
@@ -191,18 +198,67 @@
   "comments": [],
   "orders": [
     {
-      "id": "8ee4",
-      "order_id": "1",
-      "user_id": "1",
-      "total": "5000",
+      "id": "cfba",
+      "first_name": "Петр",
+      "last_name": "Петрович",
+      "phone": "79999999999",
+      "email": "petr@petr.ru",
+      "delivery_method": "delivery",
+      "city": "Краснодар",
+      "street": "Пушкина",
+      "number": "1",
+      "comment_order": "Привет",
+      "user_id": "0ad9",
+      "created_at": "2024-11-17T14:45:50.863Z"
+    },
+    {
+      "id": "b903",
+      "first_name": "имя",
+      "last_name": "фамилия",
+      "phone": "телефон",
+      "email": "почта",
       "delivery_method": "pickup",
-      "shipping_adress": {
-        "city": "Краснодар",
-        "street": "восточно кругликовская",
-        "number": "42-3",
-        "comment_order": "г.Сочи, пер. Армянский 1"
-      },
-      "created_at": "10-12-2012"
+      "pickup_address": "г.Краснодар, Джубгинский проезд 19",
+      "user_id": "0ad9",
+      "created_at": "2024-11-17T14:47:26.811Z"
+    },
+    {
+      "id": "961d",
+      "first_name": "ФЕдор",
+      "last_name": "Федоров",
+      "phone": "79999999999",
+      "email": "fed@fed",
+      "delivery_method": "pickup",
+      "pickup_address": "а. Понежукай, ул. Ленина 1",
+      "user_id": "0ad9",
+      "created_at": "2024-11-17T14:51:33.530Z"
+    },
+    {
+      "id": "d549",
+      "first_name": "имя",
+      "last_name": "фамилия",
+      "phone": "7888888888",
+      "email": "x@x.ru",
+      "delivery_method": "delivery",
+      "city": "Краснодар",
+      "street": "Пушкина",
+      "number": "2",
+      "comment_order": "Ghbdtn",
+      "user_id": "0ad9",
+      "created_at": "2024-11-17T14:51:45.945Z"
+    },
+    {
+      "id": "f534",
+      "first_name": "Иван",
+      "last_name": "Иванов",
+      "phone": "89679679679",
+      "email": "ivan@ivan.ru",
+      "delivery_method": "pickup",
+      "city": "а. Понежукай",
+      "street": "ул. Ленина",
+      "number": "1",
+      "user_id": "0ad9",
+      "created_at": "2024-11-17T19:13:32.719Z"
     }
   ],
   "carts": [
@@ -212,26 +268,40 @@
       "product_id": "5",
       "img_url": "https://loremflickr.com/cache/resized/65535_53147719513_c2c4e5623e_z_400_400_nofilter.jpg",
       "title": "Пример товара 5",
+      "price": 900,
       "color": "Желтая",
       "form": "Петра",
-      "count": ""
+      "count": 10
     },
     {
-      "id": "7f0c",
+      "id": "e39b",
       "user_id": "0ad9",
-      "product_id": "1",
-      "img_url": "https://loremflickr.com/cache/resized/65535_52730399535_9ebd065dbf_400_400_nofilter.jpg",
-      "title": "Тротуарная плитка",
+      "product_id": "6",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52733694762_6f2cc72a8d_z_400_400_nofilter.jpg",
+      "price": 1000,
+      "title": "Пример товара 6",
       "color": "Желтая",
       "form": "Петра",
-      "count": ""
+      "count": 15
     },
     {
-      "id": "781c",
+      "id": "c32b",
       "user_id": "0ad9",
-      "product_id": "1",
-      "img_url": "https://loremflickr.com/cache/resized/65535_52730399535_9ebd065dbf_400_400_nofilter.jpg",
-      "title": "Тротуарная плитка",
+      "product_id": "7",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
+      "price": 1000,
+      "title": "Пример товара 7",
+      "color": "Желтая",
+      "form": "Петра",
+      "count": 20
+    },
+    {
+      "id": "8e13",
+      "user_id": "0ad9",
+      "product_id": "10",
+      "img_url": "https://loremflickr.com/cache/resized/5494_9304630833_5d9c245b94_z_400_400_nofilter.jpg",
+      "price": "1000",
+      "title": "Пример товара 10",
       "color": "Желтая",
       "form": "Петра",
       "count": ""
@@ -278,8 +348,52 @@
       }
     },
     {
-      "id": "e779",
-      "hash": "0.43797950238585547921843499352689832448959350585938",
+      "id": "ae1c",
+      "hash": "0.49466470985644717117679647344630211591720581054688",
+      "user": {
+        "id": "0",
+        "login": "admin",
+        "password": "admin1",
+        "registeredAt": "31.10.2024",
+        "roleId": 0
+      }
+    },
+    {
+      "id": "a1d0",
+      "hash": "0.67565917269965947156151742092333734035491943359375",
+      "user": {
+        "id": "5511",
+        "login": "admin2",
+        "password": "admin2",
+        "registeredAt": "17/11/2024 19:47",
+        "roleId": 0
+      }
+    },
+    {
+      "id": "74ed",
+      "hash": "0.21257138306441025754622842214303091168403625488281",
+      "user": {
+        "id": "5511",
+        "login": "admin2",
+        "password": "admin2",
+        "registeredAt": "17/11/2024 19:47",
+        "roleId": 0
+      }
+    },
+    {
+      "id": "97bd",
+      "hash": "0.99064048485534139665276143205119296908378601074219",
+      "user": {
+        "id": "5511",
+        "login": "admin2",
+        "password": "admin2",
+        "registeredAt": "17/11/2024 19:47",
+        "roleId": 0
+      }
+    },
+    {
+      "id": "d85c",
+      "hash": "0.59508292997395551005013203393900766968727111816406",
       "user": {
         "id": "0ad9",
         "login": "alina",

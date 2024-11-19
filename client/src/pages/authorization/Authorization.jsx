@@ -7,10 +7,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { server } from "../../bff";
 import { AuthFormError, Button, H2, Input } from "../../components";
 import { useResetForm } from "../../hooks";
-import { setUser } from "../../action";
+import { setUser, setCart } from "../../action";
 import { selectUserRole } from "../../selectors";
 import { ROLE } from "../../constans/role";
 import styled from "styled-components";
+
 
 const authFormSchema = yup.object().shape({
   login: yup
@@ -52,6 +53,7 @@ const AuthorizationContainer = ({ className }) => {
     },
     resolver: yupResolver(authFormSchema),
   });
+
   const [serverError, setServerError] = useState(null);
   const dispatch = useDispatch();
 
@@ -62,14 +64,21 @@ const AuthorizationContainer = ({ className }) => {
   const onSubmit = ({ login, password }) => {
     server.authorize(login, password).then(({ error, res }) => {
       if (error) {
-        setServerError(` Ошибка запроса:  ${error}`);
+        setServerError(`Ошибка запроса: ${error}`);
         return;
       }
 
       dispatch(setUser(res));
       sessionStorage.setItem("userData", JSON.stringify(res));
+
+      server.fetchCart(res.id).then((cartData) => {
+        console.log('Cart Data:', cartData);
+        dispatch(setCart(cartData));
+        sessionStorage.setItem("cartData", JSON.stringify(cartData));
+      });
     });
   };
+
   const formError = errors?.login?.message || errors?.password?.message;
   const errorMessage = formError || serverError;
 

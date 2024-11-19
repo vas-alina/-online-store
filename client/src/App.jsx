@@ -6,6 +6,7 @@ import { Footer } from "./components/footer/Footer";
 import GlobalStyle from "./GlobalStyles";
 import { useDispatch } from "react-redux";
 import { setUser } from "./action";
+import { setCart } from "./action";
 import styled from "styled-components";
 import { CatalogPage } from "../src/pages/CatalogPage/CatalogPage";
 // import { CartPage } from "../src/pages/CartPage/CartPage";
@@ -21,16 +22,18 @@ import { ProductDetailPage } from "./pages/ProductPage/Product";
 import { OrderPage } from "./pages/CartPage/components/OrderPage/OrderPage";
 import PavingSlabs from "./pages/CatalogPage/components/paving-slabs/PavingSlabs";
 import { CartPage } from "./pages/CartPage/CartPage";
-import { OrdersPage } from "./pages/AdminPage/components/OrdersPage/OrdersPage";
+import { Orders } from "./pages/orders/Orders";
+// import { OrdersPage } from "./pages/AdminPage/components/OrdersPage/OrdersPage";
+// import { Orders } from "./pages/orders/Orders";
 
 const AppColumn = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh; 
+  min-height: 100vh;
   justify-content: space-between;
   position: relative;
-  margin: 0 auto; 
+  margin: 0 auto;
   background-color: #ffff;
 `;
 const Page = styled.div`
@@ -44,7 +47,7 @@ export const App = () => {
 
   useLayoutEffect(() => {
     const currentUserDataJSON = sessionStorage.getItem("userData");
-
+    const currentCartDataJSON = sessionStorage.getItem("cartData");
     if (!currentUserDataJSON) {
       return;
     }
@@ -55,7 +58,17 @@ export const App = () => {
         roleId: Number(currentUserData.roleId),
       })
     );
+    if (currentUserData.roleId === 0) {
+      return;
+    }
+
+    if (!currentCartDataJSON) {
+      return;
+    }
+    const currentCartData = JSON.parse(currentCartDataJSON);
+    dispatch(setCart(currentCartData));
   }, [dispatch]);
+
   return (
     <>
       <GlobalStyle />
@@ -72,9 +85,8 @@ export const App = () => {
             <Route path="/personal" element={<PersonalPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/order" element={<OrderPage />} />
-            <Route path="/orders" element={<OrdersPage />} />
+            <Route path="/orders" element={<Orders />} />
             <Route path="/paving-slabs" element={<PavingSlabs />} />
-        
           </Routes>
         </Page>
         <Footer />

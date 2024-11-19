@@ -16,5 +16,6 @@ export * from "./delete-product";
 export * from "./add-product";
 export * from './get-products';
 export * from "./get-cart";
+export * from "./get-carts";
 export * from "./delete-product-from-cart";
 export * from "./get-orders"

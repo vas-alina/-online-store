@@ -14,8 +14,7 @@ export const useServerRequest = () => {
         "fetchProduct",
         "fetchProducts",
         "fetchCart",
-        "fetchOrders",
-        "saveCart"].includes(
+        ].includes(
           operation)
         ? params
         : [session, ...params];

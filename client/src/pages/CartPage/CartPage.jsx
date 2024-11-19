@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROLE } from "../../constans";
 import { Link } from "react-router-dom";
-import { selectProduct, selectUserId, selectUserRole } from "../../selectors";
-
+import { selectUserId, selectUserRole } from "../../selectors";
 import { CartItem } from "./components/CartItem/CartItem";
 import {
   Container,
@@ -14,8 +13,9 @@ import {
   ClearButton,
   CheckoutNote,
   ErrorDiv,
+  
 } from "./style";
-import { removeFromCart } from "../../action/remove-from-cart";
+// import { removeFromCart } from "../../action/remove-from-cart";
 import { removeAllFromCart } from "../../action/remove-all-from-cart";
 import { Button, } from "../../components";
 
@@ -25,14 +25,13 @@ export const CartPage = () => {
   const roleId = useSelector(selectUserRole);
   const navigate = useNavigate();
   const [showAuthMessage, setShowAuthMessage] = useState(false);
-  const product = useSelector(selectProduct)
   const userId = useSelector(selectUserId)
   const dispatch = useDispatch();
 
   //TODO: нерабочая схема
-  const handleRemove = (id) => {
-    dispatch(removeFromCart(id));
-  };
+  // const handleRemove = (id) => {
+  //   dispatch(removeFromCart(id));
+  // };
   const handleAllRemove = () => {
     dispatch(removeAllFromCart());
   };
@@ -69,7 +68,6 @@ export const CartPage = () => {
     );
   };
 
-
   const handleCheckout = () => {
     if (roleId === ROLE.GUEST) {
       setShowAuthMessage(true);
@@ -99,8 +97,7 @@ export const CartPage = () => {
                 key={item.id}
                 product={item}
                 onUpdateQuantity={handleUpdateQuantity}
-                onRemove={handleRemove}
-                onAllRemove={handleAllRemove}
+
               />
             );
           })
@@ -108,11 +105,11 @@ export const CartPage = () => {
       </CartItemsContainer>
 
       <CartSummary>
-        <h2>Сумма заказа</h2>
-        <h3>Сумма заказа </h3>
+        <h2>Сумма заказа</h2> 
+        <h3>{}</h3>
         <Button width="200px" onClick={handleCheckout}>
-          {" "}
-          Оформить заказ{" "}
+          
+          Оформить заказ
         </Button>
 
         <CheckoutNote>
