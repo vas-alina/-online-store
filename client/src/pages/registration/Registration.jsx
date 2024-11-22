@@ -10,7 +10,8 @@ import { useResetForm } from "../../hooks";
 import { setUser } from "../../action";
 import { selectUserRole } from "../../selectors";
 import { ROLE } from "../../constans/role";
-import styled from "styled-components";
+import { RegistrationContainer } from "./style";
+
 
 const regFormSchema = yup.object().shape({
   login: yup
@@ -37,7 +38,7 @@ const regFormSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Пароли не совпадают"),
 });
 
-const RegistrationContainer = ({ className }) => {
+export const Registration = () => {
   const {
     register,
     reset,
@@ -79,7 +80,7 @@ const RegistrationContainer = ({ className }) => {
     return <Navigate to="/" />;
   }
   return (
-    <div className={className}>
+    <RegistrationContainer>
       <H2>Регистрация</H2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -108,17 +109,7 @@ const RegistrationContainer = ({ className }) => {
         </Button>
         {errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
       </form>
-    </div>
+    </RegistrationContainer>
   );
 };
-export const Registration = styled(RegistrationContainer)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
-  & > form {
-    display: flex;
-    flex-direction: column;
-    width: 260px;
-  }
-`;

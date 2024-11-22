@@ -6,10 +6,11 @@ import { useServerRequest } from "../../hooks";
 import { selectUserRole } from "../../selectors";
 import { checkAccess } from "../../utils";
 import { ROLE } from "../../constans";
-import styled from "styled-components";
-import { PrivateContent } from "../../components";
 
-const UsersContainer = ({ className }) => {
+import { PrivateContent } from "../../components";
+import { UsersContainer } from "./style";
+
+export const Users = () => {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -45,7 +46,7 @@ const UsersContainer = ({ className }) => {
   };
   return (
     <PrivateContent access={[ROLE.ADMIN]} serverError={errorMessage}>
-      <div className={className}>
+      <UsersContainer>
         <H2>Пользователи</H2>
         <div>
           <TableRow>
@@ -67,16 +68,8 @@ const UsersContainer = ({ className }) => {
             />
           ))}
         </div>
-      </div>
+      </UsersContainer>
     </PrivateContent>
   );
 };
 
-export const Users = styled(UsersContainer)`
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  align-items: center;
-  width: 570px;
-  font-size: 18px;
-`;

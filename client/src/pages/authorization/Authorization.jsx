@@ -10,8 +10,7 @@ import { useResetForm } from "../../hooks";
 import { setUser, setCart } from "../../action";
 import { selectUserRole } from "../../selectors";
 import { ROLE } from "../../constans/role";
-import styled from "styled-components";
-
+import { AuthorizationContainer, StyledLink } from "./style";
 
 const authFormSchema = yup.object().shape({
   login: yup
@@ -33,14 +32,8 @@ const authFormSchema = yup.object().shape({
     .min(6, "Неверно заполнен пароль. Минимум 6 символов")
     .max(30, "Неверно заполнен пароль. Максимум 30 символов"),
 });
-const StyledLink = styled(Link)`
-  text-align: center;
-  text-decoration: underline;
-  margin: 20px 0;
-  font-size: 18px;
-`;
 
-const AuthorizationContainer = ({ className }) => {
+export const Authorization = () => {
   const {
     register,
     reset,
@@ -72,7 +65,6 @@ const AuthorizationContainer = ({ className }) => {
       sessionStorage.setItem("userData", JSON.stringify(res));
 
       server.fetchCart(res.id).then((cartData) => {
-        console.log('Cart Data:', cartData);
         dispatch(setCart(cartData));
         sessionStorage.setItem("cartData", JSON.stringify(cartData));
       });
@@ -86,7 +78,7 @@ const AuthorizationContainer = ({ className }) => {
     return <Navigate to="/" />;
   }
   return (
-    <div className={className}>
+    <AuthorizationContainer>
       <H2>Авторизация</H2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -107,19 +99,10 @@ const AuthorizationContainer = ({ className }) => {
           Авторизоваться
         </Button>
         {errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
-        <StyledLink to="/register">Регистрация</StyledLink>
+        <StyledLink>
+          <Link to="/register">Регистрация </Link>
+        </StyledLink>
       </form>
-    </div>
+    </AuthorizationContainer>
   );
 };
-export const Authorization = styled(AuthorizationContainer)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  & > form {
-    display: flex;
-    flex-direction: column;
-    width: 260px;
-  }
-`;

@@ -305,6 +305,17 @@
       "color": "Желтая",
       "form": "Петра",
       "count": ""
+    },
+    {
+      "id": "0a7e",
+      "user_id": "0ad9",
+      "product_id": "7",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
+      "price": 1000,
+      "title": "Пример товара 7",
+      "color": "Желтая",
+      "form": "Петра",
+      "count": ""
     }
   ],
   "sessions": [
@@ -394,6 +405,23 @@
     {
       "id": "d85c",
       "hash": "0.59508292997395551005013203393900766968727111816406",
+      "user": {
+        "id": "0ad9",
+        "login": "alina",
+        "password": "qwe123",
+        "registeredAt": "Fri Feb 14 2053 ",
+        "roleId": 2,
+        "contactDetais": {
+          "name": "",
+          "last_name": "",
+          "phone": "",
+          "email": ""
+        }
+      }
+    },
+    {
+      "id": "c556",
+      "hash": "0.03125501094190119566462726652389392256736755371094",
       "user": {
         "id": "0ad9",
         "login": "alina",

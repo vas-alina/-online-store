@@ -1,9 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-import { Icon } from "../../../Icon/Icon";
 import { ROLE } from "../../../../bff/constans/role";
-import { IconsBlock } from "../../styled";
 import {
   selectUserRole,
   selectUserLogin,
@@ -11,24 +8,19 @@ import {
 } from "../../../../selectors";
 import { logout } from "../../../../action";
 import { checkAccess } from "../../../../utils";
+
+import { Icon } from "../../../Icon/Icon";
+import { IconsBlock } from "../../style";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GroupIcon from "@mui/icons-material/Group";
 import LogoutIcon from "@mui/icons-material/Logout";
-
 import TocIcon from "@mui/icons-material/Toc";
-const RightAligned = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`;
 
-const UserName = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-`;
-const ControlPanelContainer = ({ className }) => {
+import { ControlPanelContainer, RightAligned, UserName } from "./style";
+
+  export const ControlPanel = () => {
   const roleId = useSelector(selectUserRole);
   const login = useSelector(selectUserLogin);
   const dispatch = useDispatch();
@@ -43,7 +35,7 @@ const ControlPanelContainer = ({ className }) => {
 
   const isAdmin = checkAccess([ROLE.ADMIN], roleId);
   return (
-    <div className={className}>
+    <ControlPanelContainer>
       <RightAligned>
         {roleId === ROLE.GUEST ? (
           <>
@@ -52,7 +44,7 @@ const ControlPanelContainer = ({ className }) => {
                 icon={AccountCircleIcon}
                 size="25px"
                 color="var(--item-color)"
-                hoverColor="darkorange"
+                margin="0 30px"
               />
               <Link to="/login">Войти</Link>
             </IconsBlock>
@@ -64,7 +56,7 @@ const ControlPanelContainer = ({ className }) => {
               icon={LogoutIcon}
               size="25px"
               color="var(--item-color)"
-              hoverColor="darkorange"
+              margin="0 30px"
               onClick={onLogout}
             />
           </>
@@ -74,7 +66,7 @@ const ControlPanelContainer = ({ className }) => {
             icon={FavoriteBorderIcon}
             size="25px"
             color="var(--item-color)"
-            hoverColor="darkorange"
+            margin="0 30px"
           />
           <Link to="/favorite">Избранное</Link>
         </IconsBlock>
@@ -84,7 +76,7 @@ const ControlPanelContainer = ({ className }) => {
             icon={ShoppingCartIcon}
             size="25px"
             color="var(--item-color)"
-            hoverColor="darkorange"
+            margin="0 30px"
           />
           <Link to="/cart">Корзина</Link>
         </IconsBlock>
@@ -97,7 +89,7 @@ const ControlPanelContainer = ({ className }) => {
                   icon={TocIcon}
                   size="25px"
                   color="var(--item-color)"
-                  hoverColor="darkorange"
+                  margin="0 30px"
                 />
               </Link>
               <Link to="/users">
@@ -112,8 +104,6 @@ const ControlPanelContainer = ({ className }) => {
           )}
         </RightAligned>
       </RightAligned>
-    </div>
+    </ControlPanelContainer>
   );
 };
-
-export const ControlPanel = styled(ControlPanelContainer)``;

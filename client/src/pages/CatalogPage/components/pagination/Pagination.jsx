@@ -1,11 +1,13 @@
 
 import { Button } from "../../../../components";
-import styled from "styled-components";
+import { PaginationContainer } from "./style";
 
-// eslint-disable-next-line react/prop-types
-const PaginationContainer = ({ className, page, lastPage, setPage }) => {
+
+
+
+export const Pagination = ({ page, lastPage, setPage }) => {
   return (
-    <div className={className}>
+    <PaginationContainer>
       <Button disabled={page === 1} onClick={() => setPage(1)}>
         В начало
       </Button>
@@ -19,32 +21,6 @@ const PaginationContainer = ({ className, page, lastPage, setPage }) => {
       <Button disabled={page === lastPage} onClick={() => setPage(lastPage)}>
         В конец
       </Button>
-    </div>
+    </PaginationContainer>
   );
 };
-
-export const Pagination = styled(PaginationContainer)`
-  display: flex;
-  justify-content: center;
-  /* position: absolute; */
-  bottom: 140px;
-  width: 100%;
-  margin: 0 0 20px;
-  padding: 0 35px;
-
-  & button {
-    margin: 0 5px;
-  }
-
-  & .current-page {
-    width: 100%;
-    height: 32px;
-    margin: 0 5px;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 26px;
-    text-align: center;
-    border: 1px solid #000;
-  }
-`;
-

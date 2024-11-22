@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useMatch, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { Comments, ProductContent, ProductForm } from "./components";
+// import { Comments, ProductContent, ProductForm } from "./components";
 import { PrivateContent } from "../../components";
 import { useServerRequest } from "../../hooks";
 import { selectProduct } from "../../selectors";
