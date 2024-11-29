@@ -1,13 +1,21 @@
 require('dotenv').config();
+
 const express = require('express');
 const sequelize = require('./db')
 const cookieParser = require("cookie-parser");
-const mapUser = require('./helpers/mapUser')
-const { register, login, getUsers, getRoles, updateUser, deleteUser } = require('./controllers/user');
-const authenticated = require('./middleware/authenticated');
-const hasRole = require('./middleware/hasRole');
-const ROLES = require('./constants/role');
-
+// const mapUser = require('./helpers/mapUser')
+// const { register, login, getUsers, getRoles, updateUser, deleteUser } = require('./controllers/user');
+// const { addOrder, getOrders,  deleteOrder } = require('./controllers/order');
+// const { addCart, deleteAllCart, deleteCart, getCart } = require('./controllers/cart')
+// const {addProduct, deleteProduct, editProduct, getProduct, getProducts} = require("./controllers/product")
+// const authenticated = require('./middleware/authenticated');
+// const hasRole = require('./middleware/hasRole');
+// const ROLES = require('./constants/role');
+// const mapOrders = require('./helpers/mapOrder');
+const setupAssociations = require('./models/associations');
+// const { addFavorites, deleteFavorites, getFavorites, deleteAllFavorites } = require('./controllers/favorites');
+// const mapProduct = require('./helpers/mapProduct');
+const routes = require('./routers')
 
 const PORT = process.env.PORT
 
@@ -16,67 +24,278 @@ const app = express()
 app.use(express.json());
 app.use(cookieParser());
 
-app.post('/register', async (req, res) => {
-    try {
-        const { login, password } = req.body;
-        const { user, token } = await register(login, password);
-        res.cookie('token', token, { httpOnly: true })
-            .send({ error: null, user: mapUser(user) });
+app.use('/api', routes)
 
-    } catch (error) {
-        res.status(400).send({ error: error.message || "Unknown error" });
-    }
-});
-app.post('/login', async (req, res) => {
-    try {
-        const { login: userLogin, password } = req.body;
-        const { user, token } = await login(userLogin, password);
-        res.cookie('token', token, { httpOnly: true });
-        res.send({ error: null, user: mapUser(user) });
-    } catch (error) {
-        res.status(401).send({ error: error.message || "Unknown error" });
-    }
-});
+// app.post('/register', async (req, res) => {
+//     try {
 
-app.post('/logout', (req, res) => {
-    res.cookie('token', '', { httpOnly: true, expires: new Date(0) });
-    res.send({ message: 'Logged out successfully' });
-});
+//         const { login, password } = req.body;
+//         const { user, token } = await register(login, password);
+//         res.cookie('token', token, { httpOnly: true })
+//             .send({ error: null, user: mapUser(user) });
 
-app.get('/posts', async (req, res) => {
-    const { posts, lastPage } = await getPosts(
-        req.query.search,
-        req.query.limit,
-        req.query.page,
-    )
+//     } catch (error) {
+//         res.status(400).send({ error: error.message || "Unknown error" });
+//     }
+// });
+// app.post('/login', async (req, res) => {
+//     try {
+//         const { login: userLogin, password } = req.body;
+//         const { user, token } = await login(userLogin, password);
+//         res.cookie('token', token, { httpOnly: true });
+//         res.send({ error: null, user: mapUser(user) });
+//     } catch (error) {
+//         res.status(401).send({ error: error.message || "Unknown error" });
+//     }
+// });
 
-    res.send({ data: { lastPage, posts: posts.map(mapPost) } })
-})
+// app.post('/logout', (req, res) => {
+//     res.cookie('token', '', { httpOnly: true });
+//     res.send({ message: 'Вы успешно вышли из аккаунта' });
+// });
+
+// app.get('/products', async (req, res) => {
+//     const { products, lastPage } = await getProducts(
+//         req.query.search,
+//         req.query.limit,
+//         req.query.page,
+//     )
+
+//     res.send({ data: { lastPage, products: products.map(mapProduct) } })
+// })
+// app.get('/products/:id', async (req, res) => {
+//     const product = await getProduct(req.params.id)
+
+//     res.send({ data: mapProduct(product) })
+// })
+
+//Все что делается после аут
+// app.use(authenticated);
+//пользователи
+//получение роли
+// app.get('/users/roles', async (req, res) => {
+//     const roles = getRoles()
+
+//     res.send({ data: roles })
+// })
+// //получение пользователей
+// app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {
+//     const users = await getUsers()
+
+//     res.send({ data: users.map(mapUser) })
+// })
+// //редактирование
+// app.patch('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
+//     const newUser = await updateUser(req.params.id, {
+//         role_id: req.body.roleId
+//     })
+//     res.send({ data: mapUser(newUser) })
+// })
+// //удаление
+// app.delete('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
+//     await deleteUser(req.params.id)
+
+//     res.send({ message: "Позьзователь удален", error: null })
+// })
+//товары
+//добавление
+// app.post('/products', hasRole([ROLES.ADMIN]), async (req, res) => {
+//     try {
+//         const product = req.body.product
+
+//         const newProduct = await addProduct(product);
+
+//         res.status(201).send({
+//             error: null,
+//             product: newProduct
+//         });
+//     } catch (error) {
+//         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
+//     }
+// })
+//удаление
+// app.delete('/products/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
+//     await deleteProduct(req.params.id)
+
+//     res.send({ message: "Товар удален", error: null })
+// })
+// //редактирование
+// app.patch('/products/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
+//     try {
+//         const productId = req.params.id;
+//         const productData = req.body; 
+//         const updatedProduct = await editProduct(productId, productData);
+//         if (!updatedProduct) {
+//             return res.status(404).send({ error: 'Продукт не найден или не удалось обновить данные.' });
+//         }
+//         res.status(200).send({ 
+//             message: 'Продукт успешно обновлён.',
+//             product: updatedProduct 
+//         });
+//     } catch (error) {
+//         res.status(500).send({ error: error.message || 'Произошла ошибка при обновлении продукта.' });
+//     }
+// });
+//корзина
+//получитьэ
+// app.get('/cart', async (req, res) => {
+//     try {
+//         const userId = req.user.id
+
+//         const { productId } = req.query;
+//         const cart = await getCart(userId, productId);
+//         console.log(cart)
+//         res.status(201).send({ error: null, cart });
+//     } catch (error) {
+//         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
+//     }
+// })
+// //добавить
+// app.post('/cart', async (req, res) => {
+//     try {
+//         const { productId, count } = req.body;
+//         if (!productId || !count) {
+//             return res.status(400).send({ error: "Product ID and count are required." });
+//         }
+//         const cartItem = await addCart(req, res);
+        
+//         res.status(201).send({ error: null, cartItem });
+//     } catch (error) {
+//         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
+//     }
+// });
+// //удалить все
+// app.delete('/cart', async (req, res) => {
+//     try {
+//         const userId = req.user.id; 
+
+//         const success = await deleteAllCart(userId);
+
+//         if (success) {
+//             res.status(200).send({ message: "Все товары были удалены из корзины." });
+//         } else {
+//             res.status(404).send({ error: "Нет товаров в корзине." });
+//         }
+//     } catch (error) {
+//         res.status(500).send({ error: error.message || "Неизвестная ошибка." });
+//     }
+// });
+// //удалить один элемент
+// app.delete('/carts/:id', async (req, res) => {
+//     try {
+//        const userId = req.user.id;  
+//        console.log(userId)
+//         const cartId = req.params.id;
+//         console.log(cartId)
+//         const deletedCart = await deleteCart(userId, favoriteId)
+//         if (deletedCart) {
+//             res.send({ message: "Товар удален из корзины", error: null });
+//         } else {
+//             res.status(404).send({ error: "Товар не найден в корзине" });
+//         }
+//     } catch (error) {
+//         res.status(500).send({ error: error.message || "Неизвестная ошибка" });
+//     }
+    
+//     })
+//заказы
+//добавление
+// app.post('/order', async (req, res) => {
+//     try {
+//         const userId = req.user.id
+//         console.log(userId)
+//         const orderData = req.body
+//         console.log(orderData)
+//         const newOrder = await addOrder(userId, orderData)
+//         res.status(201).send({ error: null, order: newOrder });
+//     } catch (error) {
+//         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
+//     }
+// });
+// //удаление для админа
+// app.delete('/orders/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
+//     await deleteOrder(req.params.id)
+
+//     res.send({ message: "Заказ удален", error: null })
+// })
 
 
-app.use(authenticated);
+// //все заказы для админа 
 
-app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {
-    const users = await getUsers()
+// app.get('/orders', hasRole([ROLES.ADMIN]), async (req, res) => {
+//     const orders = await getOrders()
 
-    res.send({ data: users.map(mapUser) })
-})
-app.get('/users/roles', async (req, res) => {
-    const roles = getRoles()
+//     res.send({ orders: orders.map(mapOrders) })
+// })
 
-    res.send({ data: roles })
-})
-app.patch('/users/:id', async (req, res) => {
-    const newUser = await updateUser(req.params.id, {
-        role: rq.body.roleId
-    })
-    res.send({ data: mapUser(newUser) })
-})
-app.delete('/users/:id', async (req, res) => {
-    await deleteUser(req.params.id)
 
-    res.send({ error: null })
-})
+
+//избранное
+// app.get('/favorites', async (req, res) => {
+//     try {
+//         const userId = req.user.id
+
+//         const { productId } = req.query;
+//         const favorite = await getFavorites(userId, productId);
+//         console.log(favorite)
+//         res.status(201).send({ error: null, favorite });
+//     } catch (error) {
+//         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
+//     }
+// })
+// app.post('/favorites', async (req, res) => {
+//     try {
+//         const userId = req.user.id
+//         console.log(userId)
+//         const { productId } = req.body;
+//         if (!productId ) {
+//             return res.status(400).send({ error: "Product ID and count are required." });
+//         }
+//         console.log(productId)
+//         const favorite = await addFavorites(userId, productId);
+//         console.log(favorite)
+//         res.status(201).send({ error: null, favorite });
+//     } catch (error) {
+//         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
+//     }
+// });
+
+// app.delete('/favorites/:id', async (req, res) => {
+//     try {
+//        const userId = req.user.id;  
+//        console.log(userId)
+//         const favoriteId = req.params.id;
+//         console.log(favoriteId)
+//         const deletedFavorite = await deleteFavorites(userId, favoriteId)
+//         if (deletedFavorite) {
+//             res.send({ message: "Товар удален из избранного", error: null });
+//         } else {
+//             res.status(404).send({ error: "Товар не найден в избранном" });
+//         }
+//     } catch (error) {
+//         res.status(500).send({ error: error.message || "Неизвестная ошибка" });
+//     }
+    
+//     })
+//     app.delete('/favorites', async (req, res) => {
+//         try {
+//             const userId = req.user.id; 
+    
+//             const success = await deleteAllFavorites(userId);
+    
+//             if (success) {
+//                 res.status(200).send({ message: "Все товары были удалены из избранного." });
+//             } else {
+//                 res.status(404).send({ error: "Нет товаров в избранном." });
+//             }
+//         } catch (error) {
+//             res.status(500).send({ error: error.message || "Неизвестная ошибка." });
+//         }
+//     });
+
+
+
+setupAssociations();
 
 const start = async () => {
     try {

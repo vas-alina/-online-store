@@ -3,6 +3,7 @@ const User = require("../models/User")
 const {generate} = require('../helpers/token')
 const ROLES = require('../constants/role')
 //register
+
 async function register(login, password) {
     if (!password) {
         throw new Error('Password is empty');
@@ -12,19 +13,20 @@ async function register(login, password) {
     const token = generate({ id: user.id })
 
     return { user, token};
+    
 }
 //login
 async function login(login, password) {
     const user = await User.findOne({ where: { login } });
 
     if (!user) {
-        throw new Error('User is not found')
+        throw new Error('Такого пользователя не существует')
     }
 
     const isPassworMatch = await bcrypt.compare(password, user.password)
 
     if (!isPassworMatch) {
-        throw new Error('Password dont match')
+        throw new Error('Неверный пароль')
     }
 
     const token = generate({ id: user.id })
@@ -32,8 +34,16 @@ async function login(login, password) {
     return { token, user }
 };
 
-function getUsers() {
-    return User.findAll()
+// function getUsers() {
+//     return User.findAll()
+// }
+async function getUsers() {
+    try {
+        return await User.findAll();  
+    } catch (error) {
+        console.error('Error fetching users:', error.message);
+        throw new Error('Failed to retrieve users');
+    }
 }
 
 function getRoles() {

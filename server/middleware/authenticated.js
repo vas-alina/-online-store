@@ -4,6 +4,7 @@ const User = require("../models/User")
 module.exports = async function (req, res, next) {
     try {
         const token = req.cookies.token
+        
         const tokenData = verify(token)
     
         const user = await User.findOne({ where: { id: tokenData.id } });
