@@ -16,7 +16,7 @@ import {
   ProductDescription,
   PriceAndCartContainer,
   ProductPrice,
-//   AddToCartButton,
+  //   AddToCartButton,
   TabsContainer,
   TabButton,
   TabContent,
@@ -27,20 +27,28 @@ import {
   ReviewAuthor,
   ReviewText,
   ProductCardPageContainer,
+  ProductForm,
+  InputQuantity,
 } from "./style";
 import { Button, Icon } from "../../components";
 import { useAddToCart } from "../../hooks/use-add-to-cart";
 
 export const ProductCardPage = () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("characteristics");
+  const [count, setCount] = useState(0);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
   const product = useSelector(selectProduct);
   const userRole = useSelector(selectUserRole);
   const requestServer = useServerRequest();
-  const [activeTab, setActiveTab] = useState("characteristics");
+
   const { addToCart } = useAddToCart(userRole);
+
+
+  
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -57,13 +65,32 @@ export const ProductCardPage = () => {
     loadProduct();
   }, [requestServer, dispatch, id]);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+//   const handleQuantityChange = (event) => {
+//     const value = Number(event.target.value);
+//     if (!isNaN(value)  >= 0) {
+//       setCount(value);
+//     }
+//   };
+const handleQuantityChange = (event) => {
+    const value = Number(event.target.value); 
+    let newQuantity = value; 
+    if (!isNaN(newQuantity) && newQuantity >= 0) {
+      setCount(newQuantity); 
+    } else {
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
+      setCount(0);
+    }
+    return newQuantity; 
   };
 
+
+
+  const handleAddToCart = (product) => {
+    // const {count} = product
+    dispatch(addToCart({...product, count}));
+  };
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
   return (
     <ProductCardPageContainer>
       <ProductPageMainContainer>
@@ -85,8 +112,17 @@ export const ProductCardPage = () => {
           <PriceAndCartContainer>
             <div>
               <ProductPrice>{product.price} ₽</ProductPrice>
-              <ProductPrice>{product.count} м2</ProductPrice>
             </div>
+            <ProductForm>
+        <label htmlFor="quantity">Количество м²:</label>
+        <InputQuantity
+          type="number"
+          id="quantity"
+          value={count}
+          onChange={handleQuantityChange}
+          min="1" 
+        />
+      </ProductForm>
           </PriceAndCartContainer>
           <div>
             <Button onClick={() => handleAddToCart(product)}> В корзину</Button>

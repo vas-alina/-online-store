@@ -7,7 +7,10 @@ export const useAddToCart = (userRole) => {
     const [cart, setCart] = useState([]);
     const userId = useSelector(selectUserId)
     const product = useSelector(selectProduct)
+
     const addToCart = async ({ count }) => {
+        
+
 
         if (userRole === ROLE.GUEST) {
             const localCart = JSON.parse(localStorage.getItem('cart')) || [];

@@ -16,13 +16,14 @@ import {
 export const CartItem = ({
   product,
   onUpdateQuantity,
-  // onRemove,
-  onllRemove,
+  onRemove,
+  onRemoveProduct,
+  cart
 
 }) => {
   const { id, count, price, img_url, title, form, color } = product;
   const image = product.img_url
-  
+  // const deleteId = cart.id
   const itemTotal = count * price;
   
   return (
@@ -50,6 +51,7 @@ export const CartItem = ({
         <QuantityButton onClick={() => onUpdateQuantity(id, count + 1)}>
           +
         </QuantityButton>
+        <button onClick={() => onRemoveProduct(id)}>Удалить</button>
         <PriceSection>
         <TotalPrice>Итог: {itemTotal} ₽</TotalPrice>
         </PriceSection>

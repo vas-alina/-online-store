@@ -196,6 +196,45 @@
     }
   ],
   "comments": [],
+  "favorites": [
+    {
+      "id": "a419",
+      "user_id": "0ad9",
+      "product_id": "4",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52627358729_53d4fef048_z_400_400_nofilter.jpg",
+      "price": 1000,
+      "title": "Пример товара 4",
+      "color": "Желтая",
+      "form": "Петра"
+    },
+    {
+      "id": "efba",
+      "user_id": "0ad9",
+      "product_id": "",
+      "img_url": "",
+      "title": ""
+    },
+    {
+      "id": "2dbd",
+      "user_id": "0ad9",
+      "product_id": "7",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
+      "price": 1000,
+      "title": "Пример товара 7",
+      "color": "Желтая",
+      "form": "Петра"
+    },
+    {
+      "id": "81b6",
+      "user_id": "0ad9",
+      "product_id": "7",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
+      "price": 1000,
+      "title": "Пример товара 7",
+      "color": "Желтая",
+      "form": "Петра"
+    }
+  ],
   "orders": [
     {
       "id": "cfba",
@@ -259,63 +298,138 @@
       "number": "1",
       "user_id": "0ad9",
       "created_at": "2024-11-17T19:13:32.719Z"
+    },
+    {
+      "id": "5965",
+      "first_name": "htrg",
+      "last_name": "rtgwfe",
+      "phone": "gefw",
+      "email": "gewfwdqw",
+      "deliveryMethod": "delivery",
+      "city": "fwedq",
+      "street": "wfeqd",
+      "number": "feqdw",
+      "comment_order": "qdws",
+      "user_id": "0ad9",
+      "created_at": "2024-11-26T19:15:40.830Z"
+    },
+    {
+      "id": "45f9",
+      "first_name": "htrg",
+      "last_name": "rtgwfe",
+      "phone": "gefw",
+      "email": "gewfwdqw",
+      "totalAmount": 65000,
+      "deliveryMethod": "delivery",
+      "city": "fwedq",
+      "street": "wfeqd",
+      "number": "feqdw",
+      "comment_order": "qdws",
+      "user_id": "0ad9",
+      "created_at": "2024-11-26T19:16:08.294Z"
+    },
+    {
+      "id": "9390",
+      "first_name": "gw",
+      "last_name": "we",
+      "phone": "we",
+      "email": "wfe",
+      "totalAmount": 65000,
+      "deliveryMethod": "delivery",
+      "city": "fwe",
+      "street": "wfe",
+      "number": "fwe",
+      "comment_order": "we",
+      "user_id": "0ad9",
+      "created_at": "2024-11-26T19:18:26.100Z"
+    },
+    {
+      "id": "b401",
+      "first_name": "thgtrth",
+      "last_name": "regeg",
+      "phone": "gregre",
+      "email": "greg",
+      "totalAmount": 115000,
+      "deliveryMethod": "pickup",
+      "pickupAddress": {
+        "city": "г.Сочи",
+        "street": "пер. Армянский",
+        "number": "1"
+      },
+      "user_id": "0ad9",
+      "created_at": "2024-11-27T06:02:15.175Z"
+    },
+    {
+      "id": "ab3f",
+      "first_name": "е",
+      "last_name": "4",
+      "phone": "4",
+      "email": "4",
+      "totalAmount": 16000,
+      "deliveryMethod": "delivery",
+      "city": "4",
+      "street": "4",
+      "number": "4",
+      "comment_order": "4",
+      "user_id": "0ad9",
+      "created_at": "2024-11-27T06:46:56.678Z"
+    },
+    {
+      "id": "756f",
+      "first_name": "rt4",
+      "last_name": "ger",
+      "phone": "gre",
+      "email": "gre",
+      "totalAmount": 15000,
+      "deliveryMethod": "delivery",
+      "city": "wff",
+      "street": "fwe",
+      "number": "fw",
+      "comment_order": "fwe",
+      "user_id": "0ad9",
+      "created_at": "2024-11-27T06:55:24.498Z"
+    },
+    {
+      "id": "09c1",
+      "first_name": "rt4",
+      "last_name": "ger",
+      "phone": "gre",
+      "email": "gre",
+      "totalAmount": 15000,
+      "deliveryMethod": "delivery",
+      "city": "wff",
+      "street": "fwe",
+      "number": "fw",
+      "comment_order": "fwe",
+      "user_id": "0ad9",
+      "created_at": "2024-11-27T06:56:52.008Z"
+    },
+    {
+      "id": "4aa7",
+      "first_name": "i87",
+      "last_name": "78",
+      "phone": "78",
+      "email": "78",
+      "totalAmount": 9000,
+      "deliveryMethod": "pickup",
+      "city": "а. Понежукай",
+      "street": "ул. Ленина",
+      "number": "1",
+      "user_id": "0ad9",
+      "created_at": "2024-11-27T07:50:32.450Z"
     }
   ],
   "carts": [
     {
-      "id": "091a",
+      "id": "7589",
       "user_id": "0ad9",
-      "product_id": "5",
-      "img_url": "https://loremflickr.com/cache/resized/65535_53147719513_c2c4e5623e_z_400_400_nofilter.jpg",
-      "title": "Пример товара 5",
-      "price": 900,
-      "color": "Желтая",
-      "form": "Петра",
-      "count": 10
-    },
-    {
-      "id": "e39b",
-      "user_id": "0ad9",
-      "product_id": "6",
-      "img_url": "https://loremflickr.com/cache/resized/65535_52733694762_6f2cc72a8d_z_400_400_nofilter.jpg",
+      "product_id": "2",
+      "img_url": "https://loremflickr.com/cache/resized/65535_52750642974_d92f69439c_z_400_400_nofilter.jpg",
       "price": 1000,
-      "title": "Пример товара 6",
+      "title": "Пример товара 2",
       "color": "Желтая",
       "form": "Петра",
-      "count": 15
-    },
-    {
-      "id": "c32b",
-      "user_id": "0ad9",
-      "product_id": "7",
-      "img_url": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
-      "price": 1000,
-      "title": "Пример товара 7",
-      "color": "Желтая",
-      "form": "Петра",
-      "count": 20
-    },
-    {
-      "id": "8e13",
-      "user_id": "0ad9",
-      "product_id": "10",
-      "img_url": "https://loremflickr.com/cache/resized/5494_9304630833_5d9c245b94_z_400_400_nofilter.jpg",
-      "price": "1000",
-      "title": "Пример товара 10",
-      "color": "Желтая",
-      "form": "Петра",
-      "count": ""
-    },
-    {
-      "id": "0a7e",
-      "user_id": "0ad9",
-      "product_id": "7",
-      "img_url": "https://loremflickr.com/cache/resized/65535_52682216652_0213474bf0_z_400_400_nofilter.jpg",
-      "price": 1000,
-      "title": "Пример товара 7",
-      "color": "Желтая",
-      "form": "Петра",
-      "count": ""
+      "count": 50
     }
   ],
   "sessions": [
@@ -420,8 +534,8 @@
       }
     },
     {
-      "id": "c556",
-      "hash": "0.03125501094190119566462726652389392256736755371094",
+      "id": "07ed",
+      "hash": "0.15274353761656134231827763869659975171089172363281",
       "user": {
         "id": "0ad9",
         "login": "alina",

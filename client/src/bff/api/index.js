@@ -14,8 +14,13 @@ export * from "./set-user-role";
 export * from "./update-product";
 export * from "./delete-product";
 export * from "./add-product";
-export * from './get-products';
+export * from "./get-products";
 export * from "./get-cart";
 export * from "./get-carts";
 export * from "./delete-product-from-cart";
-export * from "./get-orders"
+export * from "./get-orders";
+export * from "./get-favorites";
+export * from "./clear-favorites-on-server";
+export * from "./clear-cart-on-server";
+export * from "./delete-product-from-favorites"
+export * from "./delete-product-from-cart"

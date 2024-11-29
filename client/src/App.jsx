@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useLayoutEffect } from "react";
-import { setCart, setUser } from "./action";
+import { setCart, setUser, setFavorites } from "./action";
 import {
   Authorization,
   CartPage,
@@ -11,6 +11,7 @@ import {
   PersonalPage,
   ProductCardPage,
   Users,
+  FavoritesPage,
 } from "./pages";
 import { OrderPage } from "./pages/CartPage/components/OrderPage/OrderPage";
 import Header from "./components/Header/Header";
@@ -22,10 +23,8 @@ import { CatalogPage } from "../src/pages/CatalogPage/CatalogPage";
 
 import { Modal } from "./components";
 
-
 import GlobalStyle from "./GlobalStyles";
 import { AppContainer, Page } from "./style";
-
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -33,6 +32,8 @@ export const App = () => {
   useLayoutEffect(() => {
     const currentUserDataJSON = sessionStorage.getItem("userData");
     const currentCartDataJSON = sessionStorage.getItem("cartData");
+    const currentFavoritesDataJSON = sessionStorage.getItem("favoritesData");
+
     if (!currentUserDataJSON) {
       return;
     }
@@ -52,6 +53,12 @@ export const App = () => {
     }
     const currentCartData = JSON.parse(currentCartDataJSON);
     dispatch(setCart(currentCartData));
+
+    if (!currentFavoritesDataJSON) {
+      return;
+    }
+    const currentFavoritesData = JSON.parse(currentCartDataJSON);
+    dispatch(setFavorites(currentFavoritesData));
   }, [dispatch]);
 
   return (
@@ -71,6 +78,7 @@ export const App = () => {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/order" element={<OrderPage />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
           </Routes>
         </Page>
         <Footer />

@@ -8,19 +8,29 @@ export const ActionBlock = styled.div`
 `;
 
 export const Card = styled.div`
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 16px;
-  width: 200px;
-  margin: 10px;
-  text-align: center;
+ display: flex;
+ flex-direction: column;
   
 
-  :hover {
+  
+`;
+
+export const CardItem = styled.div`
+display:flex;
+flex-direction: column;
+ border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px;
+  width: 200px;
+  margin: 1px;
+  text-align: center;
+:hover {
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
-`;
+
+
+`
 
 export const Image = styled.img`
   width: 100%;

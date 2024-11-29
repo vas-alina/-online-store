@@ -14,6 +14,7 @@ export const useServerRequest = () => {
         "fetchProduct",
         "fetchProducts",
         "fetchCart",
+        "fetchFavorites"
         ].includes(
           operation)
         ? params

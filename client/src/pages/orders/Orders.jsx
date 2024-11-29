@@ -6,7 +6,6 @@ import { useServerRequest } from "../../hooks";
 import { selectUserRole } from "../../selectors";
 import { checkAccess } from "../../utils";
 import { ROLE } from "../../constans";
-import styled from "styled-components";
 import { PrivateContent } from "../../components";
 import{ OrderRow }from "./components/OrderRow";
 import { TableRow } from "../users/components";

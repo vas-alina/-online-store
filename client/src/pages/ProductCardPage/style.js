@@ -8,7 +8,7 @@ export const ProductCardPageContainer = styled.div`
   align-items: center;
   padding: 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 100px auto 0;
 `;
 export const ProductPageMainContainer = styled.div`
 display: flex;
@@ -176,4 +176,18 @@ export const ReviewAuthor = styled.div`
 export const ReviewText = styled.div`
   font-size: 16px;
   color: #666;
+`;
+
+export const ProductForm = styled.form`
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+`;
+
+export const InputQuantity = styled.input`
+  width: 80px;
+  padding: 5px;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 `;

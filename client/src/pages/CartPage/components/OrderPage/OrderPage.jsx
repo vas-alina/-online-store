@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Input, Title } from "../../../../components";
 import { useState } from "react";
 import { Container } from "../../style";
@@ -7,6 +7,8 @@ import {
   AddressCard,
   AddressList,
   FormSection,
+  ModalContent,
+  ModalOverlay,
   OrderSummary,
   SectionContact,
   SectionSelectShipping,
@@ -14,6 +16,10 @@ import {
   TabButton,
   TabsContainer,
 } from "./style";
+
+import { useDispatch, useSelector } from "react-redux";
+import { removeAllFromCart } from "../../../../bff/operations/remove-all-from-cart";
+import { selectUserId } from "../../../../selectors";
 
 const addresses = [
   {city:"г.Сочи",
@@ -30,7 +36,8 @@ const addresses = [
 ];
 
 export const OrderPage = () => {
-  const navigate = useNavigate();
+  const [cart, setCart] = useState([])
+  const [showModal, setShowModal] = useState(false);
   const [methodShipping, setMethodShipping] = useState("delivery");
   const [selectAdress, setSelectAdress] = useState(addresses[1]);
   const { addNewOrder, error } = useAddNewOrder("customer");
@@ -46,6 +53,11 @@ export const OrderPage = () => {
     number: "",
     comment_order: "",
   });
+  const userId = useSelector(selectUserId)
+const navigate = useNavigate();
+const dispatch = useDispatch()
+  const location = useLocation();
+  const totalAmount = location.state?.totalAmount || 0;
   const handleContactChange = (field, value) => {
     setContactData((prev) => ({ ...prev, [field]: value }));
   };
@@ -53,17 +65,27 @@ export const OrderPage = () => {
   const handleDeliveryChange = (field, value) => {
     setDeliveryData((prev) => ({ ...prev, [field]: value }));
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const orderData = {
       ...contactData,
+      totalAmount,
       deliveryMethod: methodShipping,
       ...(methodShipping === "delivery"
         ? deliveryData
-        : { pickupAddress: selectAdress }),
+        : selectAdress),
     };
 
     addNewOrder(orderData);
-    console.log(orderData);
+    console.log("Заказ создан:", orderData);
+    await dispatch(removeAllFromCart(userId))
+    setCart([])
+    console.log("Корзина успешно очищена после создания заказа"); 
+    setShowModal(true)
+  };
+
+  const closeModalAndRedirect = () => {
+    setShowModal(false);
+    navigate('/'); 
   };
   return (
     <Container>
@@ -165,9 +187,18 @@ export const OrderPage = () => {
           ← Вернуться в корзину
         </Button>
         <p>количество товаров</p>
-        <Title as="h2">сумма</Title>
+        <Title as="h2">{totalAmount}</Title>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <Button onClick={handleSubmit}>Подтвердить заказ</Button>
+        {showModal && (
+      <ModalOverlay>
+        <ModalContent>
+          <h2>Заказ успешно создан!</h2>
+          <p>Дождитесь подтверждения оператора.</p>
+          <button onClick={closeModalAndRedirect}>На главную</button>
+        </ModalContent>
+      </ModalOverlay>
+    )}
       </OrderSummary>
     </Container>
   );

@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { server } from "../../bff";
 import { AuthFormError, Button, H2, Input } from "../../components";
 import { useResetForm } from "../../hooks";
-import { setUser, setCart } from "../../action";
+import { setUser, setCart, setFavorites } from "../../action";
 import { selectUserRole } from "../../selectors";
 import { ROLE } from "../../constans/role";
 import { AuthorizationContainer, StyledLink } from "./style";
@@ -55,20 +55,40 @@ export const Authorization = () => {
   useResetForm(reset);
 
   const onSubmit = ({ login, password }) => {
-    server.authorize(login, password).then(({ error, res }) => {
-      if (error) {
-        setServerError(`Ошибка запроса: ${error}`);
-        return;
-      }
+    server
+      .authorize(login, password)
+      .then(({ error, res }) => {
+        if (error) {
+          setServerError(`Ошибка запроса: ${error}`);
+          return;
+        }
 
-      dispatch(setUser(res));
-      sessionStorage.setItem("userData", JSON.stringify(res));
+        dispatch(setUser(res));
+        sessionStorage.setItem("userData", JSON.stringify(res));
 
-      server.fetchCart(res.id).then((cartData) => {
-        dispatch(setCart(cartData));
-        sessionStorage.setItem("cartData", JSON.stringify(cartData));
+        Promise.all([server.fetchCart(res.id), server.fetchFavorites(res.id)])
+          .then(([cartData, favoritesData]) => {
+            dispatch(setCart(cartData));
+            sessionStorage.setItem("cartData", JSON.stringify(cartData));
+
+            dispatch(setFavorites(favoritesData));
+            sessionStorage.setItem(
+              "favoritesData",
+              JSON.stringify(favoritesData)
+            );
+          })
+          .catch((fetchError) => {
+            console.error(
+              "Ошибка при загрузке данных корзины или избранного:",
+              fetchError
+            );
+
+            
+          });
+      })
+      .catch((authError) => {
+        setServerError(`Ошибка авторизации: ${authError}`);
       });
-    });
   };
 
   const formError = errors?.login?.message || errors?.password?.message;

@@ -20,7 +20,7 @@ import TocIcon from "@mui/icons-material/Toc";
 
 import { ControlPanelContainer, RightAligned, UserName } from "./style";
 
-  export const ControlPanel = () => {
+export const ControlPanel = () => {
   const roleId = useSelector(selectUserRole);
   const login = useSelector(selectUserLogin);
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ import { ControlPanelContainer, RightAligned, UserName } from "./style";
             color="var(--item-color)"
             margin="0 30px"
           />
-          <Link to="/favorite">Избранное</Link>
+          <Link to="/favorites">Избранное</Link>
         </IconsBlock>
 
         <IconsBlock>

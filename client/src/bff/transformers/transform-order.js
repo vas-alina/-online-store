@@ -10,9 +10,10 @@ export const transformOrder = (dbOrder) => ({
       number: dbOrder.number,
       commentOrder: dbOrder.comment_order,
       userId: dbOrder.user_id,
+      totalAmount: dbOrder.total_amount,
       createdAt: dbOrder.created_at
-    
-   
-  
-   
+
+
+
+
 });
