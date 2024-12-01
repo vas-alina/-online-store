@@ -25,6 +25,7 @@ import { Modal } from "./components";
 
 import GlobalStyle from "./GlobalStyles";
 import { AppContainer, Page } from "./style";
+import { AdminOrdersPage, AdminUsersPage, AdminCatalogPage } from "./pages/AdminPage";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -73,11 +74,16 @@ export const App = () => {
             <Route path="/products" element={<CatalogPage />} />
             <Route path="/products/:id" element={<ProductCardPage />} />
             <Route path="/register" element={<Registration />} />
-            <Route path="/users" element={<Users />} />
+
+
+            <Route path="/users" element={<AdminUsersPage />} />
+            <Route path="/orders" element={<AdminOrdersPage />} />
+            <Route path="/catalog" element={<AdminCatalogPage />} />
+
+
             <Route path="/personal" element={<PersonalPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/order" element={<OrderPage />} />
-            <Route path="/orders" element={<Orders />} />
             <Route path="/favorites" element={<FavoritesPage />} />
           </Routes>
         </Page>
