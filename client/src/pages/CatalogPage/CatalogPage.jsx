@@ -8,11 +8,11 @@ import {
   MenuItem,
   Sidebar,
 } from "./style";
-import { useServerRequest } from "../../hooks";
+
 import { PAGINATION_LIMIT } from "../../constans";
-// import { debounce, getLastPageFromLinks } from "../main/utils";
 import { Pagination } from "./components/pagination/Pagination";
-import { debounce, getLastPageFromLinks } from "./utils";
+import { debounce } from "./utils";
+import { request } from "../../utils/request";
 
 export const CatalogPage = () => {
   const [activeSection, setActiveSection] = useState("allProducts");
@@ -21,16 +21,28 @@ export const CatalogPage = () => {
   const [lastPage, setLastPage] = useState(2);
   const [searchPhrase, setSearchPhrase] = useState("");
   const [shouldSearch, setShouldSearch] = useState(false);
-  const requestServer = useServerRequest();
 
+  const fetchProducts = (category = "") => {
+    const categoryQuery = category ? `&category=${category}` : "";
+    request(
+      `/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}${categoryQuery}`
+    ).then(({ data: { products, lastPage } }) => {
+      setProducts(products);
+      setLastPage(lastPage);
+    });
+  };
   useEffect(() => {
-    requestServer("fetchProducts", searchPhrase, page, PAGINATION_LIMIT).then(
-      ({ res: { products, links } }) => {
-        setProducts(products);
-        setLastPage(getLastPageFromLinks(links));
-      }
-    );
-  }, [requestServer, page, shouldSearch]);
+    fetchProducts(activeSection === "allProducts" ? "" : activeSection);
+  }, [page, shouldSearch, activeSection]);
+
+  // useEffect(() => {
+  //   request(
+  //     `/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}`
+  //   ).then(({ data: { products, lastPage } }) => {
+  //     setProducts(products);
+  //     setLastPage(lastPage);
+  //   });
+  // }, [page, shouldSearch]);
 
   const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 2000), []);
 
@@ -40,17 +52,22 @@ export const CatalogPage = () => {
   };
 
   const renderContent = () => {
-    switch (activeSection) {
-      case "pavingSlabs":
-        return <ProductList category="pavingSlabs" title="Тротуарная плитка" />;
-      case "borders":
-        return <ProductList category="borders" title="Бордюры" />;
-      case "lawnGrate":
-        return <ProductList category="lawnGrate" title="Газонная решетка" />;
-      case "allProducts":
-      default:
-        return <ProductList title="Все товары" />;
-    }
+    // switch (activeSection) {
+    //   case "pavingSlabs":
+    //     return <ProductList category="pavingSlabs" title="Тротуарная плитка" />;
+    //   case "borders":
+    //     return <ProductList category="borders" title="Бордюры" />;
+    //   case "lawnGrate":
+    //     return <ProductList category="lawnGrate" title="Газонная решетка" />;
+    //   case "allProducts":
+    //   default:
+    //     return <ProductList title="Все товары" />;
+    // }
+    return (
+      <ProductList
+        category={activeSection === "allProducts" ? "" : activeSection}
+        title={activeSection === "allProducts" ? "Все товары" : activeSection}
+      />)
   };
 
   return (

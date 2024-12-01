@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const validator = require('validator');
 const sequelize = require('../db');
 const Comment = require('./Comment');
@@ -23,6 +23,10 @@ const Product = sequelize.define('product', {
     }
   },
   title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  category: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -54,10 +58,15 @@ const Product = sequelize.define('product', {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: Sequelize.NOW,
+    allowNull: false
+  }
 
 }, {
   tableName: 'products',
-  timestamps: false
+  timestamps: false,
 });
 
 

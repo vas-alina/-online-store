@@ -1,11 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ROLE } from "../../../../bff/constans/role";
-import {
-  selectUserRole,
-  selectUserLogin,
-  selectUserSession,
-} from "../../../../selectors";
+import { selectUserRole, selectUserLogin } from "../../../../selectors";
 import { logout } from "../../../../action";
 import { checkAccess } from "../../../../utils";
 
@@ -24,11 +20,10 @@ export const ControlPanel = () => {
   const roleId = useSelector(selectUserRole);
   const login = useSelector(selectUserLogin);
   const dispatch = useDispatch();
-  const session = useSelector(selectUserSession);
   const navigate = useNavigate();
 
   const onLogout = () => {
-    dispatch(logout(session));
+    dispatch(logout());
     sessionStorage.removeItem("userData");
     navigate("/");
   };

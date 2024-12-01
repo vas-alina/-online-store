@@ -11,6 +11,7 @@ import { setUser, setCart, setFavorites } from "../../action";
 import { selectUserRole } from "../../selectors";
 import { ROLE } from "../../constans/role";
 import { AuthorizationContainer, StyledLink } from "./style";
+import { request } from "../../utils/request";
 
 const authFormSchema = yup.object().shape({
   login: yup
@@ -55,18 +56,17 @@ export const Authorization = () => {
   useResetForm(reset);
 
   const onSubmit = ({ login, password }) => {
-    server
-      .authorize(login, password)
-      .then(({ error, res }) => {
+    request("/api/login", "POST", { login, password })
+      .then(({ error, user }) => {
         if (error) {
           setServerError(`Ошибка запроса: ${error}`);
           return;
         }
 
-        dispatch(setUser(res));
-        sessionStorage.setItem("userData", JSON.stringify(res));
-
-        Promise.all([server.fetchCart(res.id), server.fetchFavorites(res.id)])
+        dispatch(setUser(user));
+        sessionStorage.setItem("userData", JSON.stringify(user));
+//TODO: переделать хранилище
+        Promise.all([server.fetchCart(user.id), server.fetchFavorites(user.id)])
           .then(([cartData, favoritesData]) => {
             dispatch(setCart(cartData));
             sessionStorage.setItem("cartData", JSON.stringify(cartData));
@@ -82,8 +82,6 @@ export const Authorization = () => {
               "Ошибка при загрузке данных корзины или избранного:",
               fetchError
             );
-
-            
           });
       })
       .catch((authError) => {

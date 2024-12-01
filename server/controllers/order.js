@@ -3,31 +3,31 @@ const Order = require("../models/Order")
 
 //add
 
-//   function addOrder(orderData, cartItem) {
+  function addOrder(orderData, cartItem) {
 
-//     return Order.create({
-//       first_name: orderData.first_name,
-//       last_name: orderData.last_name,
-//       phone: orderData.phone,
-//       email: orderData.email,
-//       total_amount: orderData.totalAmount,
-//       delivery_method: orderData.deliveryMethod,
-//       city: orderData.city,
-//       street: orderData.street,
-//       number: orderData.number,
-//       user_id: orderData.user_id,
-//       comment_order: orderData.comment_order,
-//       carts: cartItem,
-//   },
-//   {
-//         include: [{
-//             model: Cart,
-//             as: 'carts'
-//         }]
-//     }
+    return Order.create({
+      first_name: orderData.first_name,
+      last_name: orderData.last_name,
+      phone: orderData.phone,
+      email: orderData.email,
+      total_amount: orderData.totalAmount,
+      delivery_method: orderData.deliveryMethod,
+      city: orderData.city,
+      street: orderData.street,
+      number: orderData.number,
+      user_id: orderData.user_id,
+      comment_order: orderData.comment_order,
+      carts: cartItem,
+  },
+  {
+        include: [{
+            model: Cart,
+            as: 'carts'
+        }]
+    }
 
-// ); 
-// }
+); 
+}
 async function addOrder(userId, orderData) {
   
     const newOrder = await Order.create({

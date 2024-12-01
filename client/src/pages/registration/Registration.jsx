@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { server } from "../../bff";
 import { useState } from "react";
 import { AuthFormError, Button, H2, Input } from "../../components";
 import { Navigate } from "react-router-dom";
@@ -11,7 +10,7 @@ import { setUser } from "../../action";
 import { selectUserRole } from "../../selectors";
 import { ROLE } from "../../constans/role";
 import { RegistrationContainer } from "./style";
-
+import { request } from "../../utils/request";
 
 const regFormSchema = yup.object().shape({
   login: yup
@@ -60,15 +59,17 @@ export const Registration = () => {
   useResetForm(reset);
 
   const onSubmit = ({ login, password }) => {
-    server.register(login, password).then(({ error, res }) => {
-      if (error) {
-        setServerError(` Ошибка запроса:  ${error}`);
-        return;
-      }
+    request("/api/register", "POST", { login, password }).then(
+      ({ error, user }) => {
+        if (error) {
+          setServerError(` Ошибка запроса:  ${error}`);
+          return;
+        }
 
-      dispatch(setUser(res));
-      sessionStorage.setItem("userData", JSON.stringify(res));
-    });
+        dispatch(setUser(user));
+        sessionStorage.setItem("userData", JSON.stringify(user));
+      }
+    );
   };
   const formError =
     errors?.login?.message ||
@@ -112,4 +113,3 @@ export const Registration = () => {
     </RegistrationContainer>
   );
 };
-

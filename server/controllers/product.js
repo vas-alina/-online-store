@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const sequelize = require('../db');
 const Product = require('../models/Product')
 
@@ -6,7 +7,6 @@ const Product = require('../models/Product')
 async function addProduct(product) {
     try {
         const newProduct = await Product.create({
-            // id: product.id,
             img_url: product.img_url,
             category: product.category,
             title: product.title,
@@ -57,22 +57,29 @@ async function deleteProduct(id) {
 }
 
 
-//get products
 async function getProducts(search = '', limit = 10, page = 1) {
     const offset = (page - 1) * limit;
-    const { count, rows: products } = await Product.findAndCountAll({
-        where: {
-            title: {
-                [Op.like]: `%${search}%`
-            }
-        },
-        limit: limit,
-        offset: offset,
-        order: [['createdAt', 'DESC']],
-    })
-    return {
-        products,
-        lastPage: Math.ceil(count / limit),
+
+    try {
+
+        const { count, rows: products } = await Product.findAndCountAll({
+            where: {
+                title: {
+                    [Op.like]: `%${search}%`
+                }
+            },
+            limit: limit,
+            offset: offset,
+            order: [['created_at', 'DESC']],
+        });
+
+        return {
+            products,
+            lastPage: Math.ceil(count / limit),
+        };
+    } catch (error) {
+        console.error('Ошибка при получении продуктов:', error);
+        throw new Error('Ошибка при получении продуктов');
     }
 }
 

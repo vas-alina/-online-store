@@ -3,8 +3,7 @@ module.exports = function (product) {
         id: product.id,
         title: product.title,
         imgUrl: product.img_url,
-        category: product.category ,
-      
+        category: product.category,
       price: product.price,
       color: product.color,
       form: product.form,
@@ -12,6 +11,7 @@ module.exports = function (product) {
       height: product.height,
       length: product.length,
       desc: product.desc,
+      createdAt: product.created_at,
       
         comments: Array.isArray(product.comments) 
             ? post.comments.map(comment => ({

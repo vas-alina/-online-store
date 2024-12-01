@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { H2 } from "../../components";
-import { TableRow, UserRow } from "./components";
-import { selectUserRole } from "../../selectors";
-import { checkAccess } from "../../utils";
-import { ROLE } from "../../constans";
-import { PrivateContent } from "../../components";
-import { UsersContainer } from "./style";
-import { request } from "../../utils/request";
+import { selectUserRole } from "../../../selectors";
+import { checkAccess } from "../../../utils";
+import { ROLE } from "../../../constans";
+import { request } from "../../../utils/request";
+import { H2, PrivateContent } from "../../../components";
+import { AdminUsersPageContainer } from "./style";
+import { TableRow } from "../AdminOrdersPage/style";
+import { UserRow } from "../../users/components";
 
-export const Users = () => {
+
+export const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -43,7 +44,7 @@ export const Users = () => {
   };
   return (
     <PrivateContent access={[ROLE.ADMIN]} serverError={errorMessage}>
-      <UsersContainer>
+      <AdminUsersPageContainer>
         <H2>Пользователи</H2>
         <div>
           <TableRow>
@@ -63,7 +64,7 @@ export const Users = () => {
             />
           ))}
         </div>
-      </UsersContainer>
+      </AdminUsersPageContainer>
     </PrivateContent>
   );
 };
