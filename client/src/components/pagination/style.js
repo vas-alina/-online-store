@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const PaginationContainer = styled.div`
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   bottom: 140px;
   width: 50%;
@@ -24,4 +24,3 @@ export const PaginationContainer = styled.div`
     border: 1px solid #000;
   }
 `;
-

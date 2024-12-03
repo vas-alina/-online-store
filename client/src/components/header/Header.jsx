@@ -1,7 +1,5 @@
 import LOGO from "../../assets/main-logo.png";
 import { Link } from "react-router-dom";
-import SearchIcon from "@mui/icons-material/Search";
-import { Button } from "../button/Button";
 import {
   HeaderContainer,
   CenterSection,
@@ -30,7 +28,7 @@ const Header = () => (
         <a href="#" title="Оплата и доставка">
           Оплата и доставка
         </a>
-        <a href="#" title="ля партнеров">
+        <a href="#" title="Для партнеров">
           Для партнеров
         </a>
         <a href="#" title="Офисы продаж">

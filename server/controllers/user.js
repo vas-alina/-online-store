@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require("../models/User")
-const {generate} = require('../helpers/token')
+const { generate } = require('../helpers/token')
 const ROLES = require('../constants/role')
 //register
 
@@ -12,10 +12,10 @@ async function register(login, password) {
     const user = await User.create({ login, password: passwordHash });
     const token = generate({ id: user.id })
 
-    return { user, token};
-    
+    return { user, token };
+
 }
-//login
+
 async function login(login, password) {
     const user = await User.findOne({ where: { login } });
 
@@ -24,22 +24,17 @@ async function login(login, password) {
     }
 
     const isPassworMatch = await bcrypt.compare(password, user.password)
-
     if (!isPassworMatch) {
         throw new Error('Неверный пароль')
     }
 
     const token = generate({ id: user.id })
-
     return { token, user }
 };
 
-// function getUsers() {
-//     return User.findAll()
-// }
 async function getUsers() {
     try {
-        return await User.findAll();  
+        return await User.findAll();
     } catch (error) {
         console.error('Error fetching users:', error.message);
         throw new Error('Failed to retrieve users');
@@ -48,25 +43,25 @@ async function getUsers() {
 
 function getRoles() {
     return [
-        {id: ROLES.ADMIN, name: 'Admin'},
-        {id: ROLES.MODERATOR, name: 'Moderator'},
-        {id: ROLES.USER, name: 'User'}
+        { id: ROLES.ADMIN, name: 'Администратор' },
+        { id: ROLES.MODERATOR, name: 'Модератор' },
+        { id: ROLES.USER, name: 'Пользователь' }
     ]
 }
 
 //delete
 async function deleteUser(id) {
-    const deletedCount = await User.destroy({ where: { id } }); 
+    const deletedCount = await User.destroy({ where: { id } });
     return deletedCount > 0;
 }
 //edit(roles)
 async function updateUser(id, userData) {
     const [updatedCount, [updatedUser]] = await User.update(userData, {
         where: { id },
-        returning: true 
+        returning: true
     });
-    
-    return updatedCount > 0 ? updatedUser : null; 
+
+    return updatedCount > 0 ? updatedUser : null;
 }
 module.exports = {
     register,

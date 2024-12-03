@@ -1,48 +1,38 @@
-import { useEffect, useMemo, useState } from "react";
-import { ProductList } from "./components/product-list/ProductList";
-import { Search } from "./components/search/Search";
-import {
-  CatalogPageContainer,
-  Content,
-  ItemBlock,
-  MenuItem,
-  Sidebar,
-} from "./style";
-
-import { PAGINATION_LIMIT } from "../../constans";
-import { Pagination } from "./components/pagination/Pagination";
-import { debounce } from "./utils";
+import { useMemo, useEffect, useState } from "react";
 import { request } from "../../utils/request";
+import { PAGINATION_LIMIT } from "../../constans";
+
+import {
+  Block,
+  CatalogContainer,
+  Item1,
+  Item2,
+  MainContent,
+  ProductGrid,
+  Sidebar,
+  SidebarItem,
+} from "./style";
+import { ProductCard } from "../../components/product-card/ProductCard";
+import { Pagination, Search } from "../../components";
+import { debounce } from "../../utils";
 
 export const CatalogPage = () => {
-  const [activeSection, setActiveSection] = useState("allProducts");
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(2);
   const [searchPhrase, setSearchPhrase] = useState("");
   const [shouldSearch, setShouldSearch] = useState(false);
 
-  const fetchProducts = (category = "") => {
-    const categoryQuery = category ? `&category=${category}` : "";
+  useEffect(() => {
     request(
-      `/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}${categoryQuery}`
+      `/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}`
     ).then(({ data: { products, lastPage } }) => {
       setProducts(products);
+      setFilteredProducts(products);
       setLastPage(lastPage);
     });
-  };
-  useEffect(() => {
-    fetchProducts(activeSection === "allProducts" ? "" : activeSection);
-  }, [page, shouldSearch, activeSection]);
-
-  // useEffect(() => {
-  //   request(
-  //     `/api/products?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}`
-  //   ).then(({ data: { products, lastPage } }) => {
-  //     setProducts(products);
-  //     setLastPage(lastPage);
-  //   });
-  // }, [page, shouldSearch]);
+  }, [page, shouldSearch]);
 
   const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 2000), []);
 
@@ -51,61 +41,59 @@ export const CatalogPage = () => {
     startDelayedSearch(!shouldSearch);
   };
 
-  const renderContent = () => {
-    // switch (activeSection) {
-    //   case "pavingSlabs":
-    //     return <ProductList category="pavingSlabs" title="Тротуарная плитка" />;
-    //   case "borders":
-    //     return <ProductList category="borders" title="Бордюры" />;
-    //   case "lawnGrate":
-    //     return <ProductList category="lawnGrate" title="Газонная решетка" />;
-    //   case "allProducts":
-    //   default:
-    //     return <ProductList title="Все товары" />;
-    // }
-    return (
-      <ProductList
-        category={activeSection === "allProducts" ? "" : activeSection}
-        title={activeSection === "allProducts" ? "Все товары" : activeSection}
-      />)
+  const filterByCategory = (category) => {
+    if (category === "all") {
+      setFilteredProducts(products);
+    } else {
+      const filtered = products.filter(
+        (product) => product.category === category
+      );
+      setFilteredProducts(filtered);
+    }
   };
 
   return (
-    <CatalogPageContainer>
+    <CatalogContainer>
       <Sidebar>
-        <MenuItem
-          active={activeSection === "allProducts"}
-          onClick={() => setActiveSection("allProducts")}
-        >
-          Все товары
-        </MenuItem>
-        <MenuItem
-          active={activeSection === "pavingSlabs"}
-          onClick={() => setActiveSection("pavingSlabs")}
-        >
-          Тротуарная плитка
-        </MenuItem>
-        <MenuItem
-          active={activeSection === "borders"}
-          onClick={() => setActiveSection("borders")}
-        >
-          Бордюры
-        </MenuItem>
-        <MenuItem
-          active={activeSection === "lawnGrate"}
-          onClick={() => setActiveSection("lawnGrate")}
-        >
-          Газонная решетка
-        </MenuItem>
+        <ul>
+          <SidebarItem onClick={() => filterByCategory("all")}>
+            Все товары
+          </SidebarItem>
+          <SidebarItem onClick={() => filterByCategory("pavingSlabs")}>
+            Брусчатка
+          </SidebarItem>
+          <SidebarItem onClick={() => filterByCategory("borders")}>
+            Бордюры
+          </SidebarItem>
+          <SidebarItem onClick={() => filterByCategory("lawnGrate")}>
+            Газонная решетка
+          </SidebarItem>
+        </ul>
       </Sidebar>
-      <Content>
-        <Search onChange={onSearch} searchPhrase={searchPhrase} />
-        <ItemBlock>{renderContent()}</ItemBlock>
+      <MainContent>
+        <div>
+          <Search onChange={onSearch} searchPhrase={searchPhrase} />
+        </div>
+        <Block>
+          <Item1>
+            {filteredProducts.length > 0 ? (
+              <ProductGrid>
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </ProductGrid>
+            ) : (
+              <div>Ничего не нашлось</div>
+            )}
+          </Item1>
 
-        {lastPage > 1 && products.length > 0 && (
-          <Pagination page={page} lastPage={lastPage} setPage={setPage} />
-        )}
-      </Content>
-    </CatalogPageContainer>
+          <Item2>
+            {lastPage > 1 && products.length > 0 && (
+              <Pagination page={page} lastPage={lastPage} setPage={setPage} />
+            )}
+          </Item2>
+        </Block>
+      </MainContent>
+    </CatalogContainer>
   );
 };

@@ -8,10 +8,11 @@ const initialState = {
 
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION_TYPE.SET_CART:
+    case ACTION_TYPE.SET_CART_DATA:
       return {
         ...state,
-        items: action.payload.items || [],
+        items: action.payload.items,
+        
       };
     case ACTION_TYPE.ADD_PRODUCT_TO_CART:
       return {

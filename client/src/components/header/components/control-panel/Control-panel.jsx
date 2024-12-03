@@ -13,6 +13,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GroupIcon from "@mui/icons-material/Group";
 import LogoutIcon from "@mui/icons-material/Logout";
 import TocIcon from "@mui/icons-material/Toc";
+import SellIcon from "@mui/icons-material/Sell";
 
 import { ControlPanelContainer, RightAligned, UserName } from "./style";
 
@@ -47,54 +48,70 @@ export const ControlPanel = () => {
         ) : (
           <>
             <UserName>{login}</UserName>
-            <Icon
-              icon={LogoutIcon}
-              size="25px"
-              color="var(--item-color)"
-              margin="0 30px"
-              onClick={onLogout}
-            />
+            <IconsBlock>
+              <Icon
+                icon={LogoutIcon}
+                size="25px"
+                color="var(--item-color)"
+                margin="0 30px"
+                onClick={onLogout}
+              />
+            </IconsBlock>
           </>
         )}
-        <IconsBlock>
-          <Icon
-            icon={FavoriteBorderIcon}
-            size="25px"
-            color="var(--item-color)"
-            margin="0 30px"
-          />
-          <Link to="/favorites">Избранное</Link>
-        </IconsBlock>
-
-        <IconsBlock>
-          <Icon
-            icon={ShoppingCartIcon}
-            size="25px"
-            color="var(--item-color)"
-            margin="0 30px"
-          />
-          <Link to="/cart">Корзина</Link>
-        </IconsBlock>
 
         <RightAligned>
-          {isAdmin && (
+          {isAdmin ? (
             <>
-              <Link to="/post">
+              <IconsBlock>
                 <Icon
                   icon={TocIcon}
                   size="25px"
                   color="var(--item-color)"
                   margin="0 30px"
                 />
-              </Link>
-              <Link to="/users">
+                <Link to="/catalog">Товары</Link>
+              </IconsBlock>
+              <IconsBlock>
                 <Icon
                   icon={GroupIcon}
                   size="25px"
                   color="var(--item-color)"
                   hoverColor="darkorange"
                 />
-              </Link>
+                <Link to="/users"> Пользователи</Link>
+              </IconsBlock>
+              <IconsBlock>
+                <Icon
+                  icon={SellIcon}
+                  size="25px"
+                  color="var(--item-color)"
+                  hoverColor="darkorange"
+                />
+                <Link to="/orders">Заказы</Link>
+              </IconsBlock>
+            </>
+          ) : (
+            <>
+              <IconsBlock>
+                <Icon
+                  icon={FavoriteBorderIcon}
+                  size="25px"
+                  color="var(--item-color)"
+                  margin="0 30px"
+                />
+                <Link to="/favorites">Избранное</Link>
+              </IconsBlock>
+
+              <IconsBlock>
+                <Icon
+                  icon={ShoppingCartIcon}
+                  size="25px"
+                  color="var(--item-color)"
+                  margin="0 30px"
+                />
+                <Link to="/cart">Корзина</Link>
+              </IconsBlock>
             </>
           )}
         </RightAligned>

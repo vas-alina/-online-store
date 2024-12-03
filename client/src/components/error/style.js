@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-export const UsersContainer = styled.div`
+
+export const ErrorContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
   align-items: center;
-  width: 570px;
-  font-size: 18px;
+  color: red;
+  font-size: 20px;
+  margin-bottom: 10px;
 `;

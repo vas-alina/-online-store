@@ -20,72 +20,74 @@ import { Button, } from "../../components";
 import { clearCartOnServer } from "../../bff/api/clear-cart-on-server";
 import { removeFromCart } from "../../action/remove-from-cart";
 import { deleteProductFromCart } from "../../bff/api";
-import { clearCart } from "../../action";
+import { clearCart, loadCartAsync, setCart, setUser } from "../../action";
 import { removeAllFromCart } from "../../bff/operations/remove-all-from-cart";
+import { request } from "../../utils/request";
 
 export const CartPage = () => {
-  const [cartProducts, setCartProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [carts, setCarts] = useState([]);
+  const [products, setProducts] = useState([]);
+ 
+  const [loading, setLoading] = useState(false);
+  const userId = useSelector(selectUserId);
   const roleId = useSelector(selectUserRole);
-  const navigate = useNavigate();
-  const [showAuthMessage, setShowAuthMessage] = useState(false);
-  const userId = useSelector(selectUserId)
-  const dispatch = useDispatch();
-const cart = useSelector(selectCart)
-
-
-
-  useEffect(() => {
+const dispatch = useDispatch()
+const [error, setError] = useState(null)
+const [showAuthMessage, setShowAuthMessage] = useState(false);
+const navigate = useNavigate();
+useEffect(() => {
+  const loadCarts = async () => {
     setLoading(true);
-    fetch("http://localhost:3010/carts")
-      .then((cartResponse) => {
-        if (!cartResponse.ok) {
-          throw new Error("Ошибка загрузки данных корзины");
-        }
-        return cartResponse.json();
-      })
+    try {
+      const cartResponse = await request(`/api/carts/${userId}`, "GET");
 
-      .then((cartData) => {
-        const userCart = cartData.filter((item) => item.user_id === userId)
-          console.log("Товары в корзине: ", userCart);
-          setCartProducts(userCart)
-        setLoading(false)
-      })
-      .catch((error) => {
-        console.error("Ошибка при загрузке данных корзины:", error);
-        setLoading(false);
-      })
-  }, [userId]);
+      if (Array.isArray(cartResponse.cart)) {
+        const productsWithDetails = await Promise.all(cartResponse.cart.map(async (cart) => {
+          const productDetails = await request(`/api/products/${cart.product_id}`, "GET");
+          return { ...cart, ...productDetails };
+        }));
+        setCarts(productsWithDetails);
+        setProducts(productsWithDetails)
+      } else {
+        setError("Ответ с сервера не содержит данных в правильном формате.");
+        console.error("Ответ с сервера:", cartResponse);
+      }
+    } catch (error) {
+      setError("Ошибка загрузки избранного");
+      console.error("Ошибка загрузки избранного:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (userId) {
+    loadCarts();
+  }
+}, [userId]);
+
 
 
   const getTotalAmount = () => {
-    return cartProducts.reduce((total, item) => {
+    return carts.reduce((total, item) => {
       return total + (item.count * item.price); 
     }, 0);
   };
 
   const handleUpdateQuantity = (id, newCount) => {
-    setCartProducts(prevCartProducts =>
+    setCart(prevCartProducts =>
       prevCartProducts.map(item =>
         item.id === id ? { ...item, count: newCount } : item
       )
     );
   };
 
-  const handleCheckout = () => {
-    const totalAmount = getTotalAmount()
-    if (roleId === ROLE.GUEST) {
-      setShowAuthMessage(true);
-    } else if (roleId === ROLE.USER) {
-      navigate("/order", { state: { totalAmount } });
-    }
-  };
+
 
     const handleRemoveProduct = async (cartId) => {
       try {
         await deleteProductFromCart(cartId);  
         dispatch(removeFromCart(cartId));     
-        setCartProducts((prevProducts) => prevProducts.filter(product => product.id !== cartId));
+        setCart((prevProducts) => prevProducts.filter(product => product.id !== cartId));
         console.log('Товар удален успешно');
       } catch (error) {
         console.error('Ошибка при удалении товара:', error.message);
@@ -93,26 +95,21 @@ const cart = useSelector(selectCart)
     };
     
     // const handleRemoveAll = async () => {
-    //   try {
-    //     if (userId) {
-    //       await clearCartOnServer(userId); 
-    //       dispatch(clearCart());            
-    //       setCartProducts([]);              
-    //     } else {
-    //       console.error('userId отсутствует');
-    //     }
-    //   } catch (error) {
-    //     console.error('Ошибка при очистке корзины:', error.message);
+    //   const result = await dispatch(removeAllFromCart(userId));
+      
+    //   if (result.res) {
+    //     setCartProducts([]);
+    //     console.log("Корзина успешно очищена");
+    //   } else {
+    //     console.error("Ошибка при очистке корзины:", result.error);
     //   }
     // };
-    const handleRemoveAll = async () => {
-      const result = await dispatch(removeAllFromCart(userId));
-      
-      if (result.res) {
-        setCartProducts([]);
-        console.log("Корзина успешно очищена");
-      } else {
-        console.error("Ошибка при очистке корзины:", result.error);
+    const handleCheckout = () => {
+      const totalAmount = getTotalAmount()
+      if (roleId === ROLE.GUEST) {
+        setShowAuthMessage(true);
+      } else if (roleId === ROLE.USER) {
+        navigate("/order", { state: { totalAmount } });
       }
     };
   if (loading) return <div>Загрузка корзины...</div>;
@@ -122,29 +119,32 @@ const cart = useSelector(selectCart)
       <CartItemsContainer>
         <CartTitle>
           <h2>Корзина</h2>
-          <ClearButton onClick={handleRemoveAll}>
+          {/* <ClearButton onClick={handleRemoveAll}>
             Очистить корзину
-          </ClearButton>
+          </ClearButton> */}
         </CartTitle>
-        {cartProducts.length === 0 ? (
+        {carts.length === 0 ? (
           <p>Ваша корзина пуста</p>
         ) : (
-          cartProducts.map((item) => {
-      
+          carts.map((item) => {
+      console.log(item)
             return (
+              <> 
+              <div>{item.data.title}</div>
               <CartItem
-                key={item.id}
-                product={item}
-                cart={cart}
+                key={item.data.id}
+                product={item.data}
+                // cart={cart}
                 onUpdateQuantity={handleUpdateQuantity}
               onRemoveProduct={handleRemoveProduct}
-              />
+              /></>
+             
             );
           })
         )}
         
       </CartItemsContainer>
-{cartProducts.length >0 ? (<CartSummary>
+{carts.length >0 ? (<CartSummary>
         <h2>Сумма заказа</h2> 
         <h3>{getTotalAmount()}</h3>
         <Button width="200px" onClick={handleCheckout}>

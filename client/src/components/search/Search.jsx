@@ -1,7 +1,9 @@
 
-import { Input, Icon } from "../../../../components";
+
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { SearchContainer } from "./style";
+import { Input } from "../input/Input";
+import { Icon } from "../Icon/Icon";
 
 export const Search = ({ className, searchPhrase, onChange }) => {
   return (

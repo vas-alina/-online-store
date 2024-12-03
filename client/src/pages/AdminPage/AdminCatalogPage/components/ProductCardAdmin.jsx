@@ -1,14 +1,26 @@
 import { ButtonGroup } from "@mui/material";
 import { ActionButton, CardContainer, ProductDetail, ProductImage, ProductInfo, ProductTitle } from "./style";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectProduct } from "../../../../selectors";
 
 
 const ProductCardAdmin = ({ product, onEdit, onDelete }) => {
+const { id } = product
+const navigate = useNavigate()
 
+const handleClick = () => {
+  navigate(`/products/${id}/`);
+  console.log(id)
+}
   return (
     <CardContainer>
       <ProductImage src={product.imgUrl} alt={product.title} />
       <ProductInfo>
-        <ProductTitle>{product.title}</ProductTitle>
+       
+        <ProductTitle onClick={handleClick} >{product.title}</ProductTitle>
+        
+        
         <ProductDetail>
           <strong>ID товара:</strong> {product.id}
         </ProductDetail>

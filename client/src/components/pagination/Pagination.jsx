@@ -1,9 +1,5 @@
-
-import { Button } from "../../../../components";
+import { Button } from "..";
 import { PaginationContainer } from "./style";
-
-
-
 
 export const Pagination = ({ page, lastPage, setPage }) => {
   return (
@@ -14,7 +10,7 @@ export const Pagination = ({ page, lastPage, setPage }) => {
       <Button disabled={page === 1} onClick={() => setPage(page - 1)}>
         Предыдущая
       </Button>
-      <div className="current-page">Страница: {page}</div>
+      <div className="current-page">{page}</div>
       <Button disabled={page === lastPage} onClick={() => setPage(page + 1)}>
         Следующая
       </Button>

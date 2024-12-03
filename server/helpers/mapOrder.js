@@ -11,6 +11,7 @@ module.exports = function (order) {
         street: order.street,
         number: order.number,
         userId: order.user_id,
+        commentOrder: order.comment_order,
         createdAt: order.created_at,
         updatedAt: order.updated_at
     }

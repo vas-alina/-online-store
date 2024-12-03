@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CardContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: 16px;
   margin: 10px 0;
   border: 1px solid #ccc;
@@ -23,15 +23,17 @@ export const ProductImage = styled.img`
 export const ProductInfo = styled.div`
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  /* flex-direction: column; */
 `;
 
 export const ProductTitle = styled.h3`
-  margin: 0 0 8px 0;
+  margin: 0 10px 8px 0;
+  width: 15%
 `;
 
 export const ProductDetail = styled.p`
-  margin: 2px 0;
+  margin: 2px 10px;
   font-size: 14px;
   color: #555;
 `;

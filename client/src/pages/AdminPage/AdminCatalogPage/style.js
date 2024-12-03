@@ -6,6 +6,16 @@ margin: 100px auto 0;
 justify-content: space-between;
 
 `
+export const ActionGroup = styled.div`
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+& :last-child{
+    width: 90%;
+}
+
+`
 
 export const AddProductGroup = styled.div`
 display: flex;

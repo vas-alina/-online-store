@@ -7,21 +7,37 @@ export const ActionBlock = styled.div`
   margin: 0 2px;
 `;
 
-export const Card = styled.div`
- display: flex;
- flex-direction: column;
-  
 
-  
+
+
+export const Card = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;       /* Центрирование по вертикали */
+align-items: center;   
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  /* padding: 16px; */
+  width: 250px;
+  height: 300px;
+  margin: 10px;
+  text-align: center;
+
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const CardItem = styled.div`
 display:flex;
 flex-direction: column;
- border: 1px solid #ddd;
+align-items: center;
+ border: 1px solid red;
   border-radius: 8px;
   padding: 5px;
   width: 200px;
+  height: 80%;
   margin: 1px;
   text-align: center;
 :hover {
@@ -33,7 +49,7 @@ flex-direction: column;
 `
 
 export const Image = styled.img`
-  width: 100%;
+  width: 150px;
   height: 150px;
   object-fit: cover;
   border-radius: 4px;

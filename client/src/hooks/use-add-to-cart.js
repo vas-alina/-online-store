@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ROLE } from "../constans";
 import { useSelector } from "react-redux";
 import { selectProduct, selectUserId } from "../selectors";
+import { request } from "../utils/request";
 
 export const useAddToCart = (userRole) => {
     const [cart, setCart] = useState([]);
@@ -19,21 +20,7 @@ export const useAddToCart = (userRole) => {
             setCart(updatedCart);
         } else if (userRole === ROLE.USER) {
             try {
-                const response = await fetch('http://localhost:3010/carts', {
-                    method: "POST",
-                    headers: { "Content-type": "application/json" },
-                    body: JSON.stringify({
-                        user_id: userId,
-                        product_id: product.id,
-                        img_url: product.imgUrl,
-                        price: product.price,
-                        title: product.title,
-                        color: product.color,
-                        form: product.form,
-                        count: count,
-
-                    }),
-                });
+                const response = await request('/api/cart', "POST", ({productId, userId}))
 
                 if (response.ok) {
                     const updatedCart = await response.json();

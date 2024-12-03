@@ -29,7 +29,7 @@ export const CartItem = ({
   return (
     <CartItemContainer>
       <ItemImage>
-        {image ? (<img src={product.img_url} alt={product.title} />) : (<div> Картинки нет</div>)}
+        {image ? (<img src={product.data.img_url} alt={product.title} />) : (<div> Картинки нет</div>)}
         
       </ItemImage>
       <ItemDetails>

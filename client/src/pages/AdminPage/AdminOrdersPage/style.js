@@ -1,14 +1,20 @@
 import styled from "styled-components";
 
+export const AdminOrdersPageContainer = styled.div`
+display: flex;
+flex-direction: column;
+margin: 100px auto 0;
+justify-content: space-between;
+`
 export const Table = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
   margin-top: 20px;
 `;
 
 export const TableRow = styled.div`
-  display: contents;
+  display: flex;
 
   & > div {
     padding: 10px;

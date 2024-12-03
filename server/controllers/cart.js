@@ -67,17 +67,14 @@ async function deleteCart(userId, cartId) {
     return deletedCount > 0;
 }
 
-
-
-//get cart
-async function getCart(userId) {
+async function getCarts(userId) {
 
     const cart = await Cart.findAll({
         where: { user_id: userId },
         include: [{
             model: Product,
             as: 'products',
-            attributes: ["id", "title", "price", "img_url", "color", "form", "price"]
+            attributes: ["id", "title", "price", "img_url", "color", "form"]
         }]
     });
     return cart
@@ -87,5 +84,6 @@ module.exports = {
     addCart,
     deleteAllCart,
     deleteCart,
-    getCart
+    // getCart,
+    getCarts
 }

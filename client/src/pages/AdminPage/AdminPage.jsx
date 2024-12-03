@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AdminItem, AdminItemsSection, AdminPageContainer } from "./style";
 
 export const AdminPage = () => {
@@ -6,9 +6,6 @@ export const AdminPage = () => {
   return (
     <AdminPageContainer>
       <AdminItemsSection>
-        <AdminItem>
-          <Link to="/catalog">Каталог</Link>
-        </AdminItem>
         <AdminItem onClick={() => navigate("/catalog")}>Все товары</AdminItem>
         <AdminItem onClick={() => navigate("/users")}>
           Все пользователи

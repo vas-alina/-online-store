@@ -14,17 +14,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUserRole } from "../../selectors";
 import { useAddToFavorites } from "../../hooks/use-add-to-favorites";
 
-export const ProductCard = ({ ...product }) => {
+export const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const userRole = useSelector(selectUserRole);
   const { addToFavorites } = useAddToFavorites(userRole);
   const dispatch = useDispatch();
+
+
   const handleCardClick = () => {
     navigate(`/products/${product.id}`);
   };
 
-  const handleAddToFavorites = (product) => {
-    dispatch(addToFavorites(product));
+  
+  const handleAddToFavorites = ({product}) => {
+    // const product = { id, imgUrl, title, price }; 
+    dispatch(addToFavorites(product)); 
   };
 
   return (
@@ -32,8 +36,12 @@ export const ProductCard = ({ ...product }) => {
       <Card>
         <CardItem onClick={handleCardClick}>
           <Image src={product.imgUrl} alt={product.title} />
-          <h2>{product.title}</h2>
-          <Price>{product.price} ₽</Price>
+          <div>
+           <h2>{product.title}</h2>
+          <h3>{product.form}{product.color}</h3>
+          
+          </div>
+          
         </CardItem>
 
         <ActionBlock>
@@ -42,8 +50,9 @@ export const ProductCard = ({ ...product }) => {
             size="25px"
             color="var(--item-color)"
             hoverColor="darkorange"
-            onClick={() => handleAddToFavorites(product)}
+            onClick={handleAddToFavorites} 
           />
+          <Price>{product.price} ₽</Price> 
           <Icon
             icon={AddShoppingCartIcon}
             size="25px"
@@ -57,3 +66,4 @@ export const ProductCard = ({ ...product }) => {
     </ProductCardContainer>
   );
 };
+

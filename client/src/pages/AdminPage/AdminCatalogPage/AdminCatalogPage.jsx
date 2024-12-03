@@ -1,43 +1,36 @@
 import { useMemo, useEffect, useState } from "react";
-import { PAGINATION_LIMIT, ROLE } from "../../../constans";
-import { debounce } from "../../CatalogPage/utils";
-import { request } from "../../../utils/request";
-import { Search } from "../../CatalogPage/components/search/Search";
-import { Pagination } from "../../CatalogPage/components/pagination/Pagination";
-import ProductCardAdmin from "./components/ProductCardAdmin";
-import {
-  AddProductGroup,
-  AdminCatalogContainer,
-  AllProductGroup,
-  InputContainer,
-} from "./style";
 
-import { checkAccess } from "../../../utils";
-import { useSelector } from "react-redux";
+import ProductCardAdmin from "./components/ProductCardAdmin";
+import { ActionGroup, AdminCatalogContainer, AllProductGroup } from "./style";
+
+import { checkAccess, debounce } from "../../../utils";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUserRole } from "../../../selectors";
-import { Button, Input } from "../../../components";
-//TODO: добавить модалку и лоадер
+import { Button, Pagination, Search } from "../../../components";
+import { PAGINATION_LIMIT, ROLE } from "../../../constans";
+import { request } from "../../../utils/request";
+
+
+
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  CLOSE_MODAL,
+  openModal,
+  removeProductAsync,
+  RESET_PRODUCT_DATA,
+} from "../../../action";
+import { useMatch } from "react-router-dom";
 export const AdminCatalogPage = () => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(2);
   const [searchPhrase, setSearchPhrase] = useState("");
   const [shouldSearch, setShouldSearch] = useState(false);
-  const [newProductData, setNewProductData] = useState({
-    id: "",
-    img_url: "",
-    title: "",
-    price: "",
-    color: "",
-    form: "",
-    width: "",
-    height: "",
-    length: "",
-    desc: "",
-  });
   const [shouldUpdateProductList, setShouldUpdateProductList] = useState(false);
-
-  const [error, setError] = useState(null);
+  const isEditing = useMatch("/catalog/:id/edit");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const params = useParams();
   const userRole = useSelector(selectUserRole);
 
   useEffect(() => {
@@ -50,7 +43,7 @@ export const AdminCatalogPage = () => {
       setProducts(products);
       setLastPage(lastPage);
     });
-  }, [page, shouldSearch, userRole]);
+  }, [page, shouldSearch, userRole, params.id]);
 
   const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 2000), []);
 
@@ -58,109 +51,39 @@ export const AdminCatalogPage = () => {
     setSearchPhrase(target.value);
     startDelayedSearch(!shouldSearch);
   };
-  const handleEdit = (product) => {
-    console.log("Редактировать продукт:", product);
+  const handleEdit = (id) => {
+    navigate(`/products/${id}/edit`);
+  };
+  const handleAdd = () => {
+    navigate(`/catalog/add`);
   };
 
-  const handleDelete = (id) => {
-    request(`/api/products/${id}`, "DELETE")
-      .then((response) => {
-        console.log(response.message);
-        setShouldUpdateProductList(!shouldUpdateProductList);
+  const onProductRemove = (id) => {
+    dispatch(
+      openModal({
+        text: " Удалить продукт?",
+        onConfirm: () => {
+          dispatch(removeProductAsync(id)).then(() => {
+            navigate("/catalog");
+          });
+          dispatch(CLOSE_MODAL);
+        },
+        onCancel: () => dispatch(CLOSE_MODAL),
       })
-      .catch((error) => {
-        console.error("Ошибка при удалении продукта:", error);
-        alert(`Ошибка: ${error.message}`);
-      });
-  };
-
-  const handleNewOrderChange = (field, value) => {
-    setNewProductData((prev) => ({ ...prev, [field]: value }));
-  };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await request("/api/products", "POST", {
-        product: newProductData,
-      });
-      if (response.error) {
-        setError(response.error);
-      } else {
-        console.log("Товар успешно добавлен:", response.product);
-        setNewProductData([]);
-      }
-    } catch (error) {
-      console.error(error);
-      setError("Ошибка при добавлении товара");
-    }
+    );
   };
 
   return (
     <AdminCatalogContainer>
-      <AddProductGroup>
-        <h3>Добавление нового продукта</h3>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <InputContainer>
-          <Input
-            width="95%"
-            placeholder="Название"
-            value={newProductData.title}
-            onChange={(e) => handleNewOrderChange("title", e.target.value)}
-          />
-          <Input
-            width="95%"
-            placeholder="Картинка"
-            value={newProductData.img_url}
-            onChange={(e) => handleNewOrderChange("img_url", e.target.value)}
-          />
-          <Input
-            width="95%"
-            placeholder="Цена"
-            value={newProductData.price}
-            onChange={(e) => handleNewOrderChange("price", e.target.value)}
-          />
-          <Input
-            width="95%"
-            placeholder="Форма"
-            value={newProductData.form}
-            onChange={(e) => handleNewOrderChange("form", e.target.value)}
-          />
-          <Input
-            width="95%"
-            placeholder="Цвет"
-            value={newProductData.color}
-            onChange={(e) => handleNewOrderChange("color", e.target.value)}
-          />
-          <Input
-            width="95%"
-            placeholder="Ширина"
-            value={newProductData.width}
-            onChange={(e) => handleNewOrderChange("width", e.target.value)}
-          />
-          <Input
-            width="95%"
-            placeholder="Высота"
-            value={newProductData.height}
-            onChange={(e) => handleNewOrderChange("height", e.target.value)}
-          />
-          <Input
-            width="95%"
-            placeholder="Длина"
-            value={newProductData.length}
-            onChange={(e) => handleNewOrderChange("length", e.target.value)}
-          />
-          <Input
-            width="95%"
-            placeholder="Описание"
-            value={newProductData.desc}
-            onChange={(e) => handleNewOrderChange("desc", e.target.value)}
-          />
-        </InputContainer>
-        <Button onClick={handleSubmit}> Добавить в базу</Button>
-      </AddProductGroup>
       <AllProductGroup>
-        <Search onChange={onSearch} searchPhrase={searchPhrase} />
+        <ActionGroup>
+          <Button onClick={handleAdd} width="150px">
+            {" "}
+            Добавить товар{" "}
+          </Button>
+          <Search onChange={onSearch} searchPhrase={searchPhrase} />
+        </ActionGroup>
+
         {products.length > 0 ? (
           <div className="post-list">
             {products.map((product) => (
@@ -168,7 +91,7 @@ export const AdminCatalogPage = () => {
                 key={product.id}
                 product={product}
                 onEdit={handleEdit}
-                onDelete={handleDelete}
+                onDelete={onProductRemove}
               />
             ))}
           </div>

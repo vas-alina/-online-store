@@ -7,7 +7,8 @@ import { request } from "../../../utils/request";
 import { H2, PrivateContent } from "../../../components";
 import { AdminUsersPageContainer } from "./style";
 import { TableRow } from "../AdminOrdersPage/style";
-import { UserRow } from "../../users/components";
+import { UserRow } from './components/user-row/User-row';
+
 
 
 export const AdminUsersPage = () => {

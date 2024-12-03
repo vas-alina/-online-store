@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const mapUser = require('./helpers/mapUser')
 const { register, login, getUsers, getRoles, updateUser, deleteUser } = require('./controllers/user');
 const { addOrder, getOrders, deleteOrder } = require('./controllers/order');
-const { addCart, deleteAllCart, deleteCart, getCart } = require('./controllers/cart')
+const { addCart, deleteAllCart, deleteCart, getCart, getCarts } = require('./controllers/cart')
 const { addProduct, deleteProduct, editProduct, getProduct, getProducts } = require("./controllers/product")
 const authenticated = require('./middleware/authenticated');
 const hasRole = require('./middleware/hasRole');
@@ -59,7 +59,7 @@ app.post('/logout', (req, res) => {
     res.send({ message: 'Вы успешно вышли из аккаунта' });
 });
 
-app.get('/api/products', async (req, res) => {
+app.get('/products', async (req, res) => {
     const { products, lastPage } = await getProducts(
         req.query.search,
         req.query.limit,
@@ -120,35 +120,67 @@ app.post('/products', hasRole([ROLES.ADMIN]), async (req, res) => {
 })
 //удаление
 app.delete('/products/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
-    await deleteProduct(req.params.id)
-
-    res.send({ message: "Товар удален", error: null })
-})
+    try {
+        await deleteProduct(req.params.id);
+        res.send({ message: "Товар удален", error: null });
+    } catch (error) {
+        console.error("Ошибка при удалении продукта:", error);
+        res.status(500).send({ message: "Ошибка при удалении товара", error: error.message });
+    }
+});
 // //редактирование
 app.patch('/products/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
     try {
         const productId = req.params.id;
+        console.log(productId, "айдишник")
         const productData = req.body;
         const updatedProduct = await editProduct(productId, productData);
         if (!updatedProduct) {
             return res.status(404).send({ error: 'Продукт не найден или не удалось обновить данные.' });
         }
+        console.log('Updated product:', updatedProduct);
         res.status(200).send({
             message: 'Продукт успешно обновлён.',
             product: updatedProduct
         });
     } catch (error) {
+        console.error('Ошибка обновления:', error);
         res.status(500).send({ error: error.message || 'Произошла ошибка при обновлении продукта.' });
     }
 });
 //корзина
 //получитьэ
-app.get('/cart', async (req, res) => {
+// app.get('/cart', async (req, res) => {
+//     try {
+//         const userId = req.user.id
+
+//         const { productId } = req.query;
+//         const cart = await getCart(userId, productId);
+//         console.log(cart)
+//         res.status(200).send({ error: null, cart });
+//     } catch (error) {
+//         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
+//     }
+// })
+// app.get('/cart/', async (req, res) => {
+//     try {
+//         const userId = req.user.id
+
+//         const { productId } = req.query;
+//         const cartData = await getCart(userId, productId);
+//         console.log('Cart data for userId', userId, ':', cart);
+//         res.status(200).send({ error: null, cartData });
+//     } catch (error) {
+//         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
+//     }
+// })
+
+app.get('/carts/:userId', async (req, res) => {
     try {
         const userId = req.user.id
 
         const { productId } = req.query;
-        const cart = await getCart(userId, productId);
+        const cart = await getCarts(userId, productId);
         console.log(cart)
         res.status(201).send({ error: null, cart });
     } catch (error) {
@@ -217,15 +249,12 @@ app.post('/order', async (req, res) => {
         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
     }
 });
-// //удаление для админа
+
 app.delete('/orders/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
     await deleteOrder(req.params.id)
 
     res.send({ message: "Заказ удален", error: null })
 })
-
-
-// //все заказы для админа 
 
 app.get('/orders', hasRole([ROLES.ADMIN]), async (req, res) => {
     const orders = await getOrders()
@@ -233,10 +262,8 @@ app.get('/orders', hasRole([ROLES.ADMIN]), async (req, res) => {
     res.send({ orders: orders.map(mapOrders) })
 })
 
-
-
 //избранное
-app.get('/favorites', async (req, res) => {
+app.get('/favorites/:userId', async (req, res) => {
     try {
         const userId = req.user.id
 

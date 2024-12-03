@@ -12,37 +12,44 @@ import {
 } from "./style";
 import { ProductCard } from "../../components/product-card/ProductCard";
 import { clearFavorites } from "../../action";
+import { request } from "../../utils/request";
 
 export const FavoritesPage = () => {
   const [favorites, setFavorites] = useState([]);
-  console.log("начальное состояние", favorites);
   const [loading, setLoading] = useState(false);
   const userId = useSelector(selectUserId);
 const dispatch = useDispatch()
-  useEffect(() => {
-    let isMounted = true;
+const [error, setError] = useState(null)
 
-    const loadFavorites = async () => {
-      setLoading(true);
-      try {
-        const favoriteResponse = await fetchFavorites(userId);
+useEffect(() => {
+  const loadFavorites = async () => {
+    setLoading(true);
+    try {
+      const favoriteResponse = await request(`/api/favorites/${userId}`, "GET");
 
-        if (isMounted) {
-          setFavorites(favoriteResponse.res.favorites);
-        }
-      } catch (error) {
-        console.error("Ошибка загрузки избранного:", error);
-      } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+      if (Array.isArray(favoriteResponse.favorite)) {
+        const productsWithDetails = await Promise.all(favoriteResponse.favorite.map(async (favorite) => {
+          const productDetails = await request(`/api/products/${favorite.product_id}`, "GET");
+          return { ...favorite, ...productDetails };
+        }));
+        setFavorites(productsWithDetails);
+      } else {
+        setError("Ответ с сервера не содержит данных в правильном формате.");
+        console.error("Ответ с сервера:", favoriteResponse);
       }
-    };
+    } catch (error) {
+      setError("Ошибка загрузки избранного");
+      console.error("Ошибка загрузки избранного:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (userId) {
     loadFavorites();
-    return () => {
-      isMounted = false;
-    };
-  }, [userId]);
+  }
+}, [userId]);
+
   const handleRemoveAll = async () => {
     try {
       if (userId) {
@@ -67,24 +74,21 @@ const dispatch = useDispatch()
             Очистить избранное
           </ClearButton>
         </FavoritesTitle>
-        <ProductCartBlock>
-        {favorites.length === 0 ? (
-          <p>Добавьте что то в избранное</p>
-        ) : (
-          favorites.map((product) => {
-            return (
-              <ProductCard
-                key={product.id}
-                id={product.productId}
-                imgUrl={product.imgUrl}
-                title={product.title}
-                price={product.price}
-              />
-            );
-          })
-        )}
+         <ProductCartBlock>
+          {Array.isArray(favorites) && favorites.length === 0 ? (
+            <p>Добавьте что-то в избранное</p>
+          ) : (
+            Array.isArray(favorites) &&
+            favorites.map((product) => {
+              return (
+                <ProductCard
+                  key={product.id}
+                  product={product}    
+                />
+              );
+            })
+          )}
         </ProductCartBlock>
-        
       </FavoritesItemsContainer>
       {console.log(favorites)}
     </FavoritesPageContainer>
