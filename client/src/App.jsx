@@ -53,14 +53,18 @@ export const App = () => {
     if (!currentCartDataJSON) {
       return;
     }
-    const currentCartData = JSON.parse(currentCartDataJSON);
-    dispatch(setCart(currentCartData));
+    if (currentCartDataJSON) {
+      const currentCartData = JSON.parse(currentCartDataJSON);
+      dispatch(setCart(currentCartData));
+    }
 
     if (!currentFavoritesDataJSON) {
       return;
     }
-    const currentFavoritesData = JSON.parse(currentCartDataJSON);
-    dispatch(setFavorites(currentFavoritesData));
+    if (currentFavoritesDataJSON) {
+      const currentFavoritesData = JSON.parse(currentFavoritesDataJSON);
+      dispatch(setFavorites(currentFavoritesData));
+    }
   }, [dispatch]);
 
   return (

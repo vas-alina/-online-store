@@ -4,7 +4,6 @@ import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { server } from "../../bff";
 import { AuthFormError, Button, H2, Input } from "../../components";
 import { useResetForm } from "../../hooks";
 import { setUser, setCart, setFavorites } from "../../action";
@@ -65,18 +64,21 @@ export const Authorization = () => {
 
         dispatch(setUser(user));
         sessionStorage.setItem("userData", JSON.stringify(user));
-//TODO: переделать хранилище
-        Promise.all([server.fetchCart(user.id), server.fetchFavorites(user.id)])
-          .then(([cartData, favoritesData]) => {
-            dispatch(setCart(cartData));
-            sessionStorage.setItem("cartData", JSON.stringify(cartData));
-
-            dispatch(setFavorites(favoritesData));
-            sessionStorage.setItem(
-              "favoritesData",
-              JSON.stringify(favoritesData)
-            );
-          })
+        Promise.all([
+          request(`/api/carts/${user.id}`, "GET"),
+          request(`/api/favorites/${user.id}`, "GET")
+        ])
+        .then(([cartResponse, favoritesResponse]) => {
+          if (cartResponse.error || favoritesResponse.error) {
+            
+            console.error(`Ошибка загрузки данных: ${cartResponse.error || favoritesResponse.error}`);
+            return;
+          }
+          dispatch(setCart(cartResponse));
+          sessionStorage.setItem("cartData", JSON.stringify(cartResponse));
+          dispatch(setFavorites(favoritesResponse.favorite));
+          sessionStorage.setItem("favoritesData", JSON.stringify(favoritesResponse.favorite));
+        })
           .catch((fetchError) => {
             console.error(
               "Ошибка при загрузке данных корзины или избранного:",
