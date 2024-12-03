@@ -23,12 +23,16 @@ function setupAssociations() {
     Favorite.belongsTo(User, { foreignKey: 'user_id' });
 
     // в одном избранном может быть несколько товаров 
-    Favorite.belongsToMany(Product, { through: 'FavoriteProducts', foreignKey: 'favorite_id', as: 'products' });
-    Product.belongsToMany(Favorite, { through: 'FavoriteProducts', foreignKey: 'product_id', as: 'favorites' });
+    Favorite.belongsToMany(Product, { through: 'FavoriteProducts', foreignKey: 'favorite_id', as: 'favoriteProducts' });
+    Product.belongsToMany(Favorite, { through: 'FavoriteProducts', foreignKey: 'product_id', as: 'productFavorites' });
 
     // в одной корзине может быть несколько товаров 
     Cart.belongsToMany(Product, { through: 'CartProducts', foreignKey: 'cart_id', as: 'products' });
     Product.belongsToMany(Cart, { through: 'CartProducts', foreignKey: 'product_id', as: 'carts' });
+
+
+    Favorite.belongsTo(Product, { foreignKey: 'product_id', as: 'product' });
+    Product.hasMany(Favorite, { foreignKey: 'product_id', as: 'favorites' });
 }
 
 

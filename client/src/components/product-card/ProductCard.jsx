@@ -15,6 +15,7 @@ import { selectUserRole } from "../../selectors";
 import { useAddToFavorites } from "../../hooks/use-add-to-favorites";
 
 export const ProductCard = ({ product }) => {
+  const { product_id, title, img_url, favorite_count, createdAt } = product;
   const navigate = useNavigate();
   const userRole = useSelector(selectUserRole);
   const { addToFavorites } = useAddToFavorites(userRole);

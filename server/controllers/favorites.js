@@ -9,8 +9,10 @@ async function getFavorites(userId) {
         where: { user_id: userId },
         include: [{
             model: Product,
-            as: 'products',
-            attributes: ["id", "title", "price", "img_url", "color", "form"]
+            // as: 'products',
+            as: 'product',
+            attributes: ["id", "title", "price", "img_url", "color", "form"],
+            
         }]
     });
     return favorite

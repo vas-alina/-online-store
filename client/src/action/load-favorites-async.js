@@ -1,9 +1,17 @@
-import { setFavoriteData } from "./set-favorites";
+import { request } from "../utils/request";
+import { setFavorites } from "./set-favorites";
 
-export const loadFavoritesAsync = (requestServer, favoritesId) => (dispatch) =>
-    requestServer("fetchFavorites", favoritesId).then((favoritesData) => {
-        if (favoritesData.res) {
-            dispatch(setFavoriteData(favoritesData.res))
+
+export const loadFavoritesAsync = (userId) => async (dispatch) => {
+    try {
+        const data = await request(`/api/favorites/${userId}`, 'GET');
+        console.log('Данные, полученные с сервера:', data);
+        if (data && data.favorite) {
+            dispatch(setFavorites({ items: data.favorite }));
+        } else {
+            console.error('Ошибка: данные о фаворитах отсутствуют в ответе:', data);
         }
-        return favoritesData;
-    });
+    } catch (error) {
+        console.error('Ошибка при загрузке фаворитов:', error);
+    }
+  };
