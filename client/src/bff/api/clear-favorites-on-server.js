@@ -1,6 +1,8 @@
+import { request } from "../../utils/request";
+
 export const clearFavoritesOnServer = async (userId) => {
   try {
-    const response = await fetch(`http://localhost:3010/favorites?user_id=${userId}`);  
+    const response = await request(`http://localhost:3010/favorites?user_id=${userId}`);  
     if (!response.ok) {
       throw new Error('Ошибка при получении данных избранного');
     }

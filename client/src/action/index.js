@@ -18,3 +18,5 @@ export * from "./clear-cart";
 export * from "./clear-favorites"
 export * from "./load-cart-async"
 export * from "./load-favorites-async"
+export * from "./add-product-to-favorites"
+export * from "./remove-favorites-async"
