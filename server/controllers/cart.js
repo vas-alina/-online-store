@@ -73,7 +73,7 @@ async function getCarts(userId) {
         where: { user_id: userId },
         include: [{
             model: Product,
-            as: 'products',
+            as: 'product',
             attributes: ["id", "title", "price", "img_url", "color", "form"]
         }]
     });

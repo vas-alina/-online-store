@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserId } from "../../selectors";
-import { fetchFavorites } from "../../bff/operations";
-import { clearFavoritesOnServer } from "../../bff/api";
+
+
 import {
   ClearButton,
   FavoritesItemsContainer,
@@ -11,7 +11,7 @@ import {
   ProductCartBlock,
 } from "./style";
 import { ProductCard } from "../../components/product-card/ProductCard";
-import { clearFavorites, loadFavoritesAsync, setFavorites } from "../../action";
+import { clearFavorites, clearFavoritesOnServer, loadFavoritesAsync, setFavorites } from "../../action";
 
 export const FavoritesPage = () => {
 const [loading, setLoading] = useState(false);
@@ -23,27 +23,24 @@ const favorites = useSelector((state) => state.favorite?.favorites || []);
 console.log('favorites из Redux:', favorites);
 
 useEffect(() => {
-  dispatch(loadFavoritesAsync(userId)) // Пример с userId = 123
+  dispatch(loadFavoritesAsync(userId)) 
     .catch((error) => {
       console.error('Ошибка при загрузке данных', error);
     });
 }, [dispatch]);
 
-
-  const handleRemoveAll = async () => {
+console.log(userId)
+  const handleRemoveAll = () => {
     try {
-      if (userId) {
-        await clearFavoritesOnServer(userId);
-        dispatch(clearFavorites());            
-        setFavorites([]);              
-      } else {
-        console.error('userId отсутствует');
-      }
+       dispatch(clearFavoritesOnServer(userId)); 
+       sessionStorage.removeItem("favoritesData");                          
+        console.error(`Избранное пользователя ${userId} успешно очищено.`);
+        window.location.reload();
     } catch (error) {
       console.error('Ошибка при очистке корзины:', error.message);
     }
   };
-  if (loading) return <div>Загрузка корзины...</div>;
+  if (loading) return <div>Загрузка избранного...</div>;
 
   return (
     <FavoritesPageContainer>

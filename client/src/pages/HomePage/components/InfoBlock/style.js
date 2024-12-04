@@ -15,6 +15,7 @@ export const Info = styled.div`
   animation: forwards;
   border-radius: 10px;
   background-color: #f2f0f0;
+  margin: 50px 0;
 
   h3 {
     font-size: 1.5em;

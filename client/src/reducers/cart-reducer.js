@@ -1,33 +1,32 @@
 import { ACTION_TYPE } from "../action";
 
 const initialState = {
-
-  items: []
-
+  cart: []
 };
 
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPE.SET_CART_DATA:
+      console.log('В редьюсере SET_CART, payload.items:', action.payload.items);
       return {
         ...state,
-        items: action.payload.items,
-        
+        cart: action.payload.items,
+
       };
     case ACTION_TYPE.ADD_PRODUCT_TO_CART:
       return {
         ...state,
-        items: [...state.items, action.payload],
+        cart: [...state.cart, action.payload],
       };
     case ACTION_TYPE.REMOVE_FROM_CART:
       return {
         ...state,
-        items: state.items.filter(item => item.id !== action.payload),
+        cart: state.items.filter(item => item.id !== action.payload),
       }
     case ACTION_TYPE.CLEAR_CART:
       return {
         ...state,
-        items: [],
+        cart: [],
       }
     default:
       return state;

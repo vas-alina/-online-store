@@ -9,7 +9,7 @@ export const Sidebar = styled.div`
   width: 200px;
   height: 900px;
   padding: 20px;
-  background-color: var(--color-primary-purple-opacity);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);;
 `;
 
 export const SidebarItem = styled.li`

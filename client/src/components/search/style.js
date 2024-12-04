@@ -4,9 +4,11 @@ export const SearchContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   position: relative;
-  width: 100%;
+  width: 95%;
   height: 40px;
   margin: 40px  0;
+  box-shadow: rgba(0, 0, 0, 0.1);
+  
 
 
   & > input {
@@ -17,5 +19,6 @@ export const SearchContainer = styled.div`
     position: absolute;
     top: 3px;
     right: 9px;
+   
   }
 `;

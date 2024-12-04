@@ -2,18 +2,21 @@ import { ACTION_TYPE } from "../action";
 
 
 const initialOrderState = {
-      id: "",
-      firstName: "",
-      lastName: "",
-      phone: "",
-      email: "",
-      deliveryMethod: "",
-      city: "",
-      street: "",
-      number: "",
-      commentOrder: "",
-      userId: "",
-      createdAt: "",
+  order: {
+    id: "",
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    deliveryMethod: "",
+    city: "",
+    street: "",
+    number: "",
+    commentOrder: "",
+    userId: "",
+    createdAt: ""
+  }
+      
 };
 
 export const orderReducer = (state = initialOrderState, action) => {
@@ -23,8 +26,14 @@ export const orderReducer = (state = initialOrderState, action) => {
         ...state,
         ...action.payload,
       };
-    case ACTION_TYPE.LOGOUT:
-      return initialOrderState;
+    case ACTION_TYPE.ADD_NEW_ORDER:
+      return {
+        ...state,
+        order: { 
+          ...state.order, 
+          ...action.payload
+      }
+    };
     default:
       return state;
   }

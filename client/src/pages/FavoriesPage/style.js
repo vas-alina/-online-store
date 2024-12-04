@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const FavoritesPageContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   top: 100px;
   max-width: 80%;
   justify-content: space-between;

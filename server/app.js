@@ -243,6 +243,7 @@ app.post('/order', async (req, res) => {
         console.log(userId)
         const orderData = req.body
         console.log(orderData)
+       
         const newOrder = await addOrder(userId, orderData)
         res.status(201).send({ error: null, order: newOrder });
     } catch (error) {

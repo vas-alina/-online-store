@@ -15,30 +15,29 @@ import {
 
 export const CartItem = ({
   product,
+  count,
   onUpdateQuantity,
-  onRemove,
   onRemoveProduct,
-  cart
-
 }) => {
-  const { id, count, price, img_url, title, form, color } = product;
-  const image = product.img_url
-  // const deleteId = cart.id
+
+  const { id, img_url, title, form, color, price } = product;
+
   const itemTotal = count * price;
-  
+  console.log(product)
+  console.log(count)
   return (
     <CartItemContainer>
       <ItemImage>
-        {image ? (<img src={product.data.img_url} alt={product.title} />) : (<div> Картинки нет</div>)}
+        {img_url ? (<img src={img_url} alt={title} />) : (<div> Картинки нет</div>)}
         
       </ItemImage>
       <ItemDetails>
         <ItemTitle>
-          {product.title} {product.form} {product.color}
+          {title} {form} {color}
         </ItemTitle>
       </ItemDetails>
       <PriceSection>
-        <CurrentPrice>{product.price} ₽</CurrentPrice>
+        <CurrentPrice>{price} ₽</CurrentPrice>
       </PriceSection>
       <QuantitySection>
         <QuantityButton

@@ -13,157 +13,154 @@ import {
   ClearButton,
   CheckoutNote,
   ErrorDiv,
-  
 } from "./style";
 
-import { Button, } from "../../components";
-import { clearCartOnServer } from "../../bff/api/clear-cart-on-server";
+import { Button } from "../../components";
+
 import { removeFromCart } from "../../action/remove-from-cart";
 import { deleteProductFromCart } from "../../bff/api";
-import { clearCart, loadCartAsync, setCart, setUser } from "../../action";
-import { removeAllFromCart } from "../../bff/operations/remove-all-from-cart";
-import { request } from "../../utils/request";
+import { clearCart, clearCartonServer, loadCartAsync, setCart, setUser } from "../../action";
 
 export const CartPage = () => {
-  const [carts, setCarts] = useState([]);
-  const [products, setProducts] = useState([]);
- 
+  //   const [carts, setCarts] = useState([]);
+  //   const [products, setProducts] = useState([]);
+
+  //   const [loading, setLoading] = useState(false);
+
+  const roleId = useSelector(selectUserRole);
+
+  const [error, setError] = useState(null);
+  const [showAuthMessage, setShowAuthMessage] = useState(false);
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   const userId = useSelector(selectUserId);
-  const roleId = useSelector(selectUserRole);
-const dispatch = useDispatch()
-const [error, setError] = useState(null)
-const [showAuthMessage, setShowAuthMessage] = useState(false);
-const navigate = useNavigate();
-useEffect(() => {
-  const loadCarts = async () => {
-    setLoading(true);
-    try {
-      const cartResponse = await request(`/api/carts/${userId}`, "GET");
+  const dispatch = useDispatch();
 
-      if (Array.isArray(cartResponse.cart)) {
-        const productsWithDetails = await Promise.all(cartResponse.cart.map(async (cart) => {
-          const productDetails = await request(`/api/products/${cart.product_id}`, "GET");
-          return { ...cart, ...productDetails };
-        }));
-        setCarts(productsWithDetails);
-        setProducts(productsWithDetails)
-      } else {
-        setError("Ответ с сервера не содержит данных в правильном формате.");
-        console.error("Ответ с сервера:", cartResponse);
-      }
+  const carts = useSelector((state) => state.cart?.cart || []);
+  console.log("carts из Redux:", carts);
+
+  useEffect(() => {
+    dispatch(loadCartAsync(userId)).catch((error) => {
+      console.error("Ошибка при загрузке данных из корзины", error);
+    });
+  }, [dispatch]);
+
+  console.log(userId);
+  const handleRemoveAll = () => {
+    try {
+      dispatch(clearCartonServer(userId));
+      sessionStorage.removeItem("cartData");
+      console.error(`Избранное пользователя ${userId} успешно очищено.`);
     } catch (error) {
-      setError("Ошибка загрузки избранного");
-      console.error("Ошибка загрузки избранного:", error);
-    } finally {
-      setLoading(false);
+      console.error("Ошибка при очистке корзины:", error.message);
     }
   };
-
-  if (userId) {
-    loadCarts();
-  }
-}, [userId]);
-
-
+  if (loading) return <div>Загрузка избранного...</div>;
 
   const getTotalAmount = () => {
     return carts.reduce((total, item) => {
-      return total + (item.count * item.price); 
+      return total + item.count * item.product.price;
     }, 0);
   };
 
+  // const handleUpdateQuantity = (id, newCount) => {
+  //   setCart(prevCartProducts =>
+  //     prevCartProducts.map(item =>
+  //       item.id === id ? { ...item, count: newCount } : item
+  //     )
+  //   );
+  // };
   const handleUpdateQuantity = (id, newCount) => {
-    setCart(prevCartProducts =>
-      prevCartProducts.map(item =>
+    console.log(`Обновление товара с id: ${id}, новое количество: ${newCount}`);
+    setCart((prevCartProducts) => {
+      console.log("Предыдущее состояние корзины:", prevCartProducts);
+      return prevCartProducts.map((item) =>
         item.id === id ? { ...item, count: newCount } : item
-      )
-    );
+      );
+    });
   };
 
+  const handleRemoveProduct = async (cartId) => {
+    try {
+      await deleteProductFromCart(cartId);
+      dispatch(removeFromCart(cartId));
+      setCart((prevProducts) =>
+        prevProducts.filter((product) => product.id !== cartId)
+      );
+      console.log("Товар удален успешно");
+    } catch (error) {
+      console.error("Ошибка при удалении товара:", error.message);
+    }
+  };
 
+  // const handleRemoveAll = async () => {
+  //   const result = await dispatch(removeAllFromCart(userId));
 
-    const handleRemoveProduct = async (cartId) => {
-      try {
-        await deleteProductFromCart(cartId);  
-        dispatch(removeFromCart(cartId));     
-        setCart((prevProducts) => prevProducts.filter(product => product.id !== cartId));
-        console.log('Товар удален успешно');
-      } catch (error) {
-        console.error('Ошибка при удалении товара:', error.message);
-      }
-    };
-    
-    // const handleRemoveAll = async () => {
-    //   const result = await dispatch(removeAllFromCart(userId));
-      
-    //   if (result.res) {
-    //     setCartProducts([]);
-    //     console.log("Корзина успешно очищена");
-    //   } else {
-    //     console.error("Ошибка при очистке корзины:", result.error);
-    //   }
-    // };
-    const handleCheckout = () => {
-      const totalAmount = getTotalAmount()
-      if (roleId === ROLE.GUEST) {
-        setShowAuthMessage(true);
-      } else if (roleId === ROLE.USER) {
-        navigate("/order", { state: { totalAmount } });
-      }
-    };
+  //   if (result.res) {
+  //     setCartProducts([]);
+  //     console.log("Корзина успешно очищена");
+  //   } else {
+  //     console.error("Ошибка при очистке корзины:", result.error);
+  //   }
+  // };
+  const handleCheckout = () => {
+    const totalAmount = getTotalAmount();
+    if (roleId === ROLE.GUEST) {
+      setShowAuthMessage(true);
+    } else if (roleId === ROLE.USER) {
+      navigate("/order", { state: { totalAmount } });
+    }
+  };
   if (loading) return <div>Загрузка корзины...</div>;
-  
+
   return (
     <Container>
       <CartItemsContainer>
         <CartTitle>
           <h2>Корзина</h2>
-          {/* <ClearButton onClick={handleRemoveAll}>
-            Очистить корзину
-          </ClearButton> */}
+          <ClearButton onClick={handleRemoveAll}>Очистить корзину</ClearButton>
         </CartTitle>
         {carts.length === 0 ? (
           <p>Ваша корзина пуста</p>
         ) : (
-          carts.map((item) => {
-      console.log(item)
+          carts.map((cart) => {
+            const { product } = cart;
             return (
-              <> 
-              <div>{item.data.title}</div>
               <CartItem
-                key={item.data.id}
-                product={item.data}
-                // cart={cart}
+                key={product.id}
+                count={cart.count}
+                product={product}
                 onUpdateQuantity={handleUpdateQuantity}
-              onRemoveProduct={handleRemoveProduct}
-              /></>
-             
+                onRemoveProduct={handleRemoveProduct}
+              />
             );
           })
         )}
-        
       </CartItemsContainer>
-{carts.length >0 ? (<CartSummary>
-        <h2>Сумма заказа</h2> 
-        <h3>{getTotalAmount()}</h3>
-        <Button width="200px" onClick={handleCheckout}>
-          
-          Оформить заказ
-        </Button>
+      {carts.length > 0 ? (
+        <CartSummary>
+          <h2>Сумма заказа</h2>
+          <h3>{getTotalAmount()}</h3>
 
-        <CheckoutNote>
-          Нажимая на кнопку «Оформить заказ», вы соглашаетесь с условиями
-          <a href="/terms"> Обработки персональных данных</a>.
-        </CheckoutNote>
-        {showAuthMessage && (
-          <ErrorDiv>
-            Для продолжения оформления необходима{" "}
-            <Link to="/login">авторизация</Link>
-          </ErrorDiv>
-        )}
-      </CartSummary>) : (<></>)}
-      
+          <Button width="200px" onClick={handleCheckout}>
+            Оформить заказ
+          </Button>
+
+          <CheckoutNote>
+            Нажимая на кнопку «Оформить заказ», вы соглашаетесь с условиями
+            <a href="/terms"> Обработки персональных данных</a>.
+          </CheckoutNote>
+          {showAuthMessage && (
+            <ErrorDiv>
+              Для продолжения оформления необходима{" "}
+              <Link to="/login">авторизация</Link>
+            </ErrorDiv>
+          )}
+        </CartSummary>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 };

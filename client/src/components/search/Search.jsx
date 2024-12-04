@@ -1,11 +1,9 @@
-
-
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import SearchIcon from "@mui/icons-material/Search";
 import { SearchContainer } from "./style";
 import { Input } from "../input/Input";
 import { Icon } from "../Icon/Icon";
 
-export const Search = ({ className, searchPhrase, onChange }) => {
+export const Search = ({ searchPhrase, onChange }) => {
   return (
     <SearchContainer>
       <Input
@@ -13,9 +11,7 @@ export const Search = ({ className, searchPhrase, onChange }) => {
         placeholder="Поиск по заголовкам..."
         onChange={onChange}
       />
-      <Icon inactive={true} icon={FavoriteBorderIcon} size="21px" />
+      <Icon inactive={true} icon={SearchIcon} size="21px" />
     </SearchContainer>
   );
 };
-
-

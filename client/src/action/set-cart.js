@@ -1,6 +1,6 @@
 import { ACTION_TYPE } from "./action-type";
 export const setCart = (cart) => {
-  console.log('Received cart data:', cart);  // Логируем приходящие данные
+  console.log('Received cart data:', cart);  
   return {
     type: ACTION_TYPE.SET_CART_DATA,
     payload: cart,

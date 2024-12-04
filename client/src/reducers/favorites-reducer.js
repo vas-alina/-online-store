@@ -10,7 +10,7 @@ export const favoritesReducer = (state = initialState, action) => {
             console.log('В редьюсере SET_FAVORITES, payload.items:', action.payload.items);
             return {
                 ...state,
-                  favorites: action.payload.items || [],
+                favorites: action.payload.items || [],
             }
         case ACTION_TYPE.ADD_TO_FAVORITES:
             return {

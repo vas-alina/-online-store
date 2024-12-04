@@ -3,7 +3,7 @@ const Order = require("../models/Order")
 
 //add
 
-  function addOrder(orderData, cartItem) {
+  function addOrder(orderData) {
 
     return Order.create({
       first_name: orderData.first_name,
@@ -15,16 +15,16 @@ const Order = require("../models/Order")
       city: orderData.city,
       street: orderData.street,
       number: orderData.number,
-      user_id: orderData.user_id,
+      user_id: userId,
       comment_order: orderData.comment_order,
-      carts: cartItem,
+    //   carts: cartItems,
   },
-  {
-        include: [{
-            model: Cart,
-            as: 'carts'
-        }]
-    }
+//   {
+//         include: [{
+//             model: Cart,
+//             as: 'carts'
+//         }]
+//     }
 
 ); 
 }

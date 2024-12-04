@@ -1,6 +1,16 @@
 import styled from 'styled-components';
 
+export const ImageContainer = styled.div`
+  position: relative;
+  display: inline-block;  
+`;
 
+export const FavoriteButtonContainer = styled.div`
+  position: absolute;
+  top: -px;           
+  right: -20px;         
+  z-index: 1;        
+`;
 export const ProductCardPageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -27,6 +37,7 @@ export const GalleryContainer = styled.div`
 `;
 
 export const MainImage = styled.img`
+  display: block;
   width: 100%;
   max-width: 500px;
   height: auto;

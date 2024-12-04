@@ -32,34 +32,9 @@ export const ControlPanel = () => {
   const isAdmin = checkAccess([ROLE.ADMIN], roleId);
   return (
     <ControlPanelContainer>
-      <RightAligned>
-        {roleId === ROLE.GUEST ? (
-          <>
-            <IconsBlock>
-              <Icon
-                icon={AccountCircleIcon}
-                size="25px"
-                color="var(--item-color)"
-                margin="0 30px"
-              />
-              <Link to="/login">Войти</Link>
-            </IconsBlock>
-          </>
-        ) : (
-          <>
-            <UserName>{login}</UserName>
-            <IconsBlock>
-              <Icon
-                icon={LogoutIcon}
-                size="25px"
-                color="var(--item-color)"
-                margin="0 30px"
-                onClick={onLogout}
-              />
-            </IconsBlock>
-          </>
-        )}
-
+      
+<RightAligned>
+       
         <RightAligned>
           {isAdmin ? (
             <>
@@ -115,6 +90,32 @@ export const ControlPanel = () => {
             </>
           )}
         </RightAligned>
+        {roleId === ROLE.GUEST ? (
+          <>
+            <IconsBlock>
+              <Icon
+                icon={AccountCircleIcon}
+                size="25px"
+                color="var(--item-color)"
+                margin="0 30px"
+              />
+              <Link to="/login">Войти</Link>
+            </IconsBlock>
+          </>
+        ) : (
+          <>
+            <UserName>{login}</UserName>
+            <IconsBlock>
+              <Icon
+                icon={LogoutIcon}
+                size="25px"
+                color="var(--item-color)"
+                margin="0 30px"
+                onClick={onLogout}
+              />
+            </IconsBlock>
+          </>
+        )}
       </RightAligned>
     </ControlPanelContainer>
   );

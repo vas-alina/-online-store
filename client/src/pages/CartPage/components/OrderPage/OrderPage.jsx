@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Input, Title } from "../../../../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "../../style";
-import { useAddNewOrder } from "../../../../hooks";
+
 import {
   AddressCard,
   AddressList,
@@ -18,8 +18,9 @@ import {
 } from "./style";
 
 import { useDispatch, useSelector } from "react-redux";
-import { removeAllFromCart } from "../../../../bff/operations/remove-all-from-cart";
+
 import { selectUserId } from "../../../../selectors";
+import { addNewOrder, clearCartonServer} from "../../../../action";
 
 const addresses = [
   {city:"г.Сочи",
@@ -36,11 +37,11 @@ const addresses = [
 ];
 
 export const OrderPage = () => {
-  const [cart, setCart] = useState([])
+
   const [showModal, setShowModal] = useState(false);
   const [methodShipping, setMethodShipping] = useState("delivery");
   const [selectAdress, setSelectAdress] = useState(addresses[1]);
-  const { addNewOrder, error } = useAddNewOrder("customer");
+  const [error, setError] = useState(false)
   const [contactData, setContactData] = useState({
     first_name: "",
     last_name: "",
@@ -58,6 +59,7 @@ const navigate = useNavigate();
 const dispatch = useDispatch()
   const location = useLocation();
   const totalAmount = location.state?.totalAmount || 0;
+
   const handleContactChange = (field, value) => {
     setContactData((prev) => ({ ...prev, [field]: value }));
   };
@@ -65,20 +67,20 @@ const dispatch = useDispatch()
   const handleDeliveryChange = (field, value) => {
     setDeliveryData((prev) => ({ ...prev, [field]: value }));
   };
+
   const handleSubmit = async () => {
     const orderData = {
       ...contactData,
-      totalAmount,
-      deliveryMethod: methodShipping,
+      total_amount: location.state?.totalAmount || 0,
+      delivery_method: methodShipping,
       ...(methodShipping === "delivery"
         ? deliveryData
         : selectAdress),
     };
 
-    addNewOrder(orderData);
+    dispatch(addNewOrder(orderData));
     console.log("Заказ создан:", orderData);
-    await dispatch(removeAllFromCart(userId))
-    setCart([])
+    dispatch(clearCartonServer(userId))
     console.log("Корзина успешно очищена после создания заказа"); 
     setShowModal(true)
   };

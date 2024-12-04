@@ -9,7 +9,6 @@ function setupAssociations() {
     User.hasMany(Cart, { foreignKey: 'user_id', as: 'carts' });
     Cart.belongsTo(User, { foreignKey: 'user_id' });
 
-
     // пользователь может иметь несколько заказов
     User.hasMany(Order, { foreignKey: 'user_id', as: 'orders' });
     Order.belongsTo(User, { foreignKey: 'user_id' });
@@ -27,12 +26,15 @@ function setupAssociations() {
     Product.belongsToMany(Favorite, { through: 'FavoriteProducts', foreignKey: 'product_id', as: 'productFavorites' });
 
     // в одной корзине может быть несколько товаров 
-    Cart.belongsToMany(Product, { through: 'CartProducts', foreignKey: 'cart_id', as: 'products' });
-    Product.belongsToMany(Cart, { through: 'CartProducts', foreignKey: 'product_id', as: 'carts' });
+    Cart.belongsToMany(Product, { through: 'CartProducts', foreignKey: 'cart_id', as: 'cartProducts' });
+    Product.belongsToMany(Cart, { through: 'CartProducts', foreignKey: 'product_id', as: 'productCart' });
 
 
     Favorite.belongsTo(Product, { foreignKey: 'product_id', as: 'product' });
     Product.hasMany(Favorite, { foreignKey: 'product_id', as: 'favorites' });
+
+    Cart.belongsTo(Product, { foreignKey: 'product_id', as: 'product' });
+    Product.hasMany(Cart, { foreignKey: 'product_id', as: 'carts' });
 }
 
 

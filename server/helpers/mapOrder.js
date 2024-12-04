@@ -1,18 +1,18 @@
 module.exports = function (order) {
     return {
         id: order.id,
-        firstName: order.first_name,
-        lastName: order.last_name,
+        first_name: firstName,
+        last_name: lastName,
         phone: order.phone,
         email: order.email,
-        totalAmount: order.total_amount,
-        deliveryMethod: order.delivery_method,
+        total_amount: order.totalAmount,
+        delivery_method: order.deliveryMethod,
         city: order.city,
         street: order.street,
         number: order.number,
-        userId: order.user_id,
-        commentOrder: order.comment_order,
-        createdAt: order.created_at,
-        updatedAt: order.updated_at
+        user_id: order.userId,
+        comment_order: order.commentOrder,
+        created_at: order.createdAt,
+        updated_at: order.updatedAt,
     }
 }

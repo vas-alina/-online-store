@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMatch, useParams } from "react-router-dom";
-import { loadProductAsync } from "../../action";
+import { addProductToFavorites, loadProductAsync } from "../../action";
 import { selectProduct, selectUserId, selectUserRole } from "../../selectors";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import {
@@ -27,10 +27,13 @@ import {
   ProductCardPageContainer,
   ProductForm,
   InputQuantity,
+  ImageContainer,
+  FavoriteButtonContainer,
 } from "./style";
 import { Button, Icon } from "../../components";
 import { ProductCartForm } from "./component/product-form/product-form";
 import { addProductToCart } from "../../action/add-product-to-cart";
+import { FavoriteButton } from "../../components";
 
 export const ProductCardPage = () => {
   const [error, setError] = useState(null);
@@ -38,14 +41,14 @@ export const ProductCardPage = () => {
   const [activeTab, setActiveTab] = useState("characteristics");
   const [count, setCount] = useState(0);
   const { id } = useParams();
-  console.log(id)
+  console.log(id);
   const dispatch = useDispatch();
 
   const product = useSelector(selectProduct);
   const userRole = useSelector(selectUserRole);
- 
-  const userId = useSelector(selectUserId)
-console.log(userId, "ответ от селестора")
+
+  const userId = useSelector(selectUserId);
+  console.log(userId, "ответ от селестора");
 
   const isEditing = useMatch("/products/:id/edit");
 
@@ -64,7 +67,6 @@ console.log(userId, "ответ от селестора")
     loadProduct();
   }, [dispatch, id, userId]);
 
-
   const handleQuantityChange = (event) => {
     const value = Number(event.target.value);
     let newQuantity = value;
@@ -75,14 +77,16 @@ console.log(userId, "ответ от селестора")
     }
     return newQuantity;
   };
-  console.log(userId, "ответ после загрузки")
-  const handleAddToCart = (product, userId) => {
-    console.log(userId)
-    const productId = product.id
-    dispatch(
-      addProductToCart(productId, count, userId)
-    );
+  console.log(userId, "ответ после загрузки");
+  const handleAddToCart = () => {
+    console.log(userId);
+    const productId = product.id;
+    dispatch(addProductToCart(productId, count, userId));
   };
+  // const handleAddToFavorites = () => {
+  //   dispatch(addProductToFavorites(product.id, userId));
+  //   console.log(product.id, userId);
+  // };
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   return (
@@ -98,14 +102,18 @@ console.log(userId, "ответ от селестора")
                 <ThumbnailImage src={product.imgUrl} alt={product.title} />
                 <ThumbnailImage src={product.imgUrl} alt={product.title} />
               </ThumbnailContainer>
-              <MainImage src={product.imgUrl} alt={product.title} />
+              <ImageContainer>
+                <FavoriteButtonContainer>
+                  <FavoriteButton product={product} size={50}/>
+                </FavoriteButtonContainer>
+                <MainImage src={product.imgUrl} alt={product.title} />
+              </ImageContainer>
             </GalleryContainer>
 
             <ProductInfoContainer>
               <ProductTitle>
                 {product.title} {product.form} {product.color}
               </ProductTitle>
-              <ProductDescription>{product.desc}</ProductDescription>
 
               <PriceAndCartContainer>
                 <div>
@@ -123,18 +131,14 @@ console.log(userId, "ответ от селестора")
                 </ProductForm>
               </PriceAndCartContainer>
               <div>
-                <Button onClick={() => handleAddToCart(product, userId)}>
+                <Button
+                  width="150px"
+                  onClick={() => handleAddToCart(product, userId)}
+                >
                   В корзину
                 </Button>
-                {console.log()}
-                <Icon
-                  inactive={true}
-                  icon={FavoriteBorderIcon}
-                  margin="0 7px 0 0"
-                  size="18px"
-                  onClick={() => {}}
-                />
               </div>
+              <ProductDescription>{product.desc}</ProductDescription>
             </ProductInfoContainer>
           </ProductPageMainContainer>
         </>
@@ -158,8 +162,11 @@ console.log(userId, "ответ от селестора")
       {activeTab === "characteristics" ? (
         <TabContent>
           <CharacteristicsContainer>
-            <Characteristic>Материал: Дерево</Characteristic>
-            <Characteristic>Цвет: Орех</Characteristic>
+            <ProductDescription>{product.desc}</ProductDescription>
+
+            <Characteristic>Ширина -- -- -- {product.width}</Characteristic>
+            <Characteristic>Длина -- -- -- {product.length}</Characteristic>
+            <Characteristic>Высота -- -- -- {product.height}</Characteristic>
           </CharacteristicsContainer>
         </TabContent>
       ) : (
