@@ -38,15 +38,12 @@ export const CartPage = () => {
   const dispatch = useDispatch();
 
   const carts = useSelector((state) => state.cart?.cart || []);
-  console.log("carts из Redux:", carts);
-
   useEffect(() => {
     dispatch(loadCartAsync(userId)).catch((error) => {
       console.error("Ошибка при загрузке данных из корзины", error);
     });
   }, [dispatch]);
 
-  console.log(userId);
   const handleRemoveAll = () => {
     try {
       dispatch(clearCartonServer(userId));
@@ -64,17 +61,8 @@ export const CartPage = () => {
     }, 0);
   };
 
-  // const handleUpdateQuantity = (id, newCount) => {
-  //   setCart(prevCartProducts =>
-  //     prevCartProducts.map(item =>
-  //       item.id === id ? { ...item, count: newCount } : item
-  //     )
-  //   );
-  // };
   const handleUpdateQuantity = (id, newCount) => {
-    console.log(`Обновление товара с id: ${id}, новое количество: ${newCount}`);
     setCart((prevCartProducts) => {
-      console.log("Предыдущее состояние корзины:", prevCartProducts);
       return prevCartProducts.map((item) =>
         item.id === id ? { ...item, count: newCount } : item
       );
@@ -88,22 +76,11 @@ export const CartPage = () => {
       setCart((prevProducts) =>
         prevProducts.filter((product) => product.id !== cartId)
       );
-      console.log("Товар удален успешно");
     } catch (error) {
       console.error("Ошибка при удалении товара:", error.message);
     }
   };
 
-  // const handleRemoveAll = async () => {
-  //   const result = await dispatch(removeAllFromCart(userId));
-
-  //   if (result.res) {
-  //     setCartProducts([]);
-  //     console.log("Корзина успешно очищена");
-  //   } else {
-  //     console.error("Ошибка при очистке корзины:", result.error);
-  //   }
-  // };
   const handleCheckout = () => {
     const totalAmount = getTotalAmount();
     if (roleId === ROLE.GUEST) {

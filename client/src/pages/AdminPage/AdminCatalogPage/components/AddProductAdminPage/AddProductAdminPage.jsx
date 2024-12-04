@@ -58,7 +58,6 @@ export const AddProductAdminPage = () => {
         if (response.error) {
           setError(response.error);
         } else {
-          console.log('Товар добавлен');
           navigate('/catalog'); 
         }
       } catch (error) {

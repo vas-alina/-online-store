@@ -11,7 +11,6 @@ const navigate = useNavigate()
 
 const handleClick = () => {
   navigate(`/products/${id}/`);
-  console.log(id)
 }
   return (
     <CardContainer>

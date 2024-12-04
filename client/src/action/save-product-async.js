@@ -9,8 +9,6 @@ export const saveProductAsync = (id, newProductData) => (dispatch) => {
   
 
     return saveRequest.then((updatedProduct) => {
-        console.log(updatedProduct);
-
       dispatch(setProductData(updatedProduct.data));
       return updatedProduct.data; 
     }).catch((error) => {

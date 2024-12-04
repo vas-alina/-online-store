@@ -132,13 +132,11 @@ app.delete('/products/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
 app.patch('/products/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
     try {
         const productId = req.params.id;
-        console.log(productId, "айдишник")
         const productData = req.body;
         const updatedProduct = await editProduct(productId, productData);
         if (!updatedProduct) {
             return res.status(404).send({ error: 'Продукт не найден или не удалось обновить данные.' });
         }
-        console.log('Updated product:', updatedProduct);
         res.status(200).send({
             message: 'Продукт успешно обновлён.',
             product: updatedProduct
@@ -148,40 +146,12 @@ app.patch('/products/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
         res.status(500).send({ error: error.message || 'Произошла ошибка при обновлении продукта.' });
     }
 });
-//корзина
-//получитьэ
-// app.get('/cart', async (req, res) => {
-//     try {
-//         const userId = req.user.id
-
-//         const { productId } = req.query;
-//         const cart = await getCart(userId, productId);
-//         console.log(cart)
-//         res.status(200).send({ error: null, cart });
-//     } catch (error) {
-//         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
-//     }
-// })
-// app.get('/cart/', async (req, res) => {
-//     try {
-//         const userId = req.user.id
-
-//         const { productId } = req.query;
-//         const cartData = await getCart(userId, productId);
-//         console.log('Cart data for userId', userId, ':', cart);
-//         res.status(200).send({ error: null, cartData });
-//     } catch (error) {
-//         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
-//     }
-// })
 
 app.get('/carts/:userId', async (req, res) => {
     try {
         const userId = req.user.id
-
         const { productId } = req.query;
         const cart = await getCarts(userId, productId);
-        console.log(cart)
         res.status(201).send({ error: null, cart });
     } catch (error) {
         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
@@ -221,9 +191,8 @@ app.delete('/cart', async (req, res) => {
 app.delete('/carts/:id', async (req, res) => {
     try {
         const userId = req.user.id;
-        console.log(userId)
         const cartId = req.params.id;
-        console.log(cartId)
+
         const deletedCart = await deleteCart(userId, favoriteId)
         if (deletedCart) {
             res.send({ message: "Товар удален из корзины", error: null });
@@ -240,10 +209,8 @@ app.delete('/carts/:id', async (req, res) => {
 app.post('/order', async (req, res) => {
     try {
         const userId = req.user.id
-        console.log(userId)
         const orderData = req.body
-        console.log(orderData)
-       
+
         const newOrder = await addOrder(userId, orderData)
         res.status(201).send({ error: null, order: newOrder });
     } catch (error) {
@@ -270,7 +237,6 @@ app.get('/favorites/:userId', async (req, res) => {
 
         const { productId } = req.query;
         const favorite = await getFavorites(userId, productId);
-        console.log(favorite)
         res.status(201).send({ error: null, favorite });
     } catch (error) {
         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
@@ -279,14 +245,13 @@ app.get('/favorites/:userId', async (req, res) => {
 app.post('/favorites', async (req, res) => {
     try {
         const userId = req.user.id
-        console.log(userId)
         const { productId } = req.body;
         if (!productId) {
             return res.status(400).send({ error: "Product ID and count are required." });
         }
-        console.log(productId)
+
         const favorite = await addFavorites(userId, productId);
-        console.log(favorite)
+
         res.status(201).send({ error: null, favorite });
     } catch (error) {
         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
@@ -296,9 +261,7 @@ app.post('/favorites', async (req, res) => {
 app.delete('/favorites/:id', async (req, res) => {
     try {
         const userId = req.user.id;
-        console.log(userId)
         const favoriteId = req.params.id;
-        console.log(favoriteId)
         const deletedFavorite = await deleteFavorites(userId, favoriteId)
         if (deletedFavorite) {
             res.send({ message: "Товар удален из избранного", error: null });

@@ -41,15 +41,12 @@ export const ProductCardPage = () => {
   const [activeTab, setActiveTab] = useState("characteristics");
   const [count, setCount] = useState(0);
   const { id } = useParams();
-  console.log(id);
   const dispatch = useDispatch();
 
   const product = useSelector(selectProduct);
   const userRole = useSelector(selectUserRole);
 
   const userId = useSelector(selectUserId);
-  console.log(userId, "ответ от селестора");
-
   const isEditing = useMatch("/products/:id/edit");
 
   useEffect(() => {
@@ -77,16 +74,12 @@ export const ProductCardPage = () => {
     }
     return newQuantity;
   };
-  console.log(userId, "ответ после загрузки");
+ 
   const handleAddToCart = () => {
-    console.log(userId);
     const productId = product.id;
     dispatch(addProductToCart(productId, count, userId));
   };
-  // const handleAddToFavorites = () => {
-  //   dispatch(addProductToFavorites(product.id, userId));
-  //   console.log(product.id, userId);
-  // };
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   return (

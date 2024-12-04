@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserId } from "../../selectors";
 
-
 import {
   ClearButton,
   FavoritesItemsContainer,
@@ -11,33 +10,29 @@ import {
   ProductCartBlock,
 } from "./style";
 import { ProductCard } from "../../components/product-card/ProductCard";
-import { clearFavorites, clearFavoritesOnServer, loadFavoritesAsync, setFavorites } from "../../action";
+import { clearFavoritesOnServer, loadFavoritesAsync } from "../../action";
 
 export const FavoritesPage = () => {
-const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const userId = useSelector(selectUserId);
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
+  const favorites = useSelector((state) => state.favorite?.favorites || []);
 
-const favorites = useSelector((state) => state.favorite?.favorites || []);
-console.log('favorites из Redux:', favorites);
-
-useEffect(() => {
-  dispatch(loadFavoritesAsync(userId)) 
-    .catch((error) => {
-      console.error('Ошибка при загрузке данных', error);
+  useEffect(() => {
+    dispatch(loadFavoritesAsync(userId)).catch((error) => {
+      console.error("Ошибка при загрузке данных", error);
     });
-}, [dispatch]);
+  }, [dispatch]);
 
-console.log(userId)
   const handleRemoveAll = () => {
     try {
-       dispatch(clearFavoritesOnServer(userId)); 
-       sessionStorage.removeItem("favoritesData");                          
-        console.error(`Избранное пользователя ${userId} успешно очищено.`);
-        window.location.reload();
+      dispatch(clearFavoritesOnServer(userId));
+      sessionStorage.removeItem("favoritesData");
+      console.error(`Избранное пользователя ${userId} успешно очищено.`);
+      window.location.reload();
     } catch (error) {
-      console.error('Ошибка при очистке корзины:', error.message);
+      console.error("Ошибка при очистке корзины:", error.message);
     }
   };
   if (loading) return <div>Загрузка избранного...</div>;
@@ -51,23 +46,17 @@ console.log(userId)
             Очистить избранное
           </ClearButton>
         </FavoritesTitle>
-         <ProductCartBlock>
+        <ProductCartBlock>
           {favorites.length === 0 ? (
             <p>Добавьте что-то в избранное</p>
           ) : (
             favorites.map((favorite) => {
-              const { product } = favorite;  
-              return (
-                <ProductCard
-                  key={product.id}
-                  product={product}    
-                />
-              );
+              const { product } = favorite;
+              return <ProductCard key={product.id} product={product} />;
             })
           )}
         </ProductCartBlock>
       </FavoritesItemsContainer>
-      {console.log(favorites)}
     </FavoritesPageContainer>
   );
 };

@@ -23,8 +23,7 @@ export const CartItem = ({
   const { id, img_url, title, form, color, price } = product;
 
   const itemTotal = count * price;
-  console.log(product)
-  console.log(count)
+
   return (
     <CartItemContainer>
       <ItemImage>

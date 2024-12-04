@@ -26,7 +26,7 @@ async function addProduct(product) {
 }
 //edit
 async function editProduct(productId, productData) {
-    console.log(productId, productData)
+
     const transaction = await sequelize.transaction();
     try {
 
@@ -40,8 +40,6 @@ async function editProduct(productId, productData) {
             returning: true,
             transaction,
         });
-
-        console.log("Результат обновления:", updatedCount, updatedProduct);
 
         if (updatedCount === 0) {
             throw new Error('Продукт не найден или не был обновлён');

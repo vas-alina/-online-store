@@ -12,7 +12,7 @@ router.get('/carts', async (req, res) => {
 
         const { productId } = req.query;
         const cart = await getCart(userId, productId);
-        console.log(cart)
+
         res.status(201).send({ error: null, cart });
     } catch (error) {
         res.status(400).send({ error: error.message || "Неизвестная ошибка" });
@@ -52,9 +52,9 @@ router.delete('/carts', async (req, res) => {
 router.delete('/carts/:id', async (req, res) => {
     try {
         const userId = req.user.id;
-        console.log(userId)
+
         const cartId = req.params.id;
-        console.log(cartId)
+
         const deletedCart = await deleteCart(userId, favoriteId)
         if (deletedCart) {
             res.send({ message: "Товар удален из корзины", error: null });

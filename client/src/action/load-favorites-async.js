@@ -5,7 +5,6 @@ import { setFavorites } from "./set-favorites";
 export const loadFavoritesAsync = (userId) => async (dispatch) => {
     try {
         const data = await request(`/api/favorites/${userId}`, 'GET');
-        console.log('Данные, полученные с сервера:', data);
         if (data && data.favorite) {
             dispatch(setFavorites({ items: data.favorite }));
         } else {

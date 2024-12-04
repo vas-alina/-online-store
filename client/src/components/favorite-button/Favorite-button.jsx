@@ -8,7 +8,7 @@ export const FavoriteButton = ({ product,  size = 24 }) => {
   const favorites = useSelector((state) => state.favorite?.favorites || []);
   const productId = product.id;
   const isFavorite = favorites.some((fav) => fav.id === productId);
-console.log(isFavorite)
+
   const handleAddToFavorites = () => {
     if (isFavorite) {
       dispatch(removeFavoritesAsync(productId));

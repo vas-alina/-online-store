@@ -79,9 +79,7 @@ const dispatch = useDispatch()
     };
 
     dispatch(addNewOrder(orderData));
-    console.log("Заказ создан:", orderData);
     dispatch(clearCartonServer(userId))
-    console.log("Корзина успешно очищена после создания заказа"); 
     setShowModal(true)
   };
 

@@ -28,41 +28,10 @@ export const ProductCartForm = ({
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-
-
-//   useLayoutEffect(() => {
-//     setImgUrlvalue(imgUrl);
-//     setTitlevalue(title);
-//     setColorvalue(color);
-//     setFormvalue(form);
-//     setPricevalue(price);
-//     setDescvalue(desc);
-//   }, [imgUrl, title, color, form, price, desc]);
-
-// useEffect(() => {
-//     console.log("Загружаем данные продукта...");
-//     setIsLoading(true);
-//     dispatch(loadProductAsync(id)) // Сделайте правильный запрос для загрузки данных продукта
-//       .then((data) => {
-//         console.log("Данные загружены:", data);
-//         setImgUrlvalue(data.imgUrl);
-//         setTitlevalue(data.title);
-//         setColorvalue(data.color);
-//         setFormvalue(data.form);
-//         setPricevalue(data.price);
-//         setDescvalue(data.desc);
-//         setIsLoading(false); // Данные загружены, меняем состояние
-//       })
-//       .catch((err) => {
-//         console.error("Ошибка при загрузке данных:", err);
-//         setError(err.message);
-//         setIsLoading(false); // Останавливаем загрузку, если ошибка
-//       });
-//   }, [id, dispatch, imgUrl]);
+  
   useLayoutEffect(() => {
-        console.log("Загружаем данные продукта...");
+
         setIsLoading(true);
         dispatch(loadProductAsync(id)) 
           .then((data) => {
@@ -83,17 +52,7 @@ export const ProductCartForm = ({
   }, [id, dispatch, imgUrl, title, color, form, price, desc]);
 
   const onSave = () => {
-    console.log("Сохраняем продукт с данными:", {
-        id,
-        imgUrl: imgUrlvalue,
-        title: titlevalue,
-        color: colorvalue,
-        form: formvalue,
-        desc: descvalue,
-        price: pricevalue,
-      });
-    dispatch(
-      
+    dispatch(    
       saveProductAsync(id,{
         imgUrl: imgUrlvalue,
         title: titlevalue,
