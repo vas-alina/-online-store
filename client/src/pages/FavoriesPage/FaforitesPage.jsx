@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserId } from "../../selectors";
+import { selectFavorites, selectUserId } from "../../selectors";
 
 import {
   ClearButton,
@@ -16,8 +16,8 @@ export const FavoritesPage = () => {
   const [loading, setLoading] = useState(false);
   const userId = useSelector(selectUserId);
   const dispatch = useDispatch();
+  const favorites = useSelector(selectFavorites)
 
-  const favorites = useSelector((state) => state.favorite?.favorites || []);
 
   useEffect(() => {
     dispatch(loadFavoritesAsync(userId)).catch((error) => {
@@ -52,7 +52,10 @@ export const FavoritesPage = () => {
           ) : (
             favorites.map((favorite) => {
               const { product } = favorite;
-              return <ProductCard key={product.id} product={product} />;
+              return <ProductCard 
+              key={product.id} 
+              product={product} 
+              imgUrl={product.img_url}/>;
             })
           )}
         </ProductCartBlock>

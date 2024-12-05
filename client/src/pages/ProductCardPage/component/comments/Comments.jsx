@@ -20,6 +20,7 @@ export const Comments = ({ comments, productId }) => {
 
   const userRole = useSelector(selectUserRole);
 
+  
   useEffect(() => {
     dispatch(loadCommentsAsync(productId)); 
   }, [dispatch, productId]);
@@ -32,6 +33,7 @@ export const Comments = ({ comments, productId }) => {
 
   const isGuest = userRole === ROLE.GUEST;
   const commentList = comments && comments.items ? comments.items : [];
+  
 
   return (
     <CommentsContainer>
@@ -42,7 +44,10 @@ export const Comments = ({ comments, productId }) => {
             value={newComment}
             placeholder="Комментарий..."
             onChange={({ target }) => setNewComment(target.value)}
-          ></textarea>
+            style={{ width: '100%', height: '100px', resize: 'none' }}
+          >
+
+          </textarea>
           <Icon
             icon={SendIcon}
             margin="0 0 0 10px"

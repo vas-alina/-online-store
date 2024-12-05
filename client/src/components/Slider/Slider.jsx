@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import Slider from "react-slick";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Slide, SliderContainer } from "./style";
@@ -31,4 +31,15 @@ export const CustomSlider = ({ images, width, height }) => {
       </Slider>
     </SliderContainer>
   );
+};
+
+CustomSlider.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      src: PropTypes.string.isRequired, 
+      alt: PropTypes.string, 
+    })
+  ).isRequired,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), 
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), 
 };

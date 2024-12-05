@@ -26,7 +26,7 @@ export const productReducer = (state = initialProductState, action) => {
       return {
         ...state,
         comments: [
-          ...state.comments,
+          ...(state.comments || []),
           action.payload
         ],
       }

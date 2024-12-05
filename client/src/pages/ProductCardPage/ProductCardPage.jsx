@@ -43,10 +43,7 @@ export const ProductCardPage = () => {
   const [count, setCount] = useState(0);
   const { id } = useParams();
   const dispatch = useDispatch();
-
   const product = useSelector(selectProduct);
-  const userRole = useSelector(selectUserRole);
-
   const userId = useSelector(selectUserId);
   const isEditing = useMatch("/products/:id/edit");
 
@@ -54,11 +51,9 @@ export const ProductCardPage = () => {
     const loadProduct = async () => {
       setIsLoading(true);
       const productData = await dispatch(loadProductAsync(id));
-
       if (productData.error) {
         setError(productData.error);
       }
-
       setIsLoading(false);
     };
 
@@ -103,7 +98,6 @@ export const ProductCardPage = () => {
                 <MainImage src={product.imgUrl} alt={product.title} />
               </ImageContainer>
             </GalleryContainer>
-
             <ProductInfoContainer>
               <ProductTitle>
                 {product.title} {product.form} {product.color}
@@ -157,7 +151,6 @@ export const ProductCardPage = () => {
         <TabContent>
           <CharacteristicsContainer>
             <ProductDescription>{product.desc}</ProductDescription>
-
             <Characteristic>Ширина -- -- -- {product.width}</Characteristic>
             <Characteristic>Длина -- -- -- {product.length}</Characteristic>
             <Characteristic>Высота -- -- -- {product.height}</Characteristic>

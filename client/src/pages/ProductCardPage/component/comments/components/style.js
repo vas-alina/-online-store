@@ -5,7 +5,7 @@ export const CommentContainer = styled.div`
   margin-top: 10px;
   `
 export const CommentItem = styled.div`
-    width: 550px;
+    width: 100%;
     padding: 5px 10px;
     border: 1px solid black;
 `

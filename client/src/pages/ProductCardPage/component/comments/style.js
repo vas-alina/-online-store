@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const CommentsContainer = styled.div`
 margin: 0 auto;
-  width: 580px;
+  width: 100%;
 `
 export const NewComment = styled.div`
     display: flex;
@@ -11,8 +11,7 @@ export const NewComment = styled.div`
     margin: 20px 0 0;
 
     & .textarea {
-        width: 550px;
-    height: 120px;
+    height: 200px;
     font-size: 18px;
     resize: none;
     }

@@ -9,13 +9,13 @@ const initialAppState = {
     onCancel: () => { },
   }
 };
-//TODO:
+
 export const appReducer = (state = initialAppState, action) => {
   switch (action.type) {
     case ACTION_TYPE.LOGOUT:
       return {
         ...state,
-        // wasLogout: !state.wasLogout,
+      
         wasLogout: true,
       };
     case ACTION_TYPE.OPEN_MODAL:

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Input, PrivateContent } from "../../../../../components";
+import { Button, Input, PrivateContent } from "../../../../../components";
 import { request } from "../../../../../utils/request";
 import { AddProductAdminContainer, FormField } from "./style"
 import { useEffect, useState } from "react";
@@ -144,7 +144,7 @@ export const AddProductAdminPage = () => {
       />
      
       
-      <button type="submit">Добавить</button>
+      <Button type="submit">Добавить</Button>
       {error}
     </form>
   

@@ -3,8 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROLE } from "../../constans";
 import { Link } from "react-router-dom";
-import { selectCart, selectUserId, selectUserRole } from "../../selectors";
+import { selectUserId, selectUserRole } from "../../selectors";
 import { CartItem } from "./components/CartItem/CartItem";
+import { Button } from "../../components";
+
+
+import { clearCartonServer, loadCartAsync, removeFromCartAsync, setCart } from "../../action";
 import {
   Container,
   CartItemsContainer,
@@ -15,29 +19,17 @@ import {
   ErrorDiv,
 } from "./style";
 
-import { Button } from "../../components";
-
-import { removeFromCart } from "../../action/remove-from-cart";
-import { deleteProductFromCart } from "../../bff/api";
-import { clearCart, clearCartonServer, loadCartAsync, setCart, setUser } from "../../action";
-
 export const CartPage = () => {
-  //   const [carts, setCarts] = useState([]);
-  //   const [products, setProducts] = useState([]);
-
-  //   const [loading, setLoading] = useState(false);
-
   const roleId = useSelector(selectUserRole);
-
   const [error, setError] = useState(null);
   const [showAuthMessage, setShowAuthMessage] = useState(false);
   const navigate = useNavigate();
-
   const [loading, setLoading] = useState(false);
   const userId = useSelector(selectUserId);
   const dispatch = useDispatch();
-
   const carts = useSelector((state) => state.cart?.cart || []);
+
+
   useEffect(() => {
     dispatch(loadCartAsync(userId)).catch((error) => {
       console.error("Ошибка при загрузке данных из корзины", error);
@@ -69,13 +61,13 @@ export const CartPage = () => {
     });
   };
 
-  const handleRemoveProduct = async (cartId) => {
+  const handleRemoveProduct = async (productId) => {
     try {
-      await deleteProductFromCart(cartId);
-      dispatch(removeFromCart(cartId));
+      await dispatch(removeFromCartAsync(productId));
       setCart((prevProducts) =>
-        prevProducts.filter((product) => product.id !== cartId)
+        prevProducts.filter((product) => product.id !== productId)
       );
+      window.location.reload();
     } catch (error) {
       console.error("Ошибка при удалении товара:", error.message);
     }

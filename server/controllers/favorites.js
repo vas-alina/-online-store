@@ -2,9 +2,7 @@ const Favorite = require('../models/Favorite');
 const Product = require('../models/Product');
 
 
-//get
 async function getFavorites(userId) {
-
     const favorite = await Favorite.findAll({
         where: { user_id: userId },
         include: [{
@@ -16,7 +14,7 @@ async function getFavorites(userId) {
     });
     return favorite
 }
-//add
+
 async function addFavorites(userId, productId, product) {
     const existingFavorite = await Favorite.findOne({ where: { user_id: userId, product_id: productId } });
     if (existingFavorite) {
@@ -31,7 +29,7 @@ async function addFavorites(userId, productId, product) {
         })
     return favorite
 }
-//delete
+
 async function deleteFavorites(userId, favoriteId) {
     const deletedCount = await Favorite.destroy({
         where: {
@@ -39,21 +37,19 @@ async function deleteFavorites(userId, favoriteId) {
             user_id: userId,
         }
     });
-
     if (deletedCount > 0) {
         await Favorite.decrement('favorite_count', { where: { id: favoriteId } });
     }
 
     return deletedCount > 0;
 }
-//clear favorites
+
 async function deleteAllFavorites(userId) {
     const deletedCount = await Favorite.destroy({
         where: {
             user_id: userId
         }
     });
-
     return deletedCount > 0;
 }
 

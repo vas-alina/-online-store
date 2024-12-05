@@ -2,14 +2,16 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToFavorites, removeFavoritesAsync } from "../../action";
+// import { selectFavorites } from "../../selectors";
+import useIsFavorite from "../../hooks/use-is-favorite";
 
 export const FavoriteButton = ({ product,  size = 24 }) => {
   const dispatch = useDispatch();
-  const favorites = useSelector((state) => state.favorite?.favorites || []);
+  // const favorites = useSelector(selectFavorites);
   const productId = product.id;
-  const isFavorite = favorites.some((fav) => fav.id === productId);
+  const isFavorite = useIsFavorite(productId);
 
-  const handleAddToFavorites = () => {
+  const handleToogleToFavorites = () => {
     if (isFavorite) {
       dispatch(removeFavoritesAsync(productId));
     } else {
@@ -18,7 +20,7 @@ export const FavoriteButton = ({ product,  size = 24 }) => {
   };
 
   return (
-    <div onClick={handleAddToFavorites} style={{ cursor: "pointer" }}>
+    <div onClick={handleToogleToFavorites} style={{ cursor: "pointer" }}>
       {isFavorite ? (
         <FavoriteIcon style={{ color: "red", fontSize: `${size}px` }} />
       ) : (

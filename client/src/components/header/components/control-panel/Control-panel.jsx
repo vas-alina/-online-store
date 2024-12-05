@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ROLE } from "../../../../bff/constans/role";
+
 import { selectUserRole, selectUserLogin } from "../../../../selectors";
 import { logout } from "../../../../action";
 import { checkAccess } from "../../../../utils";
@@ -16,6 +16,7 @@ import TocIcon from "@mui/icons-material/Toc";
 import SellIcon from "@mui/icons-material/Sell";
 
 import { ControlPanelContainer, RightAligned, UserName } from "./style";
+import { ROLE } from "../../../../constans";
 
 export const ControlPanel = () => {
   const roleId = useSelector(selectUserRole);

@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const User = require("../models/User")
 const { generate } = require('../helpers/token')
 const ROLES = require('../constants/role')
-//register
+
 
 async function register(login, password) {
     if (!password) {
@@ -49,12 +49,12 @@ function getRoles() {
     ]
 }
 
-//delete
+
 async function deleteUser(id) {
     const deletedCount = await User.destroy({ where: { id } });
     return deletedCount > 0;
 }
-//edit(roles)
+
 async function updateUser(id, userData) {
     const [updatedCount, [updatedUser]] = await User.update(userData, {
         where: { id },

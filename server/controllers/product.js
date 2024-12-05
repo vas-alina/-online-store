@@ -3,7 +3,7 @@ const sequelize = require('../db');
 const Product = require('../models/Product')
 
 
-//add
+
 async function addProduct(product) {
     try {
         const newProduct = await Product.create({
@@ -24,7 +24,7 @@ async function addProduct(product) {
         throw new Error("Не удалось добавить продукт: используй другой id " + error.message);
     }
 }
-//edit
+
 async function editProduct(productId, productData) {
 
     const transaction = await sequelize.transaction();
@@ -44,17 +44,6 @@ async function editProduct(productId, productData) {
         if (updatedCount === 0) {
             throw new Error('Продукт не найден или не был обновлён');
         }
-
-        // if (product.comments && Array.isArray(product.comments)) {
-        //     await Promise.all(
-        //         product.comments.map(comment => {
-        //             return Comment.update(comment, {
-        //                 where: { id: comment.id },
-        //                 transaction
-        //             });
-        //         })
-        //     );
-        // }
         await transaction.commit();
         return updatedProduct[0];
     } catch (error) {
@@ -64,7 +53,7 @@ async function editProduct(productId, productData) {
     }
 }
 
-//delete
+
 async function deleteProduct(id) {
     const deletedCount = await Product.destroy({ where: { id } });
     return deletedCount > 0;
@@ -111,16 +100,6 @@ async function getProduct(id) {
       throw new Error('Ошибка при получении продукта из базы данных');
     }
   }
-// function getProduct(id) {
-//     return Product.findByPk(id,
-//         //     {
-//         //     include: [{
-//         //         model: Comment,
-//         //         as: 'comments'
-//         //     }]
-//         // }
-//     );
-// }
 
 module.exports = {
     addProduct,

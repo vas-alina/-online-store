@@ -1,8 +1,6 @@
 const Cart = require("../models/Cart");
 const Order = require("../models/Order")
 
-//add
-
   function addOrder(orderData) {
 
     return Order.create({
@@ -17,14 +15,7 @@ const Order = require("../models/Order")
       number: orderData.number,
       user_id: userId,
       comment_order: orderData.comment_order,
-    //   carts: cartItems,
   },
-//   {
-//         include: [{
-//             model: Cart,
-//             as: 'carts'
-//         }]
-//     }
 
 ); 
 }
@@ -54,18 +45,17 @@ async function addOrder(userId, orderData) {
   return newOrder;
 }
 
-//delete
+
 async function deleteOrder(id) {
   await Order.destroy({ where: { id } }); 
 }
 
 
-//get orders
+
 function getOrders() {
     return Order.findAll()
 }
 
-//get order
 async function getOrder(req, res) {
     const { user_id } = req.params
 
@@ -76,7 +66,7 @@ async function getOrder(req, res) {
             attributes: ["id", "title", "prgetOrderice", "img_url", "color", "form"]
         }]
     });
-    res.status(200).json({ message: 'Список избранного получен', favorite });
+    res.status(200).json({ message: 'Список избранного получен', order });
 }
 
 

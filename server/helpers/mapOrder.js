@@ -1,8 +1,8 @@
 module.exports = function (order) {
     return {
         id: order.id,
-        first_name: firstName,
-        last_name: lastName,
+        first_name: order.firstName,
+        last_name: order.lastName,
         phone: order.phone,
         email: order.email,
         total_amount: order.totalAmount,

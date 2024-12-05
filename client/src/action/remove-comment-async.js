@@ -1,8 +1,9 @@
-import { setProductData } from "./set-product-data";
+import { request } from "../utils/request";
+import { removeComment } from "./remove-comment";
 
-export const removeCommentAsync =
-  (requestServer, productId, id) => (dispatch) => {
-    requestServer("removeProductComment", productId, id).then((productData) => {
-      dispatch(setProductData(productData.res));
+
+export const removeCommentAsync = (productId, id) => (dispatch) => {
+    request(`/api/products/${productId}/commemts`, "DELETE", productId, id).then(() => {
+      dispatch(removeComment(id));
     });
   };

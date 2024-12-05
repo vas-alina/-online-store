@@ -147,6 +147,7 @@ export const TabButton = styled.button`
 `;
 
 export const TabContent = styled.div`
+width: 100%;
   padding: 20px;
   font-size: 16px;
   color: #666;
@@ -161,6 +162,7 @@ export const CharacteristicsContainer = styled.div`
 `;
 
 export const Characteristic = styled.div`
+
   flex: 1 1 45%;
   font-size: 16px;
   color: #666;
@@ -168,9 +170,11 @@ export const Characteristic = styled.div`
 
 export const ReviewsContainer = styled.div`
   margin-top: 20px;
+  width: 100%;
 `;
 
 export const Review = styled.div`
+
   margin-bottom: 15px;
   padding: 15px;
   border: 1px solid #ddd;

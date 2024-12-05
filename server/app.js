@@ -15,10 +15,7 @@ const mapOrders = require('./helpers/mapOrder');
 const setupAssociations = require('./models/associations');
 const { addFavorites, deleteFavorites, getFavorites, deleteAllFavorites } = require('./controllers/favorites');
 const mapProduct = require('./helpers/mapProduct');
-// const userRouter = require('./routers/user');
-// const { register, login } = require('./controllers/user');
-// const mapUser = require('./helpers/mapUser');
-// const routes = require("./routers")
+
 
 const PORT = process.env.PORT
 
@@ -31,8 +28,7 @@ app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.json());
 app.use(cookieParser());
 
-// app.use('/api', routes)
-// app.use('/api/users', userRouter); 
+
 app.post("/register", async (req, res) => {
     try {
 
@@ -77,7 +73,7 @@ app.get('/products/:id', async (req, res) => {
 })
 
 
-//Все что делается после аут
+
 app.use(authenticated);
 //пользователи
 //получение роли
@@ -194,9 +190,8 @@ app.delete('/cart', async (req, res) => {
 app.delete('/carts/:id', async (req, res) => {
     try {
         const userId = req.user.id;
-        const cartId = req.params.id;
-
-        const deletedCart = await deleteCart(userId, favoriteId)
+        const productId = req.params.id;
+        const deletedCart = await deleteCart(userId, productId)
         if (deletedCart) {
             res.send({ message: "Товар удален из корзины", error: null });
         } else {

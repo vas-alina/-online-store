@@ -1,7 +1,7 @@
 const Cart = require("../models/Cart");
 const Product = require("../models/Product");
 
-//add
+
 async function addCart(req, res) {
     const { productId, count } = req.body;
     if (!productId || !count) {
@@ -40,7 +40,6 @@ async function addCart(req, res) {
 }
 
 
-//delete all
 async function deleteAllCart(userId) {
     const deletedCount = await Cart.destroy({
         where: {
@@ -51,22 +50,28 @@ async function deleteAllCart(userId) {
     return deletedCount > 0;
 }
 
-//delete item
-async function deleteCart(userId, cartId) {
-    const deletedCount = await Cart.destroy({
+
+async function deleteCart(userId, productId) {
+    try {
+      const deletedCount = await Cart.destroy({
         where: {
-            id: cartId,
-            user_id: userId,
+          product_id: productId,
+          user_id: userId,
         }
-    });
-
-    if (deletedCount > 0) {
-        await Cart.decrement('cart_count', { where: { id: cartId } });
+      });
+      if (deletedCount > 0) {
+        const product = await Cart.findOne({ where: { id: productId, user_id: userId } });
+        
+        if (product && product.cart_count > 0) {
+          await Cart.decrement('cart_count', { where: { id: productId } });
+        }
+      }
+      return deletedCount > 0;
+    } catch (error) {
+      console.error("Ошибка при удалении товара из корзины:", error);
+      throw error; 
     }
-
-    return deletedCount > 0;
-}
-
+  }
 async function getCarts(userId) {
 
     const cart = await Cart.findAll({
@@ -84,6 +89,5 @@ module.exports = {
     addCart,
     deleteAllCart,
     deleteCart,
-    // getCart,
     getCarts
 }
