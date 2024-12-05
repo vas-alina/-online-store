@@ -208,7 +208,7 @@ app.post('/order', async (req, res) => {
     try {
         const userId = req.user.id
         const orderData = req.body
-
+        
         const newOrder = await addOrder(userId, orderData)
         res.status(201).send({ error: null, order: newOrder });
     } catch (error) {
@@ -224,7 +224,7 @@ app.delete('/orders/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
 
 app.get('/orders', hasRole([ROLES.ADMIN]), async (req, res) => {
     const orders = await getOrders()
-
+    console.log(orders)
     res.send({ orders: orders.map(mapOrders) })
 })
 
