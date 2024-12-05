@@ -13,14 +13,14 @@ module.exports = function (product) {
         desc: product.desc,
         createdAt: product.created_at,
 
-        // comments: Array.isArray(product.comments) 
-        //     ? post.comments.map(comment => ({
-        //         id: comment.id,        
-        //         content: comment.content, 
-        //         authorId: comment.authorId,
-        //         publishedAt: comment.createdAt
-        //     }))
-        //     : [],
+        comments: Array.isArray(product.comments) 
+            ? post.comments.map(comment => ({
+                id: comment.id,        
+                content: comment.content, 
+                authorId: comment.authorId,
+                publishedAt: comment.createdAt
+            }))
+            : [],
         publishedAt: product.createdAt
     }
 }

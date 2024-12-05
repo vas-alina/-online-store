@@ -13,15 +13,18 @@ const Comment = sequelize.define('comment', {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    // authorId: {
-    //     type: DataTypes.STRING,
-    //     allowNull: false,
-    //     references: {
-    //         model: User,
-    //         key: 'id'
-    //     }
-    // },
-
+    author_id: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+            model: User,
+            key: 'id'
+        }
+    },
+    product_id: { 
+        type: DataTypes.UUID,
+        allowNull: false,
+    },
 });
-// Comment.belongsTo(User, { foreignKey: 'authorId', as: 'author' });
+
 module.exports = Comment;

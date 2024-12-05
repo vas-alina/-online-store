@@ -34,6 +34,7 @@ import { Button, Icon } from "../../components";
 import { ProductCartForm } from "./component/product-form/product-form";
 import { addProductToCart } from "../../action/add-product-to-cart";
 import { FavoriteButton } from "../../components";
+import { Comments } from "./component/comments/Comments";
 
 export const ProductCardPage = () => {
   const [error, setError] = useState(null);
@@ -166,8 +167,7 @@ export const ProductCardPage = () => {
         <TabContent>
           <ReviewsContainer>
             <Review>
-              <ReviewAuthor>Алексей</ReviewAuthor>
-              <ReviewText>Отличный товар!</ReviewText>
+              <Comments comments={product.comments} productId={product.id} />
             </Review>
           </ReviewsContainer>
         </TabContent>

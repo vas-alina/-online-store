@@ -1,9 +1,10 @@
-
 const User = require('./User');
 const Order = require('./Order');
 const Cart = require('./Cart');
 const Product = require('./Product');
 const Favorite = require('./Favorite')
+const Comment = require('./Comment')
+
 function setupAssociations() {
     // пользователь имеет несколько корзин
     User.hasMany(Cart, { foreignKey: 'user_id', as: 'carts' });
@@ -35,6 +36,10 @@ function setupAssociations() {
 
     Cart.belongsTo(Product, { foreignKey: 'product_id', as: 'product' });
     Product.hasMany(Cart, { foreignKey: 'product_id', as: 'carts' });
+
+    Comment.belongsTo(User, { foreignKey: 'author_id', as: 'author' });
+    Product.hasMany(Comment, { foreignKey: 'product_id', as: 'comments' });
+    Comment.belongsTo(Product, { foreignKey: 'product_id' });
 }
 
 

@@ -97,7 +97,7 @@ async function getProducts(search = '', limit = 10, page = 1) {
     }
 }
 
-//get product
+
 async function getProduct(id) {
     try {
       const product = await Product.findByPk(id);

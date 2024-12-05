@@ -24,6 +24,8 @@ const PORT = process.env.PORT
 
 const app = express()
 const cors = require('cors');
+const { addComment, getCommentsByProductId } = require('./controllers/comment');
+const mapComment = require('./helpers/mapComment');
 app.use(cors({ origin: 'http://localhost:5173' }));
 
 app.use(express.json());
@@ -73,6 +75,7 @@ app.get('/products/:id', async (req, res) => {
 
     res.send({ data: mapProduct(product) })
 })
+
 
 //Все что делается после аут
 app.use(authenticated);
@@ -289,6 +292,46 @@ app.delete('/favorites', async (req, res) => {
     }
 });
 
+app.post('/products/:id/comments', async (req, res) => {
+    try {
+      const { content } = req.body;  
+      const authorId = req.user.id;  
+      const productId = req.params.id;
+      
+      const newComment = await addComment(productId, {
+        content,
+        author_id: authorId
+      });
+  
+      res.status(201).send({ data: mapComment(newComment) });  
+    } catch (error) {
+      console.error("Ошибка при добавлении комментария:", error);
+      res.status(500).send({ error: "Не удалось добавить комментарий" });  
+    }
+  });
+app.delete('/products/:id/comments/commentId', hasRole([ROLES.ADMIN, ROLES.MODERATOR]), async (req, res) => {
+    await deleteComment(
+        req.params.productId,
+       
+        req.params.commentId,
+    )
+
+    res.send({ error: null })
+})
+
+app.get('/products/:id/comments', async (req, res) => {
+    const productId = req.params.id;  
+
+    try {
+      const comments = await getCommentsByProductId(productId);
+      if (comments.length === 0) {
+        return res.status(404).send({ error: 'Нет комментариев для этого продукта' });
+      }
+      return res.status(200).send({ comments });
+    } catch (error) {
+      return res.status(500).send({ error: error.message || 'Не удалось получить комментарии' });
+    }
+  });
 
 
 setupAssociations();

@@ -71,7 +71,6 @@ const Product = sequelize.define('product', {
 
 
 
-Product.hasMany(Comment, { foreignKey: 'productId', as: 'comments' });
-Comment.belongsTo(Product, { foreignKey: 'productId' });
+
 
 module.exports = Product;
