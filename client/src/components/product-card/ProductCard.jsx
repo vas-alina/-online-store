@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { Icon } from "..";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { FavoriteButton } from "../favorite-button/Favorite-button";
+import { CartButton, FavoriteButton, Icon } from "..";
+
 import {
   ActionBlock,
   Card,
@@ -37,11 +36,7 @@ export const ProductCard = ({ product, imgUrl }) => {
           <FavoriteButton product={product} />
 
           <Price>{product.price} ₽</Price>
-          <Icon
-            icon={AddShoppingCartIcon}
-            size="25px"
-            color="var(--item-color)"
-          />
+          <CartButton product={product} />
         </ActionBlock>
       </Card>
     </ProductCardContainer>

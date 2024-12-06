@@ -44,7 +44,7 @@ export const AdminOrdersPage = () => {
       setShouldUpdateOrderList(!shouldUpdateOrderList);
     });
   };
-console.log(orders)
+
   return (
     <PrivateContent access={[ROLE.ADMIN]} serverError={errorMessage}>
       <AdminOrdersPageContainer>

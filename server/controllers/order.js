@@ -66,11 +66,10 @@ async function getOrder(req, res) {
     },
     include: [{
       model: Product,
-      // attributes: ["id", "title", "prgetOrderice", "img_url", "color", "form"]
     }]
-    
+
   });
-  console.log('Полученные заказы:', order);
+
   res.status(200).json({ message: 'Список избранного получен', order });
 }
 

@@ -6,9 +6,8 @@ import { Link } from "react-router-dom";
 import { selectUserId, selectUserRole } from "../../selectors";
 import { CartItem } from "./components/CartItem/CartItem";
 import { Button } from "../../components";
-
-
 import { clearCartonServer, loadCartAsync, removeFromCartAsync, setCart } from "../../action";
+
 import {
   Container,
   CartItemsContainer,

@@ -9,5 +9,6 @@ export * from "./title/Title.jsx";
 export * from "./pagination/Pagination.jsx";
 export * from "./search/Search.jsx";
 export * from "./favorite-button/Favorite-button.jsx"
+export * from "./cart-button/Cart-button.jsx"
 
 

@@ -1,5 +1,4 @@
-import { Icon } from "../../../../components";
-import DeleteIcon from "@mui/icons-material/Delete";
+
 import {
   CartItemContainer,
   CurrentPrice,

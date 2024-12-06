@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMatch, useParams } from "react-router-dom";
-import { addProductToFavorites, loadProductAsync } from "../../action";
-import { selectProduct, selectUserId, selectUserRole } from "../../selectors";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { addProductToCart, loadProductAsync } from "../../action";
+import { selectProduct, selectUserId } from "../../selectors";
+
+import { ProductCartForm } from "./component/product-form/product-form";
+import { Comments } from "./component/comments/Comments";
 import {
   GalleryContainer,
   MainImage,
@@ -22,19 +24,13 @@ import {
   Characteristic,
   ReviewsContainer,
   Review,
-  ReviewAuthor,
-  ReviewText,
   ProductCardPageContainer,
   ProductForm,
   InputQuantity,
   ImageContainer,
   FavoriteButtonContainer,
 } from "./style";
-import { Button, Icon } from "../../components";
-import { ProductCartForm } from "./component/product-form/product-form";
-import { addProductToCart } from "../../action/add-product-to-cart";
-import { FavoriteButton } from "../../components";
-import { Comments } from "./component/comments/Comments";
+import { Button, FavoriteButton } from "../../components";
 
 export const ProductCardPage = () => {
   const [error, setError] = useState(null);
@@ -70,7 +66,7 @@ export const ProductCardPage = () => {
     }
     return newQuantity;
   };
- 
+
   const handleAddToCart = () => {
     const productId = product.id;
     dispatch(addProductToCart(productId, count, userId));
@@ -93,7 +89,7 @@ export const ProductCardPage = () => {
               </ThumbnailContainer>
               <ImageContainer>
                 <FavoriteButtonContainer>
-                  <FavoriteButton product={product} size={50}/>
+                  <FavoriteButton product={product} size={50} />
                 </FavoriteButtonContainer>
                 <MainImage src={product.imgUrl} alt={product.title} />
               </ImageContainer>
