@@ -12,11 +12,9 @@ import {
   FavoritesPage,
 } from "./pages";
 import { OrderPage } from "./pages/CartPage/components/OrderPage/OrderPage";
-import Header from "./components/Header/Header";
-import { Footer } from "./components/footer/Footer";
+
 import { CatalogPage } from "../src/pages/CatalogPage/CatalogPage";
-// import { ERROR } from "./constans";
-import { Modal } from "./components";
+import { Footer, Header, Modal } from "./components";
 import GlobalStyle from "./GlobalStyles";
 import { AppContainer, Page } from "./style";
 import {
@@ -29,7 +27,6 @@ import { AddProductAdminPage } from "./pages/AdminPage/AdminCatalogPage/componen
 
 export const App = () => {
   const dispatch = useDispatch();
-
 
   useLayoutEffect(() => {
     const currentUserDataJSON = sessionStorage.getItem("userData");

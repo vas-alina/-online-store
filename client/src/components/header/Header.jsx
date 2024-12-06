@@ -9,7 +9,7 @@ import {
 } from "./style.js";
 import { ControlPanel } from "./components/control-panel/Control-panel.jsx";
 
-const Header = () => (
+export const Header = () => (
   <HeaderContainer>
     <CenterSection>
       <LogoBlock>
@@ -39,5 +39,3 @@ const Header = () => (
     </CenterSection>
   </HeaderContainer>
 );
-
-export default Header;
