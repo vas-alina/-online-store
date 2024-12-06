@@ -1,4 +1,5 @@
 export * from "./button/Button.jsx";
+export * from "./header/Header.jsx"
 export * from "./h2/H2.jsx";
 export * from "./input/Input.jsx";
 export * from "./Icon/Icon.jsx";
@@ -10,5 +11,6 @@ export * from "./pagination/Pagination.jsx";
 export * from "./search/Search.jsx";
 export * from "./favorite-button/Favorite-button.jsx"
 export * from "./cart-button/Cart-button.jsx"
+export * from "./footer/Footer.jsx"
 
 

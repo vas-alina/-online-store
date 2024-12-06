@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const mapUser = require('./helpers/mapUser')
 const { register, login, getUsers, getRoles, updateUser, deleteUser } = require('./controllers/user');
 const { addOrder, getOrders, deleteOrder } = require('./controllers/order');
-const { addCart, deleteAllCart, deleteCart, getCart, getCarts } = require('./controllers/cart')
+const { addCart, deleteAllCart, deleteCart, getCarts } = require('./controllers/cart')
 const { addProduct, deleteProduct, editProduct, getProduct, getProducts } = require("./controllers/product")
 const authenticated = require('./middleware/authenticated');
 const hasRole = require('./middleware/hasRole');
@@ -15,14 +15,14 @@ const mapOrders = require('./helpers/mapOrder');
 const setupAssociations = require('./models/associations');
 const { addFavorites, deleteFavorites, getFavorites, deleteAllFavorites } = require('./controllers/favorites');
 const mapProduct = require('./helpers/mapProduct');
-
+const { addComment, getCommentsByProductId } = require('./controllers/comment');
+const mapComment = require('./helpers/mapComment');
 
 const PORT = process.env.PORT
 
 const app = express()
 const cors = require('cors');
-const { addComment, getCommentsByProductId } = require('./controllers/comment');
-const mapComment = require('./helpers/mapComment');
+
 app.use(cors({ origin: 'http://localhost:5173' }));
 
 app.use(express.json());

@@ -21,8 +21,8 @@ const Comment = sequelize.define('comment', {
             key: 'id'
         }
     },
-    product_id: { 
-        type: DataTypes.UUID,
+    product_id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
 });
