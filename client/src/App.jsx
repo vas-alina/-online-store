@@ -7,12 +7,10 @@ import {
   CartPage,
   HomePage,
   Registration,
-  PersonalPage,
   ProductCardPage,
   FavoritesPage,
 } from "./pages";
 import { OrderPage } from "./pages/CartPage/components/OrderPage/OrderPage";
-
 import { CatalogPage } from "../src/pages/CatalogPage/CatalogPage";
 import { Footer, Header, Modal } from "./components";
 import GlobalStyle from "./GlobalStyles";
@@ -84,7 +82,7 @@ export const App = () => {
             <Route path="/catalog/add" element={<AddProductAdminPage />} />
 
             <Route path="/catalog/:id" element={<ProductCartForm />} />
-            <Route path="/personal" element={<PersonalPage />} />
+
             <Route path="/cart" element={<CartPage />} />
             <Route path="/order" element={<OrderPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />

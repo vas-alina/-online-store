@@ -27,13 +27,11 @@ export const ItemTitle = styled.h2`
 export const PriceSection = styled.div`
   display: flex;
   width: 20%;
-  /* flex-direction: column; */
-  align-items: flex-end;
+   align-items: flex-end;
 `;
 export const TotalPrice = styled.div`
   display: flex;
   width: 20%;
-  /* flex-direction: column; */
   align-items: flex-end;
 `;
 

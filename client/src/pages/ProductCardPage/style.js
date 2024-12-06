@@ -67,8 +67,6 @@ export const ThumbnailImage = styled.img`
 
 
 export const ProductInfoContainer = styled.div`
-/* display: flex;
-flex-direction: column; */
   width: 80%;
   margin-top: 20px;
 `;

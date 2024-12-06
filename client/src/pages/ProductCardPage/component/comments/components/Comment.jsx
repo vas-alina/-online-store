@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   openModal,
@@ -65,11 +65,3 @@ export const Comment = ({
   );
 };
 
-
-// CommentContainer.prototype = {
-//   postId: PropTypes.string.isRequired,
-//   id: PropTypes.number.isRequired,
-//   author: PropTypes.string.isRequired,
-//   content: PropTypes.string.isRequired,
-//   publishedAt: PropTypes.string.isRequired,
-// };

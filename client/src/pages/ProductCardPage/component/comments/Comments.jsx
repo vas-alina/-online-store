@@ -1,17 +1,13 @@
-// import PropTypes from "prop-types";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Comment } from "./components";
-
 import { Icon } from "../../../../components";
 import { selectUserRole } from "../../../../selectors";
 import { addCommentAsync, loadCommentsAsync} from "../../../../action";
-// import styled from "styled-components";
-// import { PROP_TYPE, ROLE } from "../../../../constans";
 import { CommentsContainer, NewComment } from "./style";
 import { ROLE } from "../../../../constans";
 import SendIcon from "@mui/icons-material/Send";
-
 
 export const Comments = ({ comments, productId }) => {
   const [newComment, setNewComment] = useState("");
@@ -77,11 +73,3 @@ export const Comments = ({ comments, productId }) => {
     </CommentsContainer>
   );
 };
-
-
-  
-
-/* CommentsContainer.prototype = {
-  comments: PropTypes.arrayOf(PROP_TYPE.COMMENT).isRequired,
-  postId: PropTypes.string.isRequired,
-}; */

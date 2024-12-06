@@ -1,11 +1,11 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { loadProductAsync, saveProductAsync } from "../../../../action";
 import {
   ProductCardPageContainer,
   ProductPageMainContainer,
 } from "../../style";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch} from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../../../../components";
 
 export const ProductCartForm = ({
@@ -64,7 +64,9 @@ export const ProductCartForm = ({
   const onFormChange = ({ target }) => setFormvalue(target.value);
   const onDescChange = ({ target }) => setDescvalue(target.value);
   const onPriceChange = ({ target }) => setPricevalue(target.value);
+
   if (isLoading) return <p>Loading...</p>;
+  
   if (error) return <p>{error}</p>;
   return (
     <ProductCardPageContainer>

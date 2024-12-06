@@ -20,8 +20,7 @@ import {
 
 export const CartPage = () => {
   const roleId = useSelector(selectUserRole);
-  const [error, setError] = useState(null);
-  const [showAuthMessage, setShowAuthMessage] = useState(false);
+    const [showAuthMessage, setShowAuthMessage] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const userId = useSelector(selectUserId);

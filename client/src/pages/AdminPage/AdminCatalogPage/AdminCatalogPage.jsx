@@ -1,8 +1,6 @@
 import { useMemo, useEffect, useState } from "react";
-
 import ProductCardAdmin from "./components/ProductCardAdmin";
-import { ActionGroup, AdminCatalogContainer, AllProductGroup } from "./style";
-
+import { ActionGroup, AdminCatalogContainer, AllProductGroup } from "./style"
 import { checkAccess, debounce } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserRole } from "../../../selectors";
@@ -12,7 +10,7 @@ import { request } from "../../../utils/request";
 
 
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   CLOSE_MODAL,
   openModal,
@@ -27,7 +25,7 @@ export const AdminCatalogPage = () => {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [shouldSearch, setShouldSearch] = useState(false);
   const [shouldUpdateProductList, setShouldUpdateProductList] = useState(false);
-  const isEditing = useMatch("/catalog/:id/edit");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
