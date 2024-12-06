@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Input, Title } from "../../../../components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container } from "../../style";
 
 import {
@@ -69,10 +69,12 @@ const dispatch = useDispatch()
   };
 
   const handleSubmit = async () => {
+    const comment = deliveryData.comment_order || "Комментарий отсутствует";
     const orderData = {
       ...contactData,
       total_amount: location.state?.totalAmount || 0,
       delivery_method: methodShipping,
+      comment_order: comment,
       ...(methodShipping === "delivery"
         ? deliveryData
         : selectAdress),
