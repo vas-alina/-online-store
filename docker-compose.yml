@@ -1,0 +1,48 @@
+
+
+services:
+ 
+  postgres:
+    image: postgres:latest
+    container_name: postgres2
+    ports:
+      - "5434:5432"  
+    environment:
+      POSTGRES_DB: db2  
+      POSTGRES_USER: user2 
+      POSTGRES_PASSWORD: password2  
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  
+
+
+  server:
+    build:
+      context: ./server
+    ports:
+      - "5001:5001"
+    environment:
+      DB_HOST: postgres  
+      DB_PORT: 5432  
+      DB_NAME: db2
+      DB_USER: user2
+      DB_PASSWORD: password2
+    depends_on:
+      - postgres  
+    volumes:
+      - ./server:/usr/src/app
+    command: npm run dev  
+
+
+  client:
+    build:
+      context: ./client
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/usr/src/app
+    depends_on:
+      - server
+    command: npm run dev
+
+volumes:
+  postgres_data:
